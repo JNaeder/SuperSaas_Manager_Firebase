@@ -14,10 +14,13 @@
   "main": "index.js",
   "dependencies": {
     "@google-cloud/local-auth": "^2.1.0",
+    "dotenv": "^16.0.3",
     "firebase-admin": "^10.0.2",
     "firebase-functions": "^4.1.0",
     "google-spreadsheet": "^3.3.0",
-    "googleapis": "^105.0.0"
+    "googleapis": "^105.0.0",
+    "moment": "^2.29.4",
+    "supersaas-api-client": "^1.2.3"
   },
   "devDependencies": {
     "@types/firebase": "^3.2.1",

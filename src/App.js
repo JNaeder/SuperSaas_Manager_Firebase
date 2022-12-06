@@ -21,17 +21,24 @@ const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
 connectFunctionsEmulator(functions, "localhost", 5001);
 
-const buttonClick = async () => {
+const getGoogeSheetInfo = async () => {
   console.log("Starting");
   const sheetinfo = httpsCallable(functions, "getSheetInfo");
   const output = await sheetinfo();
   console.log(output["data"]);
 };
+
+const getSuperSaasInfo = async () => {
+  const supersaasTest = httpsCallable(functions, "supersaasTest");
+  supersaasTest();
+  console.log("Done with supersaas test!");
+};
+
 function App() {
   return (
     <div className="App">
       <h1>Hello</h1>
-      <button onClick={buttonClick}>Click Me</button>
+      <button onClick={getSuperSaasInfo}>Click Me</button>
     </div>
   );
 }

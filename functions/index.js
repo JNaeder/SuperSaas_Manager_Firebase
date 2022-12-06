@@ -1,11 +1,12 @@
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const googleSheets = require("./myScripts/googleSheets");
+const supersaas = require("./myScripts/supersaas");
 
 admin.initializeApp();
-const db = admin.firestore().collection("students");
+const db = admin.firestore();
 
-exports.getSheetInfo = functions.https.onCall(async (daa, context) => {
+exports.getSheetInfo = functions.https.onCall(async (data, context) => {
   const output = await googleSheets.getStudentDataFromGoogleSheets(
     db,
     functions.logger
@@ -13,8 +14,9 @@ exports.getSheetInfo = functions.https.onCall(async (daa, context) => {
   return output;
 });
 
-exports.testSheet = functions.https.onRequest(async (req, res) => {
-  res.send("Hello!");
+exports.supersaasTest = functions.https.onCall(async (data, context) => {
+  supersaas.getAllAppointments();
+  return null;
 });
 
 exports.getSheetInfoSchedule = functions.pubsub
