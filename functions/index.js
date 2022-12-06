@@ -5,14 +5,22 @@ const googleSheets = require("./myScripts/googleSheets");
 admin.initializeApp();
 const db = admin.firestore().collection("students");
 
-exports.sheetinfo = functions.https.onRequest(async (req, res) => {
-  googleSheets.getStudentDataFromGoogleSheets(db);
-  res.status(200).send("Done");
+exports.getSheetInfo = functions.https.onCall(async (daa, context) => {
+  const output = await googleSheets.getStudentDataFromGoogleSheets(
+    db,
+    functions.logger
+  );
+  return output;
+});
+
+exports.testSheet = functions.https.onRequest(async (req, res) => {
+  res.send("Hello!");
 });
 
 exports.getSheetInfoSchedule = functions.pubsub
-  .schedule("* * * * *")
+  .schedule("0 */3 * * *")
   .onRun(() => {
-    console.log(`Hello at ${new Date().getTime()}`);
+    googleSheets.getStudentDataFromGoogleSheets(db, functions.logger);
+    functions.logger.debug("Hello!");
     return null;
   });

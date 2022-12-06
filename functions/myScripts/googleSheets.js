@@ -4,7 +4,7 @@ const doc = new GoogleSpreadsheet(
   "1v1d2RHcofxOYnUU5m7SDgymvIU160RUvpsaO0r1MNCM"
 );
 
-async function getStudentDataFromGoogleSheets(db) {
+async function getStudentDataFromGoogleSheets(db, logger) {
   // Setup the Google Sheets
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
@@ -32,12 +32,14 @@ async function getStudentDataFromGoogleSheets(db) {
       instructor: currentInstructor,
       gpa: gpa,
       icr: icr,
+      credits: "-",
     };
 
     // Add it to the database
     db.doc(studentID).set(newStudentObject);
+    // logger.debug(`${studentName} Grade:${gpa}`);
   }
-  console.log("All Students have been processed");
+  return "All Students have been processed";
 }
 
 exports.getStudentDataFromGoogleSheets = getStudentDataFromGoogleSheets;
