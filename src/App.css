@@ -1,3 +1,23 @@
 .App {
   text-align: center;
 }
+
+h1 {
+  background-color: blue;
+  color: white;
+}
+
+button {
+  margin: 10px;
+  padding: 20px;
+  background-color: white;
+  border: solid blue 2px;
+  border-radius: 10px;
+  color: blue;
+  box-shadow: 2px 2px 2px black;
+}
+
+button:hover {
+  background-color: blue;
+  color: white;
+}

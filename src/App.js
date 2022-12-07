@@ -19,9 +19,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
-connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
 
-const getGoogeSheetInfo = async () => {
+const getGoogleSheetInfo = async () => {
   console.log("Starting");
   const sheetinfo = httpsCallable(functions, "getSheetInfo");
   const output = await sheetinfo();
@@ -29,16 +29,16 @@ const getGoogeSheetInfo = async () => {
 };
 
 const getSuperSaasInfo = async () => {
-  const supersaasTest = httpsCallable(functions, "supersaasTest");
-  supersaasTest();
-  console.log("Done with supersaas test!");
+  const getSupersaasUsers = httpsCallable(functions, "getSupersaasUsers");
+  const output = await getSupersaasUsers();
 };
 
 function App() {
   return (
     <div className="App">
-      <h1>Hello</h1>
-      <button onClick={getSuperSaasInfo}>Click Me</button>
+      <h1>Mini SuperSaas Manager</h1>
+      <button onClick={getSuperSaasInfo}>SuperSaas Stuff</button>
+      <button onClick={getGoogleSheetInfo}>Google Sheet Info</button>
     </div>
   );
 }
