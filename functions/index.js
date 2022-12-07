@@ -16,9 +16,12 @@ exports.getSheetInfo = functions.https.onCall(async (data, context) => {
 
 exports.getSheetInfoSchedule = functions.pubsub
   .schedule("0 */3 * * *")
-  .onRun(() => {
-    googleSheets.getStudentDataFromGoogleSheets(db, functions.logger);
-    functions.logger.debug("Hello!");
+  .onRun(async () => {
+    const output = await googleSheets.getStudentDataFromGoogleSheets(
+      db,
+      functions.logger
+    );
+    functions.logger.debug(output);
     return null;
   });
 

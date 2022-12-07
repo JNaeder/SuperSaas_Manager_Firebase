@@ -2,7 +2,6 @@ require("dotenv").config();
 
 const accountName = "SAE_New_York";
 const apiKey = process.env.SUPERSAAS_API_KEY;
-console.log(`API KEY ${apiKey}`);
 const scheduleID = 510374;
 
 const getAllAppointmentsfromToday = async function () {
