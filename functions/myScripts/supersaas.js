@@ -1,26 +1,33 @@
 require("dotenv").config();
-const supersaas = require("supersaas-api-client");
-const moment = require("moment");
 
-const client = new supersaas.Client({
-  accountName: "SAE_New_York",
-  api_key: "DB15OLn37rWxCBMrTBCiWw",
-});
+const accountName = "SAE_New_York";
+const apiKey = process.env.SUPERSAAS_API_KEY;
+const scheduleID = 510374;
 
-const schedulID = 510374;
-const todayDate = moment().format("YYYY-DD-MM HH:MM:SS");
+const getAllAppointmentsfromToday = async function () {
+  const url = `https://www.supersaas.com/api/range/${scheduleID}.json?today=true&limit=100&api_key=${apiKey}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data["bookings"];
+};
 
-async function getAllAppointments() {
-  const output = client.appointments.list(
-    schedulID,
-    false,
-    todayDate,
-    500,
-    (err, data) => {
-      console.log([...data]);
-    }
-  );
-}
+const getAllFutureAppointments = async function () {
+  // const url = `https://www.supersaas.com/api/range/${scheduleID}.json?api_key=${apiKey}&limit=1000`;
+  const url = `https://supersaas.com/api/users.json?account=${accountName}&api_key=${apiKey}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  return data["bookings"];
+};
 
-exports.getAllAppointments = getAllAppointments;
-getAllAppointments();
+const getAllUsers = async function () {
+  const url = `https://www.supersaas.com/api/users.json?api_key=${apiKey}`;
+  const response = await fetch(url);
+  const data = await response.json();
+  console.log(data);
+};
+
+const testing = async function () {
+  getAllUsers();
+};
+
+testing();

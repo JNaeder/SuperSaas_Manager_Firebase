@@ -15,7 +15,7 @@ exports.getSheetInfo = functions.https.onCall(async (data, context) => {
 });
 
 exports.supersaasTest = functions.https.onCall(async (data, context) => {
-  supersaas.getAllAppointments();
+  // supersaas.getAllAppointments();
   return null;
 });
 
