@@ -3,7 +3,7 @@
 }
 
 h1 {
-  background-color: green;
+  background-color: blue;
   color: white;
 }
 
@@ -20,4 +20,14 @@ button {
 button:hover {
   background-color: blue;
   color: white;
+}
+
+.student_file {
+  background-color: gray;
+  color: white;
+  margin: 10px auto;
+  padding: 10px;
+  width: 50%;
+  border: solid black 2px;
+  border-radius: 10px;
 }

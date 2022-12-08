@@ -6,7 +6,7 @@ const doc = new GoogleSpreadsheet(
 
 async function getStudentDataFromGoogleSheets(db, logger) {
   // Setup database
-  // const rawStudentDB = db.collection("academic_student");
+  const academicStudentDB = db.collection("academic_student");
 
   // Setup the Google Sheets
   await doc.useServiceAccountAuth(creds);
@@ -14,23 +14,10 @@ async function getStudentDataFromGoogleSheets(db, logger) {
   const sheet = doc.sheetsByIndex[0];
   const allStudents = await sheet.getRows();
 
-  const output = [];
-
-  // const qSnapshot = await rawStudentDB.get();
-  // // const academicStudents = qSnapshot.docs.map((docSnapshot) => {
-  // //   return docSnapshot.data();
-  // // });
-
   // // Loop through all the students in the Google Sheet
   for (let i = 0; i < allStudents.length; i++) {
     // Get Student Info
     const studentID = allStudents[i]["StuNum"];
-
-    // const academicFile = academicStudents.filter(
-    //   (student) => student["studentID"] === studentID
-    // );
-    // console.log(academicFile);
-
     const studentName = allStudents[i]["Student Name"];
     const studentNameFirst = studentName.split(", ")[1];
     const studentNameLast = studentName.split(", ")[0];
@@ -50,15 +37,26 @@ async function getStudentDataFromGoogleSheets(db, logger) {
       icr: icr,
     };
 
-    output.push(newStudentObject);
+    const studentAcademicFile = await academicStudentDB.doc(studentID).get();
+    const studentAcademicData = await studentAcademicFile.data();
 
-    //   // Add it to the database
-    //   const newDoc = await rawStudentDB.doc(studentID).set(newStudentObject);
-    //   const writeTime = newDoc.writeTime.toDate();
-    //   logger.debug(`${studentName} updated at ${writeTime}`);
+    const icrEquals = icr === studentAcademicData["icr"];
+    const gpaEquals = gpa === studentAcademicData["gpa"];
+    const modEquals = studentMod === studentAcademicData["mod"];
+    const instructorEquals =
+      currentInstructor === studentAcademicData["instructor"];
+
+    if (!icrEquals || !gpaEquals || !modEquals || !instructorEquals) {
+      //   // Add it to the database
+      const newDoc = await academicStudentDB
+        .doc(studentID)
+        .set(newStudentObject);
+      const writeTime = newDoc.writeTime.toDate();
+      logger.debug(`${studentName} updated at ${writeTime}`);
+    }
   }
 
-  return output;
+  return "Done";
 }
 
 exports.getStudentDataFromGoogleSheets = getStudentDataFromGoogleSheets;
