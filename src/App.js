@@ -19,20 +19,20 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
-connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
 
 const getGoogleSheetInfo = async () => {
-  console.log("Starting");
+  console.log("Starting Google Sheets");
   const sheetinfo = httpsCallable(functions, "getSheetInfo");
   const output = await sheetinfo();
   console.log(output.data);
 };
 
 const getSuperSaasInfo = async () => {
-  console.log("Starting");
+  console.log("Starting SuperSaas");
   const getSupersaasUsers = httpsCallable(functions, "getSupersaasUsers");
   const output = await getSupersaasUsers();
-  console.log(output);
+  console.log(output.data);
 };
 
 function App() {
