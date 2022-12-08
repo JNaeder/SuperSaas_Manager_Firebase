@@ -4,15 +4,15 @@ async function processSupersaasUsers(db) {
   const supersaasStaff = db.collection("supersaas_staff");
   const allUsers = await supersaas.getAllUsers();
 
-  for (let i = 0; i < allUsers.length; i++) {
-    const currentUser = allUsers[i];
-    const emailEnding = currentUser["name"].split("@")[1];
-    if (emailEnding === "saeinstitute.edu") {
-      processStudentUser(db, allUsers[i]);
-    }
-  }
+  // for (let i = 0; i < allUsers.length; i++) {
+  //   const currentUser = allUsers[i];
+  //   const emailEnding = currentUser["name"].split("@")[1];
+  //   if (emailEnding === "saeinstitute.edu") {
+  //     processStudentUser(db, allUsers[i]);
+  //   }
+  // }
 
-  console.log("All Done!");
+  return allUsers;
 }
 
 async function processStudentUser(db, currentUser) {
