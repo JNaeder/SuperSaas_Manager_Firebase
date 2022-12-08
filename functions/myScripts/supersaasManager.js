@@ -1,22 +1,20 @@
 const supersaas = require("./supersaas");
 
 async function processSupersaasUsers(db) {
-  const supersaasStaff = db.collection("supersaas_staff");
   const allUsers = await supersaas.getAllUsers();
 
-  // for (let i = 0; i < allUsers.length; i++) {
-  //   const currentUser = allUsers[i];
-  //   const emailEnding = currentUser["name"].split("@")[1];
-  //   if (emailEnding === "saeinstitute.edu") {
-  //     processStudentUser(db, allUsers[i]);
-  //   }
-  // }
+  for (let i = 0; i < allUsers.length; i++) {
+    const currentUser = allUsers[i];
+    const emailEnding = currentUser["name"].split("@")[1];
+    if (emailEnding === "saeinstitute.edu") {
+      processStudentUser(db, allUsers[i]);
+    }
+  }
 
   return allUsers;
 }
 
 async function processStudentUser(db, currentUser) {
-  const supersaasStudents = db.collection("supersaas_students");
   const academicStudents = db.collection("academic_student");
 
   const supersaasID = currentUser["id"];
@@ -33,30 +31,26 @@ async function processStudentUser(db, currentUser) {
   const output = await studentDoc.get();
   const data = await output.data();
 
+  const userData = {
+    name: supersaasEmail,
+    credits: credits,
+    full_name: supersaasEmail,
+  };
+
   if (data) {
     const { gpa, icr, firstName, lastName } = data;
-    console.log(
-      `Processed ${supersaasName} GPA: ${gpa} ICR ${icr} Real Name: ${firstName} ${lastName}`
-    );
-  } else {
-    console.log(
-      `${supersaasName} is not in the academic system. Last logged in ${lastLogin} ${credits} credits`
-    );
+    const newCredits = supersaas.calculateCredits(data);
+
+    if (credits !== newCredits) {
+      console.log(
+        `${firstName} ${lastName} credits have been changed to ${newCredits}: GPA: ${gpa} ICR: ${icr}`
+      );
+      const userData = {
+        name: supersaasEmail,
+        credit: newCredits,
+      };
+      supersaas.updateUser(supersaasID, userData);
+    }
   }
-  // const userData = {
-  //   fullName: supersaasName,
-  //   supersaasID: supersaasID,
-  //   role: role,
-  //   credits: credits,
-  //   lastLogin: lastLogin,
-  //   email: supersaasEmail,
-  // };
-
-  // if (emailEnding === "saeinstitute.edu") {
-  //   supersaasStudents.doc(supersaasID.toString()).set(userData);
-  // } else if (emailEnding === "sae.edu") {
-  //   supersaasStaff.doc(supersaasID.toString()).set(userData);
-  // }
 }
-
 exports.processSupersaasUsers = processSupersaasUsers;

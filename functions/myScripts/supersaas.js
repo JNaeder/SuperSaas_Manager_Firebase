@@ -23,4 +23,20 @@ const getAllUsers = async function () {
   return response.data;
 };
 
+const updateUser = async function (supersaasID, newData) {
+  const url = `https://supersaas.com/api/users/${supersaasID}.json?account=${accountName}&api_key=${apiKey}`;
+  const response = await axios.put(url, newData);
+  console.log(response.data);
+};
+
+const calculateCredits = function (studentData) {
+  const { icr, gpa } = studentData;
+  if (icr < 70.0 || gpa < 2.0) {
+    return "0";
+  }
+  return "-";
+};
+
 exports.getAllUsers = getAllUsers;
+exports.updateUser = updateUser;
+exports.calculateCredits = calculateCredits;

@@ -29,3 +29,9 @@ exports.getSupersaasUsers = functions.https.onCall(async (data, context) => {
   const allUsers = await supersaasManager.processSupersaasUsers(db);
   return allUsers;
 });
+
+exports.processSuperSaasStudents = functions.https.onCall(
+  async (data, context) => {
+    await supersaasManager.processSupersaasUsers(db);
+  }
+);

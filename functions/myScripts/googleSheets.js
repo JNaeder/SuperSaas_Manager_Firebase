@@ -37,22 +37,24 @@ async function getStudentDataFromGoogleSheets(db, logger) {
       icr: icr,
     };
 
+    // Get the data from the academic database
     const studentAcademicFile = await academicStudentDB.doc(studentID).get();
     const studentAcademicData = await studentAcademicFile.data();
 
+    // Compare the data from google sheets to the database
     const icrEquals = icr === studentAcademicData["icr"];
     const gpaEquals = gpa === studentAcademicData["gpa"];
     const modEquals = studentMod === studentAcademicData["mod"];
     const instructorEquals =
       currentInstructor === studentAcademicData["instructor"];
 
+    // If something doesn't match, write the google data to the database.
     if (!icrEquals || !gpaEquals || !modEquals || !instructorEquals) {
-      //   // Add it to the database
       const newDoc = await academicStudentDB
         .doc(studentID)
         .set(newStudentObject);
       const writeTime = newDoc.writeTime.toDate();
-      logger.debug(`${studentName} updated at ${writeTime}`);
+      logger.debug(`${studentName} updated in Google Sheets at ${writeTime}`);
     }
   }
 

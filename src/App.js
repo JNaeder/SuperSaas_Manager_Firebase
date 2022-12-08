@@ -1,25 +1,19 @@
 import "./App.css";
-import { getGoogleSheetInfo, getSuperSaasInfo } from "./myScripts/appFunctions";
-import { useState } from "react";
-import StudentFile from "./components/StudentFile";
+import {
+  getGoogleSheetInfo,
+  processSuperSaasStudents,
+  updateAllInfo,
+} from "./myScripts/appFunctions";
 
 function App() {
-  const [studentList, setStudentList] = useState([]);
-
   return (
     <div className="App">
       <h1>Mini SuperSaas Manager</h1>
-      <button
-        onClick={() => {
-          getSuperSaasInfo().then((data) => setStudentList(data));
-        }}
-      >
-        SuperSaas Stuff
+      <button onClick={processSuperSaasStudents}>
+        Process SuperSaas Students
       </button>
       <button onClick={getGoogleSheetInfo}>Process Google Sheets</button>
-      {studentList.map((student, i) => (
-        <StudentFile student={student} key={i} />
-      ))}
+      <button onClick={updateAllInfo}>Update Everything</button>
     </div>
   );
 }
