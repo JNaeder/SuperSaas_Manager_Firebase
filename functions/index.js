@@ -11,6 +11,7 @@ exports.getSheetInfo = functions.https.onCall(async (data, context) => {
     db,
     functions.logger
   );
+  // console.log(output);
   return output;
 });
 
