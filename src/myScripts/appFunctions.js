@@ -24,7 +24,8 @@ export const getGoogleSheetInfo = async () => {
   console.log("Google Sheet Starting");
   const sheetinfo = httpsCallable(functions, "getSheetInfo");
   const output = await sheetinfo();
-  console.log(output.data);
+  console.log("Done.");
+  return output.data;
 };
 
 export const getSuperSaasInfo = async () => {

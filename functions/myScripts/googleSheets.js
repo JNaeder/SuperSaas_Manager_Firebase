@@ -8,6 +8,8 @@ async function getStudentDataFromGoogleSheets(db, logger) {
   // Setup database
   const academicStudentDB = db.collection("academic_student");
 
+  const output = [];
+
   // Setup the Google Sheets
   await doc.useServiceAccountAuth(creds);
   await doc.loadInfo();
@@ -41,6 +43,15 @@ async function getStudentDataFromGoogleSheets(db, logger) {
     const studentAcademicFile = await academicStudentDB.doc(studentID).get();
     const studentAcademicData = await studentAcademicFile.data();
 
+    const dataChanges = {
+      gpa: gpa === studentAcademicData["gpa"],
+      icr: icr === studentAcademicData["icr"],
+      mod: studentMod === studentAcademicData["mod"],
+      instructor: currentInstructor === studentAcademicData["instructor"],
+    };
+
+    // console.log(`There is a change: ${dataChanges}`);
+
     // Compare the data from google sheets to the database
     const icrEquals = icr === studentAcademicData["icr"];
     const gpaEquals = gpa === studentAcademicData["gpa"];
@@ -50,15 +61,30 @@ async function getStudentDataFromGoogleSheets(db, logger) {
 
     // If something doesn't match, write the google data to the database.
     if (!icrEquals || !gpaEquals || !modEquals || !instructorEquals) {
+      const datavalues = Object.entries(dataChanges);
+      const theChanges = datavalues.filter((entry) => {
+        if (!entry[1]) {
+          return entry[0];
+        }
+      });
+      console.log(theChanges);
+
       const newDoc = await academicStudentDB
         .doc(studentID)
         .set(newStudentObject);
-      const writeTime = newDoc.writeTime.toDate();
-      logger.debug(`${studentName} updated in Google Sheets at ${writeTime}`);
+      const writeTime = newDoc.writeTime;
+
+      const log = {
+        write_time: writeTime,
+        studentName: studentName,
+        changes: theChanges,
+      };
+      output.push(log);
+      logger.debug(studentName);
     }
   }
 
-  return "Done";
+  return output;
 }
 
 exports.getStudentDataFromGoogleSheets = getStudentDataFromGoogleSheets;
