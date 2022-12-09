@@ -10,7 +10,7 @@ import LogList from "./components/LogList";
 function App() {
   const newLog = (theLog) => {
     const newLogList = logItems.concat(theLog);
-    // setLogItems(newLogList);
+    setLogItems(newLogList);
     console.log(newLogList);
   };
 

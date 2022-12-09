@@ -50,24 +50,11 @@ async function getStudentDataFromGoogleSheets(db, logger) {
       instructor: currentInstructor === studentAcademicData["instructor"],
     };
 
-    // console.log(`There is a change: ${dataChanges}`);
-
-    // Compare the data from google sheets to the database
-    const icrEquals = icr === studentAcademicData["icr"];
-    const gpaEquals = gpa === studentAcademicData["gpa"];
-    const modEquals = studentMod === studentAcademicData["mod"];
-    const instructorEquals =
-      currentInstructor === studentAcademicData["instructor"];
-
     // If something doesn't match, write the google data to the database.
-    if (!icrEquals || !gpaEquals || !modEquals || !instructorEquals) {
-      const datavalues = Object.entries(dataChanges);
-      const theChanges = datavalues.filter((entry) => {
-        if (!entry[1]) {
-          return entry[0];
-        }
-      });
-      console.log(theChanges);
+    if (Object.values(dataChanges).includes(false)) {
+      const theChanges = Object.entries(dataChanges)
+        .filter((entry) => !entry[1])
+        .map((entry) => entry[0]);
 
       const newDoc = await academicStudentDB
         .doc(studentID)
