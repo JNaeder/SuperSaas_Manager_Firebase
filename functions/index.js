@@ -6,14 +6,7 @@ const supersaasManager = require("./myScripts/supersaasManager");
 admin.initializeApp();
 const db = admin.firestore();
 
-exports.getSheetInfo = functions.https.onCall(async (data, context) => {
-  const output = await googleSheets.getStudentDataFromGoogleSheets(
-    db,
-    functions.logger
-  );
-  return output;
-});
-
+// ---------- Scheduled Stuff --------
 exports.getSheetInfoSchedule = functions.pubsub
   .schedule("0 */3 * * *")
   .onRun(async () => {
@@ -25,6 +18,12 @@ exports.getSheetInfoSchedule = functions.pubsub
     return null;
   });
 
+// ---------- Button Stuff -------------
+exports.getSheetInfo = functions.https.onCall(async () => {
+  const output = await googleSheets.getStudentDataFromGoogleSheets(db);
+  return output;
+});
+
 exports.getSupersaasUsers = functions.https.onCall(async (data, context) => {
   const allUsers = await supersaasManager.processSupersaasUsers(db);
   return allUsers;
@@ -32,6 +31,13 @@ exports.getSupersaasUsers = functions.https.onCall(async (data, context) => {
 
 exports.processSuperSaasStudents = functions.https.onCall(
   async (data, context) => {
-    await supersaasManager.processSupersaasUsers(db);
+    await supersaasManager.processSuperSaasUsers(db);
   }
 );
+
+// -------- Webhook Stuff --------------
+exports.addNewUserWebHook = functions.https.onRequest(async (req, res) => {
+  const bookingData = req.body;
+  await supersaasManager.processBooking(db, bookingData);
+  res.sendStatus(200);
+});

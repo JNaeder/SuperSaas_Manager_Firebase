@@ -11,7 +11,6 @@ function App() {
   const newLog = (theLog) => {
     const newLogList = logItems.concat(theLog);
     setLogItems(newLogList);
-    console.log(newLogList);
   };
 
   const [logItems, setLogItems] = useState([]);
@@ -19,9 +18,9 @@ function App() {
   return (
     <div className="App">
       <h1>Mini SuperSaas Manager</h1>
-      <button onClick={processSuperSaasStudents}>
+      {/* <button onClick={processSuperSaasStudents}>
         Process SuperSaas Students
-      </button>
+      </button> */}
       <button
         onClick={async () => {
           const output = await getGoogleSheetInfo();
@@ -30,8 +29,8 @@ function App() {
       >
         Process Google Sheets
       </button>
-      <button onClick={updateAllInfo}>Update Everything</button>
-      <LogList logItems={logItems} />
+      {/* <button onClick={updateAllInfo}>Update Everything</button> */}
+      {/* <LogList logItems={logItems} /> */}
     </div>
   );
 }

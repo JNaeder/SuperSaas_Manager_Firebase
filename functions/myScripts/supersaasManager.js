@@ -1,6 +1,6 @@
 const supersaas = require("./supersaas");
 
-async function processSupersaasUsers(db) {
+async function processSuperSaasUsers(db) {
   const allUsers = await supersaas.getAllUsers();
 
   for (let i = 0; i < allUsers.length; i++) {
@@ -8,6 +8,8 @@ async function processSupersaasUsers(db) {
     const emailEnding = currentUser["name"].split("@")[1];
     if (emailEnding === "saeinstitute.edu") {
       processStudentUser(db, allUsers[i]);
+    } else if (emailEnding === "sae.edu") {
+      console.log("Process Staff User");
     }
   }
 
@@ -27,7 +29,6 @@ async function processStudentUser(db, currentUser) {
   const studentID = supersaasEmail.split(".")[0];
 
   const studentDoc = await academicStudents.doc(studentID);
-  // const output = await db.getAll(studentDoc);
   const output = await studentDoc.get();
   const data = await output.data();
 
@@ -53,4 +54,46 @@ async function processStudentUser(db, currentUser) {
     }
   }
 }
-exports.processSupersaasUsers = processSupersaasUsers;
+
+async function processBooking(db, bookingData) {
+  const academicStudents = db.collection("academic_student");
+
+  const {
+    id: booking_id,
+    resource_id,
+    user_id,
+    res_name,
+    created_by,
+    full_name,
+    field_1_r,
+    event,
+  } = bookingData;
+
+  const studentID = created_by.split(".")[0];
+  const mod = parseInt(field_1_r.split(" ")[1]);
+
+  const academicData = await academicStudents
+    .doc(studentID)
+    .get()
+    .then((output) => output.data());
+
+  const wrongData = {
+    name: full_name === academicData["fullName"],
+    mod: mod === academicData["mod"],
+  };
+
+  if (Object.values(wrongData).includes(false)) {
+    await supersaas.updateAppointment(booking_id, {
+      full_name: academicData["fullName"],
+      field_1_r: `Mod ${academicData["mod"]}`,
+    });
+
+    const changes = Object.entries(wrongData).filter((x) => !x);
+
+    console.log(changes);
+    // console.log(`Updated `);
+  }
+}
+
+exports.processSuperSaasUsers = processSuperSaasUsers;
+exports.processBooking = processBooking;

@@ -17,6 +17,12 @@ const getAllFutureAppointments = async function () {
   return response.data["bookings"];
 };
 
+const updateAppointment = async function (bookingID, newData) {
+  const url = `https://www.supersaas.com/api/bookings/${bookingID}.json?schedule_id=${scheduleID}&account=${accountName}&api_key=${apiKey}`;
+  const response = await axios.put(url, newData);
+  return response.data;
+};
+
 const getAllUsers = async function () {
   const url = `https://supersaas.com/api/users.json?account=${accountName}&api_key=${apiKey}&limit=1000`;
   const response = await axios(url);
@@ -26,7 +32,7 @@ const getAllUsers = async function () {
 const updateUser = async function (supersaasID, newData) {
   const url = `https://supersaas.com/api/users/${supersaasID}.json?account=${accountName}&api_key=${apiKey}`;
   const response = await axios.put(url, newData);
-  console.log(response.data);
+  return response.data;
 };
 
 const calculateCredits = function (studentData) {
@@ -37,6 +43,9 @@ const calculateCredits = function (studentData) {
   return "-";
 };
 
+exports.getAllAppointmentsfromToday = getAllAppointmentsfromToday;
+exports.getAllFutureAppointments = getAllFutureAppointments;
+exports.updateAppointment = updateAppointment;
 exports.getAllUsers = getAllUsers;
 exports.updateUser = updateUser;
 exports.calculateCredits = calculateCredits;
