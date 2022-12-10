@@ -1,33 +1,27 @@
+* {
+  /* border: solid red 1px; */
+}
+
 .App {
   text-align: center;
 }
 
-h1 {
+.navigation {
   background-color: blue;
-  color: white;
+  min-height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
 }
 
-button {
-  margin: 10px;
-  padding: 20px;
+.nav_button {
   background-color: white;
-  border: solid blue 2px;
-  border-radius: 10px;
   color: blue;
-  box-shadow: 2px 2px 2px black;
-}
-
-button:hover {
-  background-color: blue;
-  color: white;
-}
-
-.student_file {
-  background-color: gray;
-  color: white;
-  margin: 10px auto;
+  text-decoration: none;
   padding: 10px;
-  width: 50%;
-  border: solid black 2px;
-  border-radius: 10px;
+  margin: 10px;
+}
+
+.selected {
+  background-color: red;
 }

@@ -24,7 +24,6 @@ export const getGoogleSheetInfo = async () => {
   console.log("Google Sheet Starting");
   const sheetinfo = httpsCallable(functions, "getSheetInfo");
   const output = await sheetinfo();
-  console.log("Done.");
   return output.data;
 };
 
@@ -41,7 +40,6 @@ export const processSuperSaasStudents = async () => {
   );
   const output = await processSuperSaasStudents();
   console.log(output);
-  console.log("All Done");
 };
 
 export const updateAllInfo = async () => {

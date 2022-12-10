@@ -1,36 +1,29 @@
 import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {
   getGoogleSheetInfo,
   processSuperSaasStudents,
   updateAllInfo,
 } from "./myScripts/appFunctions";
 import { useState } from "react";
-import LogList from "./components/LogList";
+import HomePage from "./pages/HomePage";
+import Navigation from "./components/Navigation";
+import StudentListPage from "./pages/StudentListPage";
+import TeacherBookingPage from "./pages/TeacherBookingPage";
+import TodayBookings from "./pages/TodayBookings";
 
 function App() {
-  const newLog = (theLog) => {
-    const newLogList = logItems.concat(theLog);
-    setLogItems(newLogList);
-  };
-
-  const [logItems, setLogItems] = useState([]);
-
   return (
     <div className="App">
-      <h1>Mini SuperSaas Manager</h1>
-      {/* <button onClick={processSuperSaasStudents}>
-        Process SuperSaas Students
-      </button> */}
-      <button
-        onClick={async () => {
-          const output = await getGoogleSheetInfo();
-          newLog(output);
-        }}
-      >
-        Process Google Sheets
-      </button>
-      {/* <button onClick={updateAllInfo}>Update Everything</button> */}
-      {/* <LogList logItems={logItems} /> */}
+      <BrowserRouter>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/studentlist" element={<StudentListPage />} />
+          <Route path="/teacherbooking" element={<TeacherBookingPage />} />
+          <Route path="/todaybookings" element={<TodayBookings />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
