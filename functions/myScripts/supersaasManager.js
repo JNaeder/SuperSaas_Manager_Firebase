@@ -78,13 +78,6 @@ async function processBooking(db, bookingData) {
     .get()
     .then((output) => output.data());
 
-  const newCreateBookingLog = {
-    studentName: academicData["fullName"],
-    dateTime: new Date(),
-    log: `${event} booking for ${res_name}`,
-  };
-  logger.newLog(db, newCreateBookingLog);
-
   const wrongData = {
     name: full_name === academicData["fullName"],
     mod: mod === academicData["mod"],
@@ -103,11 +96,18 @@ async function processBooking(db, bookingData) {
     const newLog = {
       studentName: academicData["fullName"],
       dateTime: new Date(),
-      log: `Updated Booking for ${res_name}. Changed ${changes.join(", ")}`,
+      log: `Created new booking for ${res_name}. Changed ${changes.join(", ")}`,
     };
     logger.newLog(db, newLog);
     return;
   }
+
+  const newCreateBookingLog = {
+    studentName: academicData["fullName"],
+    dateTime: new Date(),
+    log: `Created new booking for ${res_name}`,
+  };
+  logger.newLog(db, newCreateBookingLog);
 }
 
 exports.processSuperSaasUsers = processSuperSaasUsers;

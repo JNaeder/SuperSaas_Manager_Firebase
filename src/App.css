@@ -30,8 +30,18 @@
 }
 
 .log_table {
+  width: 95%;
+  border: black solid 1px;
   margin: auto;
+  border-collapse: collapse;
   background-color: black;
   color: white;
   font-family: monospace;
+  font-size: larger;
+  text-align: left;
+}
+
+.log_table tr td {
+  border: white solid 1px;
+  padding: 5px 10px;
 }

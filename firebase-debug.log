@@ -1,0 +1,278 @@
+[debug] [2022-12-11T04:43:22.325Z] ----------------------------------------------------------------------
+[debug] [2022-12-11T04:43:22.326Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\jnaed\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js emulators:start
+[debug] [2022-12-11T04:43:22.326Z] CLI Version:   11.17.0
+[debug] [2022-12-11T04:43:22.327Z] Platform:      win32
+[debug] [2022-12-11T04:43:22.327Z] Node Version:  v16.18.1
+[debug] [2022-12-11T04:43:22.327Z] Time:          Sat Dec 10 2022 23:43:22 GMT-0500 (Eastern Standard Time)
+[debug] [2022-12-11T04:43:22.327Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2022-12-11T04:43:22.396Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2022-12-11T04:43:22.396Z] > authorizing via signed-in user (j.naeder324@gmail.com)
+[info] i  emulators: Starting emulators: functions, hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: functions, hosting"}}
+[debug] [2022-12-11T04:43:22.405Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-11T04:43:22.406Z] [hosting] Hosting Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-11T04:43:22.406Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2022-12-11T04:43:22.414Z] [hub] writing locator at C:\Users\jnaed\AppData\Local\Temp\hub-sae-supersaas-manager.json
+[debug] [2022-12-11T04:43:22.432Z] [functions] Functions Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-11T04:43:22.433Z] [eventarc] Eventarc Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2022-12-11T04:43:22.433Z] late-assigned ports for functions and eventarc emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"hosting":[{"address":"127.0.0.1","family":"IPv4","port":5000}],"functions":[{"address":"127.0.0.1","family":"IPv4","port":5001}],"eventarc":[{"address":"127.0.0.1","family":"IPv4","port":9299}]},"metadata":{"message":"late-assigned ports for functions and eventarc emulators"}}
+[warn] !  functions: The following emulators are not running, calls to these services from the Functions emulator will affect production: auth, firestore, database, pubsub, storage {"metadata":{"emulator":{"name":"functions"},"message":"The following emulators are not running, calls to these services from the Functions emulator will affect production: \u001b[1mauth, firestore, database, pubsub, storage\u001b[22m"}}
+[info] +  functions: Using node@16 from host. {"metadata":{"emulator":{"name":"functions"},"message":"Using node@16 from host."}}
+[debug] [2022-12-11T04:43:22.450Z] defaultcredentials: writing to file C:\Users\jnaed\AppData\Roaming\firebase\j_naeder324_gmail.com_application_default_credentials.json
+[debug] [2022-12-11T04:43:22.453Z] Setting GAC to C:\Users\jnaed\AppData\Roaming\firebase\j_naeder324_gmail.com_application_default_credentials.json {"metadata":{"emulator":{"name":"functions"},"message":"Setting GAC to C:\\Users\\jnaed\\AppData\\Roaming\\firebase\\j_naeder324_gmail.com_application_default_credentials.json"}}
+[debug] [2022-12-11T04:43:22.454Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager/adminSdkConfig [none]
+[debug] [2022-12-11T04:43:22.789Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager/adminSdkConfig 200
+[debug] [2022-12-11T04:43:22.789Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager/adminSdkConfig {"projectId":"sae-supersaas-manager","databaseURL":"https://sae-supersaas-manager-default-rtdb.firebaseio.com","storageBucket":"sae-supersaas-manager.appspot.com"}
+[debug] [2022-12-11T04:43:22.802Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/sae-supersaas-manager/sites 
+[debug] [2022-12-11T04:43:23.404Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/sae-supersaas-manager/sites 200
+[debug] [2022-12-11T04:43:23.404Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/sae-supersaas-manager/sites {"sites":[{"name":"projects/sae-supersaas-manager/sites/sae-supersaas-manager","defaultUrl":"https://sae-supersaas-manager.web.app","appId":"1:212663505029:web:3138ac3962e51817fe59ec","type":"DEFAULT_SITE"}]}
+[debug] [2022-12-11T04:43:23.404Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager/webApps/1:212663505029:web:3138ac3962e51817fe59ec/config [none]
+[debug] [2022-12-11T04:43:28.050Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager/webApps/1:212663505029:web:3138ac3962e51817fe59ec/config 200
+[debug] [2022-12-11T04:43:28.050Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager/webApps/1:212663505029:web:3138ac3962e51817fe59ec/config {"projectId":"sae-supersaas-manager","appId":"1:212663505029:web:3138ac3962e51817fe59ec","databaseURL":"https://sae-supersaas-manager-default-rtdb.firebaseio.com","storageBucket":"sae-supersaas-manager.appspot.com","apiKey":"AIzaSyA_vtl1iTjk7KR_5JElhtFX5ycWAWjVpxE","authDomain":"sae-supersaas-manager.firebaseapp.com","messagingSenderId":"212663505029","measurementId":"G-LRYRWPCL53"}
+[debug] [2022-12-11T04:43:28.053Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager [none]
+[debug] [2022-12-11T04:43:28.314Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager 200
+[debug] [2022-12-11T04:43:28.314Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/sae-supersaas-manager {"projectId":"sae-supersaas-manager","projectNumber":"212663505029","displayName":"SAE SuperSaas Manager","name":"projects/sae-supersaas-manager","resources":{"hostingSite":"sae-supersaas-manager","realtimeDatabaseInstance":"sae-supersaas-manager-default-rtdb"},"state":"ACTIVE","etag":"1_8ebe42b2-dca5-4b29-8539-0883bc8a61d7"}
+[info] i  hosting[sae-supersaas-manager]: Serving hosting files from: ./build {"metadata":{"emulator":{"name":"hosting"},"message":"Serving hosting files from: \u001b[1m./build\u001b[22m"}}
+[info] +  hosting[sae-supersaas-manager]: Local server: http://127.0.0.1:5000 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://127.0.0.1:5000\u001b[22m\u001b[24m"}}
+[debug] [2022-12-11T04:43:28.331Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2022-12-11T04:43:28.331Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2022-12-11T04:43:28.331Z] Starting Emulator UI with command {"binary":"node","args":["C:\\Users\\jnaed\\.cache\\firebase\\emulators\\ui-v1.11.1\\server\\server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"C:\\\\Users\\\\jnaed\\\\.cache\\\\firebase\\\\emulators\\\\ui-v1.11.1\\\\server\\\\server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2022-12-11T04:43:28.441Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2022-12-11T04:43:28.441Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] i  functions: Watching "C:\Users\jnaed\OneDrive\Documents\GitHub\SuperSaas_Manager_Firebase\functions" for Cloud Functions... {"metadata":{"emulator":{"name":"functions"},"message":"Watching \"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\" for Cloud Functions..."}}
+[debug] [2022-12-11T04:43:28.603Z] Validating nodejs source
+[debug] [2022-12-11T04:43:30.546Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.0",
+    "google-spreadsheet": "^3.3.0",
+    "googleapis": "^105.0.0",
+    "moment": "^2.29.4",
+    "supersaas-api-client": "^1.2.3"
+  },
+  "devDependencies": {
+    "@types/firebase": "^3.2.1",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-11T04:43:30.546Z] Building nodejs source
+[debug] [2022-12-11T04:43:30.546Z] Analyzing nodejs backend spec
+[debug] [2022-12-11T04:43:30.548Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-11T04:43:30.709Z] Serving at port 9005
+
+[debug] [2022-12-11T04:43:30.984Z] Got response from /__/functions.yaml {"endpoints":{"getSheetInfoSchedule":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 */3 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":null},"labels":{},"entryPoint":"getSheetInfoSchedule"},"getSheetInfo":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSheetInfo"},"getSupersaasUsers":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSupersaasUsers"},"processSuperSaasStudents":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"processSuperSaasStudents"},"addNewUserWebHook":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"addNewUserWebHook"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}]}
+[debug] [2022-12-11T04:43:30.993Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook."}}
+[info] i  functions[us-central1-getSheetInfoSchedule]: function ignored because the pubsub emulator does not exist or is not running. {"metadata":{"emulator":{"name":"functions"},"message":"function ignored because the pubsub emulator does not exist or is not running."}}
+[info] +  functions[us-central1-getSheetInfo]: http function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/getSheetInfo). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/getSheetInfo)."}}
+[info] +  functions[us-central1-getSupersaasUsers]: http function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/getSupersaasUsers). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/getSupersaasUsers)."}}
+[info] +  functions[us-central1-processSuperSaasStudents]: http function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/processSuperSaasStudents). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/processSuperSaasStudents)."}}
+[info] +  functions[us-central1-addNewUserWebHook]: http function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewUserWebHook). {"metadata":{"emulator":{"name":"functions"},"message":"\u001b[1mhttp\u001b[22m function initialized (http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewUserWebHook)."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌───────────┬────────────────┬─────────────────────────────────┐
+│ Emulator  │ Host:Port      │ View in Emulator UI             │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Functions │ 127.0.0.1:5001 │ http://127.0.0.1:4000/functions │
+├───────────┼────────────────┼─────────────────────────────────┤
+│ Hosting   │ 127.0.0.1:5000 │ n/a                             │
+└───────────┴────────────────┴─────────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2022-12-11T04:44:02.650Z] File C:\Users\jnaed\OneDrive\Documents\GitHub\SuperSaas_Manager_Firebase\functions\myScripts\supersaasManager.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\myScripts\\supersaasManager.js changed, reloading triggers"}}
+[debug] [2022-12-11T04:44:03.661Z] Validating nodejs source
+[debug] [2022-12-11T04:44:05.585Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.0",
+    "google-spreadsheet": "^3.3.0",
+    "googleapis": "^105.0.0",
+    "moment": "^2.29.4",
+    "supersaas-api-client": "^1.2.3"
+  },
+  "devDependencies": {
+    "@types/firebase": "^3.2.1",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-11T04:44:05.585Z] Building nodejs source
+[debug] [2022-12-11T04:44:05.585Z] Analyzing nodejs backend spec
+[debug] [2022-12-11T04:44:05.586Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-11T04:44:05.742Z] Serving at port 9005
+
+[debug] [2022-12-11T04:44:06.017Z] Got response from /__/functions.yaml {"endpoints":{"getSheetInfoSchedule":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 */3 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":null},"labels":{},"entryPoint":"getSheetInfoSchedule"},"getSheetInfo":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSheetInfo"},"getSupersaasUsers":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSupersaasUsers"},"processSuperSaasStudents":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"processSuperSaasStudents"},"addNewUserWebHook":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"addNewUserWebHook"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}]}
+[debug] [2022-12-11T04:44:06.020Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook."}}
+[debug] [2022-12-11T04:44:18.663Z] File C:\Users\jnaed\OneDrive\Documents\GitHub\SuperSaas_Manager_Firebase\functions\myScripts\supersaasManager.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\myScripts\\supersaasManager.js changed, reloading triggers"}}
+[debug] [2022-12-11T04:44:19.664Z] Validating nodejs source
+[debug] [2022-12-11T04:44:21.581Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.0",
+    "google-spreadsheet": "^3.3.0",
+    "googleapis": "^105.0.0",
+    "moment": "^2.29.4",
+    "supersaas-api-client": "^1.2.3"
+  },
+  "devDependencies": {
+    "@types/firebase": "^3.2.1",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-11T04:44:21.581Z] Building nodejs source
+[debug] [2022-12-11T04:44:21.581Z] Analyzing nodejs backend spec
+[debug] [2022-12-11T04:44:21.582Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-11T04:44:21.737Z] Serving at port 9005
+
+[debug] [2022-12-11T04:44:22.015Z] Got response from /__/functions.yaml {"endpoints":{"getSheetInfoSchedule":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 */3 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":null},"labels":{},"entryPoint":"getSheetInfoSchedule"},"getSheetInfo":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSheetInfo"},"getSupersaasUsers":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSupersaasUsers"},"processSuperSaasStudents":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"processSuperSaasStudents"},"addNewUserWebHook":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"addNewUserWebHook"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}]}
+[debug] [2022-12-11T04:44:22.018Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook."}}
+[debug] [2022-12-11T04:44:47.833Z] File C:\Users\jnaed\OneDrive\Documents\GitHub\SuperSaas_Manager_Firebase\functions\myScripts\supersaasManager.js changed, reloading triggers {"metadata":{"emulator":{"name":"functions"},"message":"File C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\myScripts\\supersaasManager.js changed, reloading triggers"}}
+[debug] [2022-12-11T04:44:48.838Z] Validating nodejs source
+[debug] [2022-12-11T04:44:50.743Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "16"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "@google-cloud/local-auth": "^2.1.0",
+    "axios": "^1.2.1",
+    "dotenv": "^16.0.3",
+    "firebase-admin": "^10.0.2",
+    "firebase-functions": "^4.1.0",
+    "google-spreadsheet": "^3.3.0",
+    "googleapis": "^105.0.0",
+    "moment": "^2.29.4",
+    "supersaas-api-client": "^1.2.3"
+  },
+  "devDependencies": {
+    "@types/firebase": "^3.2.1",
+    "firebase-functions-test": "^0.2.0"
+  },
+  "private": true
+}
+[debug] [2022-12-11T04:44:50.743Z] Building nodejs source
+[debug] [2022-12-11T04:44:50.744Z] Analyzing nodejs backend spec
+[debug] [2022-12-11T04:44:50.744Z] Could not find functions.yaml. Must use http discovery
+[debug] [2022-12-11T04:44:50.906Z] Serving at port 9005
+
+[debug] [2022-12-11T04:44:51.182Z] Got response from /__/functions.yaml {"endpoints":{"getSheetInfoSchedule":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"scheduleTrigger":{"schedule":"0 */3 * * *","retryConfig":{"retryCount":null,"maxDoublings":null,"maxRetryDuration":null,"maxBackoffDuration":null,"minBackoffDuration":null},"timeZone":null},"labels":{},"entryPoint":"getSheetInfoSchedule"},"getSheetInfo":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSheetInfo"},"getSupersaasUsers":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"getSupersaasUsers"},"processSuperSaasStudents":{"platform":"gcfv1","labels":{},"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"callableTrigger":{},"entryPoint":"processSuperSaasStudents"},"addNewUserWebHook":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"addNewUserWebHook"}},"specVersion":"v1alpha1","requiredAPIs":[{"api":"cloudscheduler.googleapis.com","reason":"Needed for scheduled functions."}]}
+[debug] [2022-12-11T04:44:51.186Z] shutdown requested via /__/quitquitquit
+
+[info] +  functions: Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook. {"metadata":{"emulator":{"name":"functions"},"message":"Loaded functions definitions from source: getSheetInfoSchedule, getSheetInfo, getSupersaasUsers, processSuperSaasStudents, addNewUserWebHook."}}
+[debug] [2022-12-11T04:51:21.435Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-11T04:51:21.435Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-11T04:51:21.436Z] Accepted request POST /sae-supersaas-manager/us-central1/addNewUserWebHook --> us-central1-addNewUserWebHook
+[debug] [2022-12-11T04:51:21.438Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-11T04:51:21.438Z] [functions] Got req.url=/sae-supersaas-manager/us-central1/addNewUserWebHook, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/sae-supersaas-manager/us-central1/addNewUserWebHook, mapping to path=/"}}
+[info] i  functions: Loaded environment variables from .env. 
+[debug] [2022-12-11T04:51:21.445Z] [worker-pool] addWorker(us-central1-addNewUserWebHook) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] addWorker(us-central1-addNewUserWebHook)"}}
+[debug] [2022-12-11T04:51:21.445Z] [worker-pool] Adding worker with key us-central1-addNewUserWebHook, total=1 {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] Adding worker with key us-central1-addNewUserWebHook, total=1"}}
+[debug] [2022-12-11T04:51:22.315Z] [runtime-status] [20556] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-11T04:51:22.316Z] [runtime-status] [20556] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-11T04:51:22.316Z] [runtime-status] [20556] Outgoing network have been stubbed. [{"name":"http","status":"mocked"},{"name":"http","status":"mocked"},{"name":"https","status":"mocked"},{"name":"https","status":"mocked"},{"name":"net","status":"mocked"}] {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Outgoing network have been stubbed. [{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"http\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"https\",\"status\":\"mocked\"},{\"name\":\"net\",\"status\":\"mocked\"}]"}}
+[debug] [2022-12-11T04:51:22.317Z] [runtime-status] [20556] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-11T04:51:22.481Z] [runtime-status] [20556] Checked functions.config() {"config":{}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Checked functions.config() {\"config\":{}}"}}
+[debug] [2022-12-11T04:51:22.481Z] [runtime-status] [20556] firebase-functions has been stubbed. {"functionsResolution":{"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] firebase-functions has been stubbed. {\"functionsResolution\":{\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}}"}}
+[debug] [2022-12-11T04:51:22.481Z] [runtime-status] [20556] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-11T04:51:22.482Z] [runtime-status] [20556] Resolved module firebase-admin {"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-admin\\lib\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Resolved module firebase-admin {\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}"}}
+[debug] [2022-12-11T04:51:22.484Z] [runtime-status] [20556] Resolved module firebase-functions {"declared":true,"installed":true,"version":"4.1.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-functions\\lib\\v1\\index.js"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Resolved module firebase-functions {\"declared\":true,\"installed\":true,\"version\":\"4.1.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-functions\\\\lib\\\\v1\\\\index.js\"}"}}
+[debug] [2022-12-11T04:51:22.484Z] [runtime-status] [20556] firebase-admin has been stubbed. {"adminResolution":{"declared":true,"installed":true,"version":"10.3.0","resolution":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions\\node_modules\\firebase-admin\\lib\\index.js"}} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] firebase-admin has been stubbed. {\"adminResolution\":{\"declared\":true,\"installed\":true,\"version\":\"10.3.0\",\"resolution\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\\\\node_modules\\\\firebase-admin\\\\lib\\\\index.js\"}}"}}
+[debug] [2022-12-11T04:51:22.570Z] [runtime-status] [20556] initializeApp(DEFAULT) {"storageBucket":"sae-supersaas-manager.appspot.com","databaseURL":"https://sae-supersaas-manager-default-rtdb.firebaseio.com","projectId":"sae-supersaas-manager"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] initializeApp(DEFAULT) {\"storageBucket\":\"sae-supersaas-manager.appspot.com\",\"databaseURL\":\"https://sae-supersaas-manager-default-rtdb.firebaseio.com\",\"projectId\":\"sae-supersaas-manager\"}"}}
+[warn] !  functions: The Cloud Firestore emulator is not running, so calls to Firestore will affect production. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"The Cloud Firestore emulator is not running, so calls to Firestore will affect production."}}
+[debug] [2022-12-11T04:51:22.576Z] [runtime-status] [20556] Functions runtime initialized. {"cwd":"C:\\Users\\jnaed\\OneDrive\\Documents\\GitHub\\SuperSaas_Manager_Firebase\\functions","node_version":"16.18.1"} {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Functions runtime initialized. {\"cwd\":\"C:\\\\Users\\\\jnaed\\\\OneDrive\\\\Documents\\\\GitHub\\\\SuperSaas_Manager_Firebase\\\\functions\",\"node_version\":\"16.18.1\"}"}}
+[debug] [2022-12-11T04:51:22.576Z] [runtime-status] [20556] Listening to port: \\?\pipe\fire_emu_80853fd54ea00a88 {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"[runtime-status] [20556] Listening to port: \\\\?\\pipe\\fire_emu_80853fd54ea00a88"}}
+[debug] [2022-12-11T04:51:22.684Z] [worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: IDLE"}}
+[debug] [2022-12-11T04:51:22.684Z] [worker-pool] submitRequest(triggerId=us-central1-addNewUserWebHook) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-addNewUserWebHook)"}}
+[debug] [2022-12-11T04:51:22.684Z] [worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: BUSY"}}
+[info] i  functions: Beginning execution of "addNewUserWebHook" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"Beginning execution of \"addNewUserWebHook\""}}
+[warn] !  Google API requested!
+   - URL: "https://oauth2.googleapis.com/token"
+   - Be careful, this may be a production service. {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"Google API requested!\n   - URL: \"https://oauth2.googleapis.com/token\"\n   - Be careful, this may be a production service."}}
+[debug] [2022-12-11T04:51:23.725Z] [worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: IDLE"}}
+[debug] [2022-12-11T04:51:23.725Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addNewUserWebHook" in 1033.8248ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"Finished \"addNewUserWebHook\" in 1033.8248ms"}}
+[debug] [2022-12-11T04:52:06.357Z] [work-queue] {"queueLength":1,"workRunningCount":0}
+[debug] [2022-12-11T04:52:06.357Z] [work-queue] {"queueLength":0,"workRunningCount":1}
+[debug] [2022-12-11T04:52:06.357Z] Accepted request POST /sae-supersaas-manager/us-central1/addNewUserWebHook --> us-central1-addNewUserWebHook
+[debug] [2022-12-11T04:52:06.359Z] [functions] Runtime ready! Sending request! {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Runtime ready! Sending request!"}}
+[debug] [2022-12-11T04:52:06.359Z] [functions] Got req.url=/sae-supersaas-manager/us-central1/addNewUserWebHook, mapping to path=/ {"metadata":{"emulator":{"name":"functions"},"message":"[functions] Got req.url=/sae-supersaas-manager/us-central1/addNewUserWebHook, mapping to path=/"}}
+[debug] [2022-12-11T04:52:06.359Z] [worker-pool] submitRequest(triggerId=us-central1-addNewUserWebHook) {"metadata":{"emulator":{"name":"functions"},"message":"[worker-pool] submitRequest(triggerId=us-central1-addNewUserWebHook)"}}
+[debug] [2022-12-11T04:52:06.359Z] [worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: BUSY {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: BUSY"}}
+[info] i  functions: Beginning execution of "addNewUserWebHook" {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"Beginning execution of \"addNewUserWebHook\""}}
+[debug] [2022-12-11T04:52:06.770Z] [worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: IDLE {"metadata":{"emulator":{"name":"functions"},"message":"[worker-us-central1-addNewUserWebHook-f2f33585-4cdc-4ccb-bc17-111006626134]: IDLE"}}
+[debug] [2022-12-11T04:52:06.770Z] [work-queue] {"queueLength":0,"workRunningCount":0}
+[info] i  functions: Finished "addNewUserWebHook" in 409.7682ms {"metadata":{"emulator":{"name":"functions"},"function":{"name":"us-central1-addNewUserWebHook"},"extension":{},"message":"Finished \"addNewUserWebHook\" in 409.7682ms"}}
