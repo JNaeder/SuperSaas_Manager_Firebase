@@ -1,16 +1,13 @@
-const admin = require("firebase-admin");
-
 const creds = require("../google_credentials.json");
 const { GoogleSpreadsheet } = require("google-spreadsheet");
-const { getFirestore } = require("firebase-admin/firestore");
 const doc = new GoogleSpreadsheet(
   "1XgSe-lkrjvOb9y04XGfJ0G2n_nwLSaVFLFd9OxA-KdY"
 );
+const logger = require("./logger");
 
 async function getStudentDataFromGoogleSheets(db) {
+  // Set up databse and output
   const academicStudentDB = db.collection("academic_student");
-
-  const output = [];
 
   // Setup the Google Sheets
   await doc.useServiceAccountAuth(creds);
@@ -18,9 +15,9 @@ async function getStudentDataFromGoogleSheets(db) {
   const sheet = doc.sheetsByTitle["NY GPA Dashboard PowerBI"];
   const allStudents = await sheet.getRows();
 
-  // // // Loop through all the students in the Google Sheet
+  // Loop through all the students in the Google Sheet
   for (let i = 0; i < allStudents.length; i++) {
-    //   // Get Student Info
+    // Get Student Info
     const studentID = allStudents[i]["StuNum"];
     const studentName = allStudents[i]["Student Name"];
     const studentNameFirst = studentName.split(" ")[0];
@@ -31,7 +28,7 @@ async function getStudentDataFromGoogleSheets(db) {
     const gpa = parseFloat(allStudents[i]["ProjectedGPA"]);
     const icr = parseFloat(allStudents[i]["ICR"]);
 
-    //   //   // Create Student Object
+    // Create Student Object
     const newStudentObject = {
       firstName: studentNameFirst,
       lastName: studentNameLast,
@@ -43,13 +40,13 @@ async function getStudentDataFromGoogleSheets(db) {
       icr: icr,
     };
 
-    // console.log(newStudentObject);
-
     // Get the data from the academic database
     const studentAcademicFile = await academicStudentDB.doc(studentID).get();
     const studentAcademicData = await studentAcademicFile.data();
 
+    // If there is a document for the student already in the databse
     if (studentAcademicData) {
+      // See if anything has changed from the database
       const dataChanges = {
         gpa: gpa === studentAcademicData["gpa"],
         icr: icr === studentAcademicData["icr"],
@@ -70,19 +67,26 @@ async function getStudentDataFromGoogleSheets(db) {
           studentName: studentName,
           changes: theChanges,
         };
-        output.push(log);
-        logger.debug(studentName);
+        console.log(`Changed ${studentName}`);
       }
-    } else {
+    }
+    // If student is not in the database already
+    else {
       const newDoc = await academicStudentDB
         .doc(studentID)
         .set(newStudentObject);
       const writeTime = newDoc.writeTime;
-      console.log(`Created ${studentName} at ${writeTime.toDate()}`);
+      const newLog = {
+        studentName: studentName,
+        dateTime: new Date(),
+        log: `Created student in academic database`,
+      };
+      logger.newLog(db, newLog);
     }
   }
 
-  return output;
+  // Somehow loop through all the students in the database, and check to see if they are in the google sheet
+  // If not, remove them from the database
 }
 
 exports.getStudentDataFromGoogleSheets = getStudentDataFromGoogleSheets;

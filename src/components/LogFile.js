@@ -1,7 +1,7 @@
 import moment from "moment";
 
 function LogFile({ log }) {
-  const dateTime = moment(log["dateTime"].toDate()).format("MM/DD hh:mm:ss a");
+  const dateTime = moment(log["dateTime"].toDate()).format("MM/DD hh:mm:ss A");
   return (
     <tr>
       {<td>{dateTime}</td>}

@@ -8,13 +8,10 @@ const db = admin.firestore();
 
 // ---------- Scheduled Stuff --------
 exports.getSheetInfoSchedule = functions.pubsub
-  .schedule("0 */3 * * *")
+  .schedule("0 * * * *")
   .onRun(async () => {
-    const output = await googleSheets.getStudentDataFromGoogleSheets(
-      db,
-      functions.logger
-    );
-    functions.logger.debug(output);
+    await googleSheets.getStudentDataFromGoogleSheets(db);
+    await supersaasManager.processSupersaasUsers(db);
     return null;
   });
 
@@ -34,6 +31,10 @@ exports.processSuperSaasStudents = functions.https.onCall(
     await supersaasManager.processSuperSaasUsers(db);
   }
 );
+
+exports.processAllBookings = functions.https.onCall(async (data, context) => {
+  await supersaasManager.processAllBookings(db);
+});
 
 // -------- Webhook Stuff --------------
 exports.addNewUserWebHook = functions.https.onRequest(async (req, res) => {

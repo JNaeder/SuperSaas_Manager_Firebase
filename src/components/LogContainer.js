@@ -27,7 +27,7 @@ function LogContainer({ app }) {
   }, []);
 
   return (
-    <>
+    <div className="log_container">
       <table className="log_table">
         <thead>
           <tr>
@@ -42,7 +42,7 @@ function LogContainer({ app }) {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 }
 

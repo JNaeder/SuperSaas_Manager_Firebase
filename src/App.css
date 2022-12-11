@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.hide {
+  display: none;
+}
+
 .navigation {
   background-color: blue;
   min-height: 50px;
@@ -20,28 +24,49 @@
 }
 
 .nav_button:hover {
+  background-color: rgb(190, 190, 190);
+}
+
+.selected {
   background-color: blue;
   color: white;
 }
 
-.selected {
-  background-color: red;
-  color: white;
+.button_container {
+  margin: auto;
+  width: 50%;
+  background-color: darkgray;
+  border: dashed black 2px;
+  padding: 30px;
+}
+
+.button_container button {
+  margin: 5px 40px;
+  padding: 10px;
+}
+
+.log_container {
+  height: 80vh;
+  overflow-y: scroll;
 }
 
 .log_table {
-  width: 95%;
+  width: 100%;
   border: black solid 1px;
   margin: auto;
   border-collapse: collapse;
-  background-color: black;
+  background-color: rgb(80, 80, 80);
   color: white;
   font-family: monospace;
   font-size: larger;
   text-align: left;
 }
 
+tr:nth-child(even) {
+  background-color: rgb(61, 61, 61);
+}
+
 .log_table tr td {
-  border: white solid 1px;
+  border: black solid 1px;
   padding: 5px 10px;
 }

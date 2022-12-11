@@ -1,64 +1,101 @@
 const supersaas = require("./supersaas");
 const logger = require("./logger");
+const moment = require("moment");
 
 async function processSuperSaasUsers(db) {
+  // Get All users from SuperSaas
   const allUsers = await supersaas.getAllUsers();
 
+  // Loop through each user, and process them if they have a student email
   for (let i = 0; i < allUsers.length; i++) {
     const currentUser = allUsers[i];
     const emailEnding = currentUser["name"].split("@")[1];
     if (emailEnding === "saeinstitute.edu") {
       processStudentUser(db, allUsers[i]);
-    } else if (emailEnding === "sae.edu") {
-      console.log("Process Staff User");
     }
+    // TODO: Setup something to process staff users as well
   }
 
   return allUsers;
 }
 
 async function processStudentUser(db, currentUser) {
+  // Get academic Database
   const academicStudents = db.collection("academic_student");
 
+  // Get info about the user from SuperSaas
   const supersaasID = currentUser["id"];
   const role = currentUser["role"];
   const supersaasName = currentUser["full_name"];
   const credits = currentUser["credit"];
   const lastLogin = currentUser["last_login"];
   const supersaasEmail = currentUser["name"];
-
   const studentID = supersaasEmail.split(".")[0];
 
+  // Get Data about the student from the Academic Databse
   const studentDoc = await academicStudents.doc(studentID);
   const output = await studentDoc.get();
   const data = await output.data();
 
-  const userData = {
-    name: supersaasEmail,
-    credits: credits,
-    full_name: supersaasEmail,
-  };
-
+  // If student exists in the database
   if (data) {
-    const { gpa, icr, firstName, lastName } = data;
+    // Get data from the database and calculate the credits they should have
+    const { gpa, icr, firstName, lastName, fullName } = data;
     const newCredits = supersaas.calculateCredits(data);
 
+    // If the credits they have now are different than the credits they should have
     if (credits !== newCredits) {
-      console.log(
-        `${firstName} ${lastName} credits have been changed to ${newCredits}: GPA: ${gpa} ICR: ${icr}`
-      );
+      // Add new log
+      const newLog = {
+        studentName: fullName,
+        dateTime: new Date(),
+        log: `Credits have been changed to ${newCredits}: GPA: ${gpa} ICR: ${icr}`,
+      };
+      logger.newLog(db, newLog);
+
+      // Update the user in supersaas
       const userData = {
         name: supersaasEmail,
         credit: newCredits,
       };
-      supersaas.updateUser(supersaasID, userData);
+      await supersaas.updateUser(supersaasID, userData);
+    }
+    // Check if the name in SuperSaas is correct
+    if (fullName !== supersaasName) {
+      const newLog = {
+        studentName: fullName,
+        dateTime: new Date(),
+        log: `Name has been corrected. Old name: ${supersaasName}`,
+      };
+      logger.newLog(db, newLog);
+
+      // Update the user in supersaas
+      const userData = {
+        name: supersaasEmail,
+        full_name: fullName,
+      };
+      await supersaas.updateUser(supersaasID, userData);
+    }
+  }
+}
+
+async function processAllBookings(db) {
+  const allBookings = await supersaas.getAllFutureAppointments();
+  for (let i = 0; i < allBookings.length; i++) {
+    // processBooking(db, allBookings[i]);
+    const { created_by } = allBookings[i];
+    const emailEnd = created_by.split("@")[1];
+    if (emailEnd === "saeinstitute.edu") {
+      processBooking(db, allBookings[i]);
     }
   }
 }
 
 async function processBooking(db, bookingData) {
+  // Get Collection reference to the academic database
   const academicStudents = db.collection("academic_student");
 
+  // Pull all the data I need from the booking data
   const {
     id: booking_id,
     resource_id,
@@ -68,47 +105,61 @@ async function processBooking(db, bookingData) {
     full_name,
     field_1_r,
     event,
+    start,
   } = bookingData;
 
+  // Manipulate some of the data
   const studentID = created_by.split(".")[0];
   const mod = parseInt(field_1_r.split(" ")[1]);
+  const startTime = moment(start).format("MM/DD hh:mm A");
 
+  // Use the student ID to get academix data
   const academicData = await academicStudents
     .doc(studentID)
     .get()
     .then((output) => output.data());
 
+  // Compare the data form supersaas with the academic data
   const wrongData = {
     name: full_name === academicData["fullName"],
     mod: mod === academicData["mod"],
   };
 
+  // If there is any data that does not match up
   if (Object.values(wrongData).includes(false)) {
+    // Update the booking with academic data
     await supersaas.updateAppointment(booking_id, {
       full_name: academicData["fullName"],
       field_1_r: `Mod ${academicData["mod"]}`,
     });
 
+    // Get a string of what was changed
     const changes = Object.entries(wrongData)
       .filter((x) => !x[1])
       .map((x) => x[0]);
 
+    // Start a new log
     const newLog = {
       studentName: academicData["fullName"],
       dateTime: new Date(),
-      log: `Created new booking for ${res_name}. Changed ${changes.join(", ")}`,
+      log: `${
+        event === "create" ? "Created New Booking" : "Updated Booking"
+      } for ${res_name} for ${startTime} (Changed ${changes.join(", ")})`,
     };
     logger.newLog(db, newLog);
     return;
   }
-
-  const newCreateBookingLog = {
-    studentName: academicData["fullName"],
-    dateTime: new Date(),
-    log: `Created new booking for ${res_name}`,
-  };
-  logger.newLog(db, newCreateBookingLog);
+  // Log this if the event from the webhook is create
+  if (event === "create") {
+    const newCreateBookingLog = {
+      studentName: academicData["fullName"],
+      dateTime: new Date(),
+      log: `Created new booking for ${res_name} for ${startTime}`,
+    };
+    logger.newLog(db, newCreateBookingLog);
+  }
 }
 
 exports.processSuperSaasUsers = processSuperSaasUsers;
+exports.processAllBookings = processAllBookings;
 exports.processBooking = processBooking;

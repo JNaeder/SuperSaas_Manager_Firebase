@@ -6,6 +6,7 @@ import Navigation from "./components/Navigation";
 import StudentListPage from "./pages/StudentListPage";
 import TeacherBookingPage from "./pages/TeacherBookingPage";
 import TodayBookings from "./pages/TodayBookings";
+import Testing from "./pages/Testing";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_vtl1iTjk7KR_5JElhtFX5ycWAWjVpxE",
@@ -30,6 +31,7 @@ function App() {
           <Route path="/studentlist" element={<StudentListPage />} />
           <Route path="/teacherbooking" element={<TeacherBookingPage />} />
           <Route path="/todaybookings" element={<TodayBookings />} />
+          <Route path="/testing" element={<Testing />} />
         </Routes>
       </BrowserRouter>
     </div>

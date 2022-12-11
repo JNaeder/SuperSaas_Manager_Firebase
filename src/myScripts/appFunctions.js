@@ -18,10 +18,9 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
-// connectFunctionsEmulator(functions, "localhost", 5001);
+connectFunctionsEmulator(functions, "localhost", 5001);
 
 export const getGoogleSheetInfo = async () => {
-  console.log("Google Sheet Starting");
   const sheetinfo = httpsCallable(functions, "getSheetInfo");
   const output = await sheetinfo();
   return output.data;
@@ -38,22 +37,10 @@ export const processSuperSaasStudents = async () => {
     functions,
     "processSuperSaasStudents"
   );
-  const output = await processSuperSaasStudents();
-  console.log(output);
+  await processSuperSaasStudents();
 };
 
-export const updateAllInfo = async () => {
-  console.log("Update all!");
-  const sheetinfo = httpsCallable(functions, "getSheetInfo");
-  const processSuperSaasStudents = httpsCallable(
-    functions,
-    "processSuperSaasStudents"
-  );
-
-  const sheetData = await sheetinfo();
-  const supersaasData = await processSuperSaasStudents();
-
-  console.log(sheetData);
-  console.log(supersaasData);
-  console.log("Done");
+export const processAllBookings = async () => {
+  const processAllBookings = httpsCallable(functions, "processAllBookings");
+  await processAllBookings();
 };

@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 function Navigation() {
   const navigate = useNavigate();
-  const [currentLocation, setCurrentLocation] = useState(window.location.href);
+  const location = useLocation();
+  const [currentLocation, setCurrentLocation] = useState(location.pathname);
 
   const changeRoute = (newRoute) => {
     navigate(newRoute);
@@ -45,6 +46,13 @@ function Navigation() {
         id="/todaybookings"
       >
         Today Bookings
+      </button>
+      <button
+        className="nav_button hide"
+        onClick={() => changeRoute("/testing")}
+        id="/testing"
+      >
+        Testing Links
       </button>
     </nav>
   );
