@@ -1,7 +1,10 @@
-function HomePage() {
+import LogContainer from "../components/LogContainer";
+
+function HomePage({ app }) {
   return (
     <>
-      <h1>Home Page</h1>
+      <h1>Logs</h1>
+      <LogContainer app={app} />
     </>
   );
 }

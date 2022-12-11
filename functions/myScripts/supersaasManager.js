@@ -1,4 +1,5 @@
 const supersaas = require("./supersaas");
+const logger = require("./logger");
 
 async function processSuperSaasUsers(db) {
   const allUsers = await supersaas.getAllUsers();
@@ -77,6 +78,13 @@ async function processBooking(db, bookingData) {
     .get()
     .then((output) => output.data());
 
+  const newCreateBookingLog = {
+    studentName: academicData["fullName"],
+    dateTime: new Date(),
+    log: `${event} booking for ${res_name}`,
+  };
+  logger.newLog(db, newCreateBookingLog);
+
   const wrongData = {
     name: full_name === academicData["fullName"],
     mod: mod === academicData["mod"],
@@ -88,10 +96,17 @@ async function processBooking(db, bookingData) {
       field_1_r: `Mod ${academicData["mod"]}`,
     });
 
-    const changes = Object.entries(wrongData).filter((x) => !x);
+    const changes = Object.entries(wrongData)
+      .filter((x) => !x[1])
+      .map((x) => x[0]);
 
-    console.log(changes);
-    // console.log(`Updated `);
+    const newLog = {
+      studentName: academicData["fullName"],
+      dateTime: new Date(),
+      log: `Updated Booking for ${res_name}. Changed ${changes.join(", ")}`,
+    };
+    logger.newLog(db, newLog);
+    return;
   }
 }
 

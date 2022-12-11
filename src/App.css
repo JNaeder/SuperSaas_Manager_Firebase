@@ -1,7 +1,3 @@
-* {
-  /* border: solid red 1px; */
-}
-
 .App {
   text-align: center;
 }
@@ -17,11 +13,25 @@
 .nav_button {
   background-color: white;
   color: blue;
+  border: white solid 1px;
   text-decoration: none;
   padding: 10px;
   margin: 10px;
 }
 
+.nav_button:hover {
+  background-color: blue;
+  color: white;
+}
+
 .selected {
   background-color: red;
+  color: white;
+}
+
+.log_table {
+  margin: auto;
+  background-color: black;
+  color: white;
+  font-family: monospace;
 }
