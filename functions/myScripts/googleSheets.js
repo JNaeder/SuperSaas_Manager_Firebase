@@ -22,12 +22,14 @@ async function getStudentDataFromGoogleSheets(db) {
     const studentID = allStudents[i]["StuNum"];
     const studentName = allStudents[i]["Student Name"];
     const studentNameFirst = studentName.split(" ")[0];
-    const studentNameLast = studentName.split(" ").slice(1)[0];
+    const studentNameLast = studentName.split(" ").slice(1).join(" ");
     const studentModAndClassTime = allStudents[i]["CourseCode"];
-    const studentMod = parseInt(studentModAndClassTime.split("-")[0][4]);
+    const studentMod = parseInt(studentModAndClassTime[4]);
     const currentInstructor = allStudents[i]["Instructor"];
     const gpa = parseFloat(allStudents[i]["ProjectedGPA"]);
     const icr = parseFloat(allStudents[i]["ICR"]);
+
+    console.log(studentName);
 
     // Create Student Object
     const newStudentObject = {

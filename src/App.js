@@ -28,7 +28,7 @@ function App() {
         <Navigation />
         <Routes>
           <Route path="/" element={<HomePage app={app} />} />
-          <Route path="/studentlist" element={<StudentListPage />} />
+          <Route path="/studentlist" element={<StudentListPage app={app} />} />
           <Route path="/teacherbooking" element={<TeacherBookingPage />} />
           <Route path="/todaybookings" element={<TodayBookings />} />
           <Route path="/testing" element={<Testing />} />

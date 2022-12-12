@@ -21,8 +21,9 @@ async function processSuperSaasUsers(db) {
 }
 
 async function processStudentUser(db, currentUser) {
-  // Get academic Database
+  // Get Database references
   const academicStudents = db.collection("academic_student");
+  const supersaasStudentDB = db.collection("supersaas_student");
 
   // Get info about the user from SuperSaas
   const supersaasID = currentUser["id"];
@@ -41,10 +42,8 @@ async function processStudentUser(db, currentUser) {
   // If student exists in the database
   if (data) {
     // Get data from the database and calculate the credits they should have
-    const { gpa, icr, fullName } = data;
+    const { gpa, icr, fullName, firstName, lastName, mod } = data;
     const newCredits = supersaas.calculateCredits(data);
-
-    console.log(`${fullName}`);
 
     // If the credits they have now are different than the credits they should have
     if (credits !== newCredits) {
@@ -54,6 +53,7 @@ async function processStudentUser(db, currentUser) {
         dateTime: new Date(),
         log: `Credits have been changed to ${newCredits}: GPA: ${gpa} ICR: ${icr}`,
       };
+      console.log(`${fullName} changed credits`);
       logger.newLog(db, newLog);
 
       // Update the user in supersaas
@@ -70,6 +70,7 @@ async function processStudentUser(db, currentUser) {
         dateTime: new Date(),
         log: `Name has been corrected. Old name: ${supersaasName}`,
       };
+      console.log(`${fullName} changed name`);
       logger.newLog(db, newLog);
 
       // Update the user in supersaas
@@ -79,6 +80,23 @@ async function processStudentUser(db, currentUser) {
       };
       await supersaas.updateUser(supersaasID, userData);
     }
+
+    // Setup Data for the SuperSaas Student Database
+    const superSaasData = {
+      fullName: fullName,
+      gpa: gpa,
+      icr: icr,
+      firstName: firstName,
+      lastName: lastName,
+      credits: newCredits,
+      mod: mod,
+      lastLogin: lastLogin,
+      supersaasID: supersaasID,
+      email: supersaasEmail,
+    };
+
+    const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
+    const writeTime = newDoc.writeTime;
   }
   // Setup something so you set user to 0 credits if they are not in the database
 }

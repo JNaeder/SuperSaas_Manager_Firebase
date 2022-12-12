@@ -70,3 +70,27 @@ tr:nth-child(even) {
   border: black solid 1px;
   padding: 5px 10px;
 }
+
+.student_file_container {
+  margin: auto;
+  width: 65%;
+  border: black solid 2px;
+  height: 70vh;
+  overflow-y: scroll;
+  text-align: left;
+}
+
+.student_file {
+  background-color: grey;
+  margin: 5px 40px;
+  border: solid black 1px;
+  border-radius: 10px;
+}
+
+.blocked {
+  background-color: red;
+}
+
+.active {
+  background-color: green;
+}
