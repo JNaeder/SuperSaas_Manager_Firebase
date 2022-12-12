@@ -1,11 +1,10 @@
 import {
   getFirestore,
   collection,
-  getDocs,
   query,
   orderBy,
   onSnapshot,
-  QuerySnapshot,
+  limit,
 } from "firebase/firestore";
 import { useState, useEffect } from "react";
 import LogFile from "./LogFile";
@@ -16,7 +15,11 @@ function LogContainer({ app }) {
   useEffect(() => {
     const db = getFirestore(app);
     const logCollection = collection(db, "logs");
-    const newQuery = query(logCollection, orderBy("dateTime", "desc"));
+    const newQuery = query(
+      logCollection,
+      orderBy("dateTime", "desc"),
+      limit(100)
+    );
     const getAllLogs = async () => {
       onSnapshot(newQuery, (output) => {
         setCurrentLogs(output.docs);

@@ -3,6 +3,7 @@ const logger = require("./logger");
 const moment = require("moment");
 
 async function processSuperSaasUsers(db) {
+  console.log("STARTING TO PROCESS USERS");
   // Get All users from SuperSaas
   const allUsers = await supersaas.getAllUsers();
 
@@ -40,8 +41,10 @@ async function processStudentUser(db, currentUser) {
   // If student exists in the database
   if (data) {
     // Get data from the database and calculate the credits they should have
-    const { gpa, icr, firstName, lastName, fullName } = data;
+    const { gpa, icr, fullName } = data;
     const newCredits = supersaas.calculateCredits(data);
+
+    console.log(`${fullName}`);
 
     // If the credits they have now are different than the credits they should have
     if (credits !== newCredits) {
@@ -77,6 +80,7 @@ async function processStudentUser(db, currentUser) {
       await supersaas.updateUser(supersaasID, userData);
     }
   }
+  // Setup something so you set user to 0 credits if they are not in the database
 }
 
 async function processAllBookings(db) {
@@ -98,8 +102,6 @@ async function processBooking(db, bookingData) {
   // Pull all the data I need from the booking data
   const {
     id: booking_id,
-    resource_id,
-    user_id,
     res_name,
     created_by,
     full_name,

@@ -10,8 +10,9 @@ const db = admin.firestore();
 exports.getSheetInfoSchedule = functions.pubsub
   .schedule("0 * * * *")
   .onRun(async () => {
+    console.log("Start getSheetInfoSchedule");
     await googleSheets.getStudentDataFromGoogleSheets(db);
-    await supersaasManager.processSupersaasUsers(db);
+    await supersaasManager.processSuperSaasUsers(db);
     return null;
   });
 

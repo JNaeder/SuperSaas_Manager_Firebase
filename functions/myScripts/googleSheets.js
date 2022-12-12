@@ -6,6 +6,7 @@ const doc = new GoogleSpreadsheet(
 const logger = require("./logger");
 
 async function getStudentDataFromGoogleSheets(db) {
+  console.log("STARTING TO PROCESS GOOGLE SHEET");
   // Set up databse and output
   const academicStudentDB = db.collection("academic_student");
 
