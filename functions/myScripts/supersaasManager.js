@@ -26,7 +26,7 @@ async function processStudentUser(db, currentUser) {
   const supersaasStudentDB = db.collection("supersaas_student");
 
   // Get info about the user from SuperSaas
-  const supersaasID = currentUser["id"];
+  const supersaasID = currentUser["id"].toString();
   const role = currentUser["role"];
   const supersaasName = currentUser["full_name"];
   const credits = currentUser["credit"];
@@ -95,6 +95,7 @@ async function processStudentUser(db, currentUser) {
       email: supersaasEmail,
     };
 
+    // console.log(typeof supersaasID);
     const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
     const writeTime = newDoc.writeTime;
   }

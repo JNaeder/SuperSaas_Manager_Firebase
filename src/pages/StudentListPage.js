@@ -17,6 +17,7 @@ function StudentListPage({ app }) {
     const getAllStudents = async () => {
       const newQuery = query(studentDB, orderBy("fullName"));
       const output = await getDocs(newQuery);
+      console.log(output);
       setAllStudents(output.docs);
     };
     getAllStudents();
