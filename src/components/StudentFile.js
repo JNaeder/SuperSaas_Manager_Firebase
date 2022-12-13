@@ -1,26 +1,30 @@
-function calculateClassName(theCredits) {
-  if (theCredits === "0") {
-    return "student_file blocked";
-  } else if (theCredits === "-") {
-    return "student_file active";
+function calculateClassName(student) {
+  const theCredits = student["credits"];
+  const status = student["status"];
+  if (status === "active") {
+    if (theCredits === "-") {
+      return "student_file active";
+    } else {
+      return "student_file blocked";
+    }
   } else {
-    return "student_file";
+    return "student_file inactive";
   }
 }
 
-function StudentFile({ student }) {
-  const theClassName = calculateClassName(student["credits"]);
+function StudentFile({ student, setSpotlightStudent }) {
+  const theClassName = calculateClassName(student);
 
   return (
-    <div className={theClassName} id="student_file">
+    <button
+      className={theClassName}
+      id="student_file"
+      onClick={() => setSpotlightStudent(student)}
+    >
       <p>
-        Name: <b>{student["fullName"]}</b>
+        {student["lastName"]}, {student["firstName"]}
       </p>
-      <div>
-        <span>Email: {student["email"]} </span>
-        <span>Credits: {student["credits"]} </span>
-      </div>
-    </div>
+    </button>
   );
 }
 

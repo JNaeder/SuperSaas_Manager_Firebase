@@ -42,7 +42,7 @@ async function processStudentUser(db, currentUser) {
   // If student exists in the database
   if (data) {
     // Get data from the database and calculate the credits they should have
-    const { gpa, icr, fullName, firstName, lastName, mod } = data;
+    const { gpa, icr, fullName, firstName, lastName, mod, instructor } = data;
     const newCredits = supersaas.calculateCredits(data);
 
     // If the credits they have now are different than the credits they should have
@@ -93,9 +93,24 @@ async function processStudentUser(db, currentUser) {
       lastLogin: lastLogin,
       supersaasID: supersaasID,
       email: supersaasEmail,
+      status: "active",
+      instructor: instructor,
     };
 
-    // console.log(typeof supersaasID);
+    const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
+    const writeTime = newDoc.writeTime;
+  } else {
+    // Setup Data for the SuperSaas Student Database
+    const superSaasData = {
+      fullName: supersaasName,
+      firstName: supersaasName.split(" ")[0],
+      lastName: supersaasName.split(" ")[1],
+      credits: "0",
+      lastLogin: lastLogin,
+      supersaasID: supersaasID,
+      email: supersaasEmail,
+      status: "inactive",
+    };
     const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
     const writeTime = newDoc.writeTime;
   }

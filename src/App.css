@@ -71,20 +71,32 @@ tr:nth-child(even) {
   padding: 5px 10px;
 }
 
+.page_container {
+  display: grid;
+  grid-template-columns: 50% auto;
+  height: 82vh;
+}
+
 .student_file_container {
   margin: auto;
-  width: 65%;
-  border: black solid 2px;
-  height: 70vh;
+  width: 100%;
+  height: 100%;
   overflow-y: scroll;
   text-align: left;
 }
 
 .student_file {
-  background-color: grey;
-  margin: 5px 40px;
+  margin: 0px 10px;
   border: solid black 1px;
   border-radius: 10px;
+  width: 95%;
+  display: block;
+  padding: 0px;
+  text-align: left;
+}
+
+.student_file:hover {
+  background-color: antiquewhite;
 }
 
 .blocked {
@@ -93,4 +105,25 @@ tr:nth-child(even) {
 
 .active {
   background-color: green;
+}
+
+.inactive {
+  background-color: grey;
+}
+
+.student_spotlight {
+  /* background-color: grey; */
+  color: black;
+}
+
+.spotlight_table {
+  margin: auto;
+  width: 70%;
+  border-collapse: collapse;
+}
+
+.spotlight_table td {
+  font-size: 20px;
+  border: solid black 1px;
+  background-color: aliceblue;
 }
