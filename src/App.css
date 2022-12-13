@@ -74,25 +74,29 @@ tr:nth-child(even) {
 .page_container {
   display: grid;
   grid-template-columns: 50% auto;
-  height: 82vh;
+  height: 50vh;
+  margin: auto;
+  width: 75%;
 }
 
 .student_file_container {
   margin: auto;
   width: 100%;
-  height: 100%;
+  height: 70vh;
   overflow-y: scroll;
   text-align: left;
+  background-color: black;
 }
 
 .student_file {
-  margin: 0px 10px;
-  border: solid black 1px;
-  border-radius: 10px;
-  width: 95%;
+  margin: 2px 0px;
+  /* border: solid black 1px; */
+  /* border-radius: 10px; */
+  width: 100%;
   display: block;
   padding: 0px;
-  text-align: left;
+  /* text-align: left; */
+  border: none;
 }
 
 .student_file:hover {
@@ -118,12 +122,13 @@ tr:nth-child(even) {
 
 .spotlight_table {
   margin: auto;
-  width: 70%;
+  width: 90%;
   border-collapse: collapse;
+  height: 60vh;
 }
 
 .spotlight_table td {
-  font-size: 20px;
+  font-size: 30px;
   border: solid black 1px;
   background-color: aliceblue;
 }

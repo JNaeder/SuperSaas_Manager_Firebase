@@ -2,6 +2,17 @@ const supersaas = require("./supersaas");
 const logger = require("./logger");
 const moment = require("moment");
 
+const studioRequirements = {
+  SSL: 3,
+  Audient: 2,
+  "02R": 2,
+  Avid_S6: 4,
+  Production_Suite_1: 2,
+  Production_Suite_2: 2,
+  Production_Suite_3: 2,
+  Production_Suite_4: 2,
+};
+
 async function processSuperSaasUsers(db) {
   console.log("STARTING TO PROCESS USERS");
   // Get All users from SuperSaas
@@ -12,12 +23,10 @@ async function processSuperSaasUsers(db) {
     const currentUser = allUsers[i];
     const emailEnding = currentUser["name"].split("@")[1];
     if (emailEnding === "saeinstitute.edu") {
-      processStudentUser(db, allUsers[i]);
+      await processStudentUser(db, allUsers[i]);
     }
     // TODO: Setup something to process staff users as well
   }
-
-  return allUsers;
 }
 
 async function processStudentUser(db, currentUser) {
@@ -33,6 +42,7 @@ async function processStudentUser(db, currentUser) {
   const lastLogin = currentUser["last_login"];
   const supersaasEmail = currentUser["name"];
   const studentID = supersaasEmail.split(".")[0];
+  const theEvent = currentUser["event"];
 
   // Get Data about the student from the Academic Databse
   const studentDoc = await academicStudents.doc(studentID);
@@ -47,11 +57,13 @@ async function processStudentUser(db, currentUser) {
 
     // If the credits they have now are different than the credits they should have
     if (credits !== newCredits) {
+      const theLog = theEvent === "new" ? `New User Created.` : "";
+
       // Add new log
       const newLog = {
         studentName: fullName,
         dateTime: new Date(),
-        log: `Credits have been changed to ${newCredits}: GPA: ${gpa} ICR: ${icr}`,
+        log: `${theLog} Credits have been changed to ${newCredits}: GPA: ${gpa} ICR: ${icr}`,
       };
       console.log(`${fullName} changed credits`);
       logger.newLog(db, newLog);
@@ -101,6 +113,7 @@ async function processStudentUser(db, currentUser) {
     const writeTime = newDoc.writeTime;
   } else {
     // Setup Data for the SuperSaas Student Database
+    console.log(`${supersaasName} is not in the system`);
     const superSaasData = {
       fullName: supersaasName,
       firstName: supersaasName.split(" ")[0],
@@ -113,8 +126,14 @@ async function processStudentUser(db, currentUser) {
     };
     const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
     const writeTime = newDoc.writeTime;
+
+    // Update the user in supersaas
+    const userData = {
+      name: supersaasEmail,
+      credit: "0",
+    };
+    await supersaas.updateUser(supersaasID, userData);
   }
-  // Setup something so you set user to 0 credits if they are not in the database
 }
 
 async function processAllBookings(db) {
@@ -154,6 +173,23 @@ async function processBooking(db, bookingData) {
     .doc(studentID)
     .get()
     .then((output) => output.data());
+
+  // See if student can even book the studio
+  const correctMod = academicData["mod"];
+  const studioRequirement = studioRequirements[res_name];
+  const isAllowedToBook = correctMod >= studioRequirement;
+  console.log(
+    `Correct Mod: ${correctMod} Student Req: ${studioRequirement} StudentName: ${academicData["fullName"]}`
+  );
+  if (!isAllowedToBook) {
+    const newLog = {
+      studentName: academicData["fullName"],
+      dateTime: new Date(),
+      log: `***** Tried booking ${res_name} but is not allowed. Only in Mod ${correctMod} *****`,
+    };
+    logger.newLog(db, newLog);
+    return;
+  }
 
   // Compare the data form supersaas with the academic data
   const wrongData = {
@@ -196,6 +232,20 @@ async function processBooking(db, bookingData) {
   }
 }
 
+async function logDeletedBooking(db, bookingData) {
+  const { full_name, res_name, start } = bookingData;
+  const startTime = moment(start).format("MM/DD hh:mm A");
+  const newString = `Deleted the ${res_name} booking for ${startTime}`;
+  const newLog = {
+    studentName: full_name,
+    dateTime: new Date(),
+    log: newString,
+  };
+  await logger.newLog(db, newLog);
+}
+
 exports.processSuperSaasUsers = processSuperSaasUsers;
+exports.processStudentUser = processStudentUser;
 exports.processAllBookings = processAllBookings;
 exports.processBooking = processBooking;
+exports.logDeletedBooking = logDeletedBooking;

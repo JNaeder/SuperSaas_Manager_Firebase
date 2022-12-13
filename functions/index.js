@@ -9,10 +9,25 @@ const db = admin.firestore();
 
 // ---------- Scheduled Stuff --------
 exports.getSheetInfoSchedule = functions.pubsub
-  .schedule("0 * * * *")
+  .schedule("0 11 * * *")
   .onRun(async () => {
     console.log("Start getSheetInfoSchedule");
     await googleSheets.getStudentDataFromGoogleSheets(db);
+    return null;
+  });
+
+exports.removeOldStudentsSchedule = functions.pubsub
+  .schedule("7 11 * * *")
+  .onRun(async () => {
+    console.log("Start Remove Old Studnets");
+    await supersaasManager.removeOldStudents(db);
+    return null;
+  });
+
+exports.processAllStudentsSchedule = functions.pubsub
+  .schedule("15 11 * * *")
+  .onRun(async () => {
+    console.log("Start process All Students");
     await supersaasManager.processSuperSaasUsers(db);
     return null;
   });
@@ -23,18 +38,21 @@ exports.getSheetInfo = functions.https.onCall(async () => {
   return output;
 });
 
-exports.getSupersaasUsers = functions.https.onCall(async (data, context) => {
+exports.removeOldStudents = functions.https.onCall(async () => {
+  const output = await googleSheets.removeOldStudentsFromDB(db);
+  return output;
+});
+
+exports.getSupersaasUsers = functions.https.onCall(async () => {
   const allUsers = await supersaasManager.processSupersaasUsers(db);
   return allUsers;
 });
 
-exports.processSuperSaasStudents = functions.https.onCall(
-  async (data, context) => {
-    await supersaasManager.processSuperSaasUsers(db);
-  }
-);
+exports.processSuperSaasStudents = functions.https.onCall(async () => {
+  await supersaasManager.processSuperSaasUsers(db);
+});
 
-exports.processAllBookings = functions.https.onCall(async (data, context) => {
+exports.processAllBookings = functions.https.onCall(async () => {
   await supersaasManager.processAllBookings(db);
 });
 
@@ -47,19 +65,17 @@ exports.addNewBookingWebHook = functions.https.onRequest(async (req, res) => {
 
 exports.changeBookingWebHook = functions.https.onRequest(async (req, res) => {
   const bookingData = req.body;
-  const { event, full_name, res_name, start } = bookingData;
-  const newString = `${full_name} ${event}ed the ${res_name} booking for ${start}`;
-  const newLog = {
-    studentName: full_name,
-    dateTime: new Date(),
-    log: newString,
-  };
-  await logger.newLog(db, newLog);
+  const { event } = bookingData;
+  if (event === "destroy") {
+    supersaasManager.logDeletedBooking(db, bookingData);
+  } else if (event === "edit") {
+    await supersaasManager.processBooking(db, bookingData);
+  }
   res.sendStatus(200);
 });
 
 exports.addNewUserWebHook = functions.https.onRequest(async (req, res) => {
   const newUserData = req.body;
-  await supersaasManager.processSuperSaasUser(db, newUserData);
+  await supersaasManager.processStudentUser(db, newUserData);
   res.sendStatus(200);
 });

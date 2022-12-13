@@ -29,8 +29,6 @@ async function getStudentDataFromGoogleSheets(db) {
     const gpa = parseFloat(allStudents[i]["ProjectedGPA"]);
     const icr = parseFloat(allStudents[i]["ICR"]);
 
-    console.log(studentName);
-
     // Create Student Object
     const newStudentObject = {
       firstName: studentNameFirst,
@@ -92,4 +90,39 @@ async function getStudentDataFromGoogleSheets(db) {
   // If not, remove them from the database
 }
 
+async function removeOldStudentsFromDB(db) {
+  const academicStudentDB = db.collection("academic_student");
+  const result = await academicStudentDB.get();
+  const allStudents = await result.docs.map((doc) => doc.data());
+
+  // Setup the Google Sheets
+  await doc.useServiceAccountAuth(creds);
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle["NY GPA Dashboard PowerBI"];
+  const allGoogleStudents = await sheet.getRows();
+  const allStudentIDs = allGoogleStudents.map((student) => student["StuNum"]);
+
+  for (let i = 0; i < allStudents.length; i++) {
+    const theStudent = allStudents[i];
+    const studentID = theStudent["studentID"];
+    if (!allStudentIDs.includes(studentID)) {
+      console.log(
+        `${theStudent["fullName"]} is NOT in the system. Deleted from Database.`
+      );
+      const docRef = academicStudentDB.doc(studentID);
+      const output = await docRef.delete();
+      console.log(`Deleted in ${output.writeTime.toDate()}`);
+
+      const newLog = {
+        studentName: theStudent["fullName"],
+        dateTime: new Date(),
+        log: `Student is not in the system. Deleted from Academic Database.`,
+      };
+
+      logger.newLog(db, newLog);
+    }
+  }
+}
+
 exports.getStudentDataFromGoogleSheets = getStudentDataFromGoogleSheets;
+exports.removeOldStudentsFromDB = removeOldStudentsFromDB;
