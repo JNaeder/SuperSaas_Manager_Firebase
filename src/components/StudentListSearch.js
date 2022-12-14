@@ -1,61 +1,83 @@
 import { collection, orderBy, query, getDocs, where } from "firebase/firestore";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function StudentListSearch({ setAllStudents, db }) {
   const studentDB = collection(db, "supersaas_student");
 
-  const [searchName, setSearchName] = useState("");
-  const [sortValue, setSortValue] = useState("lastName");
+  const [creditKeywords, setCreditKeywords] = useState(["0", "-"]);
+  const [activeKeywords, setActiveKeyword] = useState(["inactive", "active"]);
 
-  const searchForStudent = async (e) => {
-    e.preventDefault();
-    const newQuery = query(studentDB, where("fullName", "==", searchName));
-    const output = await getDocs(newQuery);
-    console.log(output.docs);
-    setAllStudents(output.docs);
+  const onCheckboxChange = async (newValue) => {
+    if (newValue === "inactive") {
+      if (activeKeywords.includes(newValue)) {
+        setActiveKeyword(["active"]);
+      } else {
+        setActiveKeyword(["inactive", "active"]);
+      }
+    }
+
+    if (newValue === "active" || newValue === "blocked") {
+      const activeValue = newValue === "active" ? "-" : "0";
+      if (creditKeywords.includes(activeValue)) {
+        const arr = creditKeywords;
+        const newArr = arr.filter((x) => x !== activeValue);
+        setCreditKeywords(newArr);
+      } else {
+        const arr = creditKeywords;
+        arr.push(activeValue);
+        setCreditKeywords(arr);
+      }
+    }
   };
 
-  const changeSortValue = async (newValue) => {
-    const newQuery = query(studentDB, orderBy(newValue));
-    const output = await getDocs(newQuery);
-    setSortValue(newValue);
-    setAllStudents(output.docs);
-  };
+  useEffect(() => {
+    const getTheDocs = async () => {
+      const newQuery = query(
+        studentDB,
+        where("status", "in", activeKeywords),
+        orderBy("lastName")
+      );
+      const output = await getDocs(newQuery);
+      setAllStudents(output.docs);
+    };
 
-  const changeSortDirection = async (newDirection) => {
-    console.log(newDirection);
-    const newQuery = query(studentDB, orderBy(sortValue, newDirection));
-    const output = await getDocs(newQuery);
-    setAllStudents(output.docs);
-  };
+    getTheDocs();
+  }, [creditKeywords, activeKeywords]);
+
+  // const createNewSearch = async () => {
+  //   const newQuery = query(studentDB, where("status", "==", newValue));
+  //   const output = await getDocs(newQuery);
+  //   setAllStudents(output.docs);
+  // };
 
   return (
     <>
       <form>
-        <label htmlFor="searchName"> Search:</label>
+        <label htmlFor="active">Active</label>
         <input
-          name="searchName"
-          type="text"
-          onChange={(e) => setSearchName(e.target.value)}
+          type="checkbox"
+          name="active"
+          value="active"
+          defaultChecked
+          onChange={(e) => onCheckboxChange(e.target.value)}
         />
-        <button onClick={searchForStudent}>Submit</button>
-
-        <label html="sortValue">Sort</label>
-        <select
-          name="sortValue"
-          onChange={(e) => changeSortValue(e.target.value)}
-        >
-          <option value="lastName">Last Name</option>
-          <option value="gpa">GPA</option>
-          <option value="icr">ICR</option>
-          <option value="lastLogin">Last Login</option>
-        </select>
-
-        <select onChange={(e) => changeSortDirection(e.target.value)}>
-          <option value="asc">ASC</option>
-          <option value="desc">DEC</option>
-        </select>
+        <label htmlFor="active">Blocked</label>
+        <input
+          type="checkbox"
+          name="active"
+          value="blocked"
+          defaultChecked
+          onChange={(e) => onCheckboxChange(e.target.value)}
+        />
+        <label htmlFor="active">Inactive</label>
+        <input
+          type="checkbox"
+          name="active"
+          value="inactive"
+          defaultChecked
+          onChange={(e) => onCheckboxChange(e.target.value)}
+        />
       </form>
     </>
   );

@@ -7,6 +7,7 @@ const studioRequirements = {
   Audient: 2,
   "02R": 2,
   Avid_S6: 4,
+  Neve: 2,
   Production_Suite_1: 2,
   Production_Suite_2: 2,
   Production_Suite_3: 2,
