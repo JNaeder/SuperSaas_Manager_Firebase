@@ -12,6 +12,10 @@ const studioRequirements = {
   Production_Suite_2: 2,
   Production_Suite_3: 2,
   Production_Suite_4: 2,
+  "Production Suite 1": 2,
+  "Production Suite 2": 2,
+  "Production Suite 3": 2,
+  "Production Suite 4": 2,
 };
 
 async function processSuperSaasUsers(db) {
@@ -94,6 +98,8 @@ async function processStudentUser(db, currentUser) {
       await supersaas.updateUser(supersaasID, userData);
     }
 
+    const status = newCredits === "-" ? "active" : "blocked";
+
     // Setup Data for the SuperSaas Student Database
     const superSaasData = {
       fullName: fullName,
@@ -106,7 +112,7 @@ async function processStudentUser(db, currentUser) {
       lastLogin: lastLogin,
       supersaasID: supersaasID,
       email: supersaasEmail,
-      status: "active",
+      status: status,
       instructor: instructor,
     };
 
@@ -114,7 +120,7 @@ async function processStudentUser(db, currentUser) {
     const writeTime = newDoc.writeTime;
   } else {
     // Setup Data for the SuperSaas Student Database
-    console.log(`${supersaasName} is not in the system`);
+    // console.log(`${supersaasName} is not in the system`);
     const superSaasData = {
       fullName: supersaasName,
       firstName: supersaasName.split(" ")[0],
@@ -179,6 +185,7 @@ async function processBooking(db, bookingData) {
   const correctMod = academicData["mod"];
   const studioRequirement = studioRequirements[res_name];
   const isAllowedToBook = correctMod >= studioRequirement;
+  console.log(res_name);
   console.log(
     `Correct Mod: ${correctMod} Student Req: ${studioRequirement} StudentName: ${academicData["fullName"]}`
   );

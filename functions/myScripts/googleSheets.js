@@ -77,12 +77,15 @@ async function getStudentDataFromGoogleSheets(db) {
         .doc(studentID)
         .set(newStudentObject);
       const writeTime = newDoc.writeTime;
+
+      // Log this
       const newLog = {
         studentName: studentName,
         dateTime: new Date(),
         log: `Created student in academic database`,
       };
       logger.newLog(db, newLog);
+      console.log(`Added ${studentName} to the system.`);
     }
   }
 

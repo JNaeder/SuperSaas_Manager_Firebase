@@ -4,30 +4,16 @@ import { useState, useEffect } from "react";
 
 function StudentListSearch({ setAllStudents, db }) {
   const studentDB = collection(db, "supersaas_student");
-
-  const [creditKeywords, setCreditKeywords] = useState(["0", "-"]);
-  const [activeKeywords, setActiveKeyword] = useState(["inactive", "active"]);
+  const [activeKeywords, setActiveKeyword] = useState(["blocked"]);
 
   const onCheckboxChange = async (newValue) => {
-    if (newValue === "inactive") {
-      if (activeKeywords.includes(newValue)) {
-        setActiveKeyword(["active"]);
-      } else {
-        setActiveKeyword(["inactive", "active"]);
-      }
-    }
-
-    if (newValue === "active" || newValue === "blocked") {
-      const activeValue = newValue === "active" ? "-" : "0";
-      if (creditKeywords.includes(activeValue)) {
-        const arr = creditKeywords;
-        const newArr = arr.filter((x) => x !== activeValue);
-        setCreditKeywords(newArr);
-      } else {
-        const arr = creditKeywords;
-        arr.push(activeValue);
-        setCreditKeywords(arr);
-      }
+    if (activeKeywords.includes(newValue)) {
+      const newArr = activeKeywords.filter((x) => x != newValue);
+      setActiveKeyword(newArr);
+    } else {
+      const newArr = activeKeywords;
+      newArr.push(newValue);
+      setActiveKeyword(newArr);
     }
   };
 
@@ -41,15 +27,10 @@ function StudentListSearch({ setAllStudents, db }) {
       const output = await getDocs(newQuery);
       setAllStudents(output.docs);
     };
+    console.log(activeKeywords);
 
     getTheDocs();
-  }, [creditKeywords, activeKeywords]);
-
-  // const createNewSearch = async () => {
-  //   const newQuery = query(studentDB, where("status", "==", newValue));
-  //   const output = await getDocs(newQuery);
-  //   setAllStudents(output.docs);
-  // };
+  }, [activeKeywords]);
 
   return (
     <>
@@ -59,7 +40,6 @@ function StudentListSearch({ setAllStudents, db }) {
           type="checkbox"
           name="active"
           value="active"
-          defaultChecked
           onChange={(e) => onCheckboxChange(e.target.value)}
         />
         <label htmlFor="active">Blocked</label>
@@ -75,7 +55,6 @@ function StudentListSearch({ setAllStudents, db }) {
           type="checkbox"
           name="active"
           value="inactive"
-          defaultChecked
           onChange={(e) => onCheckboxChange(e.target.value)}
         />
       </form>

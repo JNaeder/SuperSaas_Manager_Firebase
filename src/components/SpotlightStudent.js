@@ -1,7 +1,6 @@
 import moment from "moment";
 
 function SpotlightStudent({ spotlightStudent }) {
-  // console.log(spotlightStudent);
   if (spotlightStudent) {
     const momentTime = moment(spotlightStudent["lastLogin"]);
     const newDate = momentTime.format("MM/DD/YYYY");
@@ -18,7 +17,7 @@ function SpotlightStudent({ spotlightStudent }) {
             <tr>
               <td>Mod</td>
               <td>
-                {spotlightStudent["status"] === "active"
+                {spotlightStudent["status"] !== "inactive"
                   ? spotlightStudent["mod"]
                   : "n/a"}
               </td>
@@ -30,7 +29,7 @@ function SpotlightStudent({ spotlightStudent }) {
             <tr>
               <td>GPA</td>
               <td>
-                {spotlightStudent["status"] === "active"
+                {spotlightStudent["status"] !== "inactive"
                   ? spotlightStudent["gpa"]
                   : "n/a"}
               </td>
@@ -38,7 +37,7 @@ function SpotlightStudent({ spotlightStudent }) {
             <tr>
               <td>ICR</td>
               <td>
-                {spotlightStudent["status"] === "active"
+                {spotlightStudent["status"] !== "inactive"
                   ? spotlightStudent["icr"]
                   : "n/a"}
                 %
@@ -47,7 +46,7 @@ function SpotlightStudent({ spotlightStudent }) {
             <tr>
               <td>Instructor</td>
               <td>
-                {spotlightStudent["status"] === "active"
+                {spotlightStudent["status"] !== "inactive"
                   ? spotlightStudent["instructor"]
                   : "n/a"}
               </td>

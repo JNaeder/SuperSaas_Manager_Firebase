@@ -1,12 +1,9 @@
 function calculateClassName(student) {
-  const theCredits = student["credits"];
   const status = student["status"];
   if (status === "active") {
-    if (theCredits === "-") {
-      return "student_file active";
-    } else {
-      return "student_file blocked";
-    }
+    return "student_file active";
+  } else if (status === "blocked") {
+    return "student_file blocked";
   } else {
     return "student_file inactive";
   }

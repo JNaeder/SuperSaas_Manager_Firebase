@@ -15,23 +15,13 @@ function StudentListPage({ app }) {
   const [spotlightStudent, setSpotlightStudent] = useState();
   const db = getFirestore(app);
 
-  useEffect(() => {
-    const studentDB = collection(db, "supersaas_student");
-
-    const getAllStudents = async () => {
-      const newQuery = query(studentDB, orderBy("lastName"));
-      const output = await getDocs(newQuery);
-      setAllStudents(output.docs);
-    };
-    getAllStudents();
-  }, []);
-
   return (
     <>
       <h1>Student List</h1>
       <div className="page_container">
         <div>
           <StudentListSearch setAllStudents={setAllStudents} db={db} />
+
           <div className="student_file_container">
             {allStudents.map((student, i) => (
               <StudentFile

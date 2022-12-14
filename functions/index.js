@@ -9,7 +9,7 @@ const db = admin.firestore();
 
 // ---------- Scheduled Stuff --------
 exports.getSheetInfoSchedule = functions.pubsub
-  .schedule("0 11 * * *")
+  .schedule("0 * * * *")
   .onRun(async () => {
     console.log("Start getSheetInfoSchedule");
     await googleSheets.getStudentDataFromGoogleSheets(db);
@@ -17,7 +17,7 @@ exports.getSheetInfoSchedule = functions.pubsub
   });
 
 exports.removeOldStudentsSchedule = functions.pubsub
-  .schedule("7 11 * * *")
+  .schedule("0 * * * *")
   .onRun(async () => {
     console.log("Start Remove Old Studnets");
     await supersaasManager.removeOldStudents(db);
@@ -25,7 +25,7 @@ exports.removeOldStudentsSchedule = functions.pubsub
   });
 
 exports.processAllStudentsSchedule = functions.pubsub
-  .schedule("15 11 * * *")
+  .schedule("0 * * * *")
   .onRun(async () => {
     console.log("Start process All Students");
     await supersaasManager.processSuperSaasUsers(db);
