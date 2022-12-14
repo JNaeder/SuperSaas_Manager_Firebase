@@ -8,7 +8,7 @@ import {
 import { useState, useEffect } from "react";
 import SpotlightStudent from "../components/SpotlightStudent";
 import StudentFile from "../components/StudentFile";
-import StudentListSearch from "./StudentListSearch";
+import StudentListSearch from "../components/StudentListSearch";
 
 function StudentListPage({ app }) {
   const [allStudents, setAllStudents] = useState([]);
