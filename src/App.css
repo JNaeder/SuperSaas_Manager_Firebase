@@ -18,6 +18,7 @@
   background-color: white;
   color: blue;
   border: white solid 1px;
+  border-radius: 10px;
   text-decoration: none;
   padding: 10px;
   margin: 10px;
@@ -46,8 +47,11 @@
 }
 
 .log_container {
+  margin: auto;
   height: 80vh;
   overflow-y: scroll;
+  width: 90%;
+  border-radius: 10px;
 }
 
 .log_table {
@@ -85,18 +89,17 @@ tr:nth-child(even) {
   height: 70vh;
   overflow-y: scroll;
   text-align: left;
-  background-color: black;
+  /* background-color: black; */
 }
 
 .student_file {
-  margin: 2px 0px;
-  /* border: solid black 1px; */
-  /* border-radius: 10px; */
-  width: 100%;
+  margin: 2px auto;
+  border-radius: 20px;
+  width: 75%;
   display: block;
   padding: 0px;
-  /* text-align: left; */
   border: none;
+  font-weight: bold;
 }
 
 .student_file:hover {
@@ -131,4 +134,5 @@ tr:nth-child(even) {
   font-size: 30px;
   border: solid black 1px;
   background-color: aliceblue;
+  padding: 10px 30px;
 }

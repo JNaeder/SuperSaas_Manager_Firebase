@@ -30,7 +30,7 @@ function App() {
           <Route path="/" element={<HomePage app={app} />} />
           <Route path="/studentlist" element={<StudentListPage app={app} />} />
           <Route path="/teacherbooking" element={<TeacherBookingPage />} />
-          <Route path="/todaybookings" element={<TodayBookings />} />
+          <Route path="/todaybookings" element={<TodayBookings app={app} />} />
           <Route path="/testing" element={<Testing />} />
         </Routes>
       </BrowserRouter>

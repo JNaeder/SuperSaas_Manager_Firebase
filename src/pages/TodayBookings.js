@@ -1,4 +1,7 @@
-function TodayBookings() {
+import { getSuperSaasTodayBookings } from "../myScripts/appFunctions";
+
+function TodayBookings({ app }) {
+  getSuperSaasTodayBookings();
   return (
     <>
       <h1>Today Booking</h1>

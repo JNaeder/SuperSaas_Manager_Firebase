@@ -5,16 +5,21 @@ import { useState, useEffect } from "react";
 function StudentListSearch({ setAllStudents, db }) {
   const studentDB = collection(db, "supersaas_student");
   const [activeKeywords, setActiveKeyword] = useState(["blocked"]);
+  const [sortValue, setSortValue] = useState("lastName");
 
   const onCheckboxChange = async (newValue) => {
     if (activeKeywords.includes(newValue)) {
-      const newArr = activeKeywords.filter((x) => x != newValue);
+      const newArr = activeKeywords.filter((x) => x !== newValue);
       setActiveKeyword(newArr);
     } else {
-      const newArr = activeKeywords;
+      const newArr = [...activeKeywords];
       newArr.push(newValue);
       setActiveKeyword(newArr);
     }
+  };
+
+  const onSortValueChange = async (newValue) => {
+    setSortValue(newValue);
   };
 
   useEffect(() => {
@@ -22,41 +27,54 @@ function StudentListSearch({ setAllStudents, db }) {
       const newQuery = query(
         studentDB,
         where("status", "in", activeKeywords),
-        orderBy("lastName")
+        orderBy(sortValue)
       );
       const output = await getDocs(newQuery);
       setAllStudents(output.docs);
     };
-    console.log(activeKeywords);
 
     getTheDocs();
-  }, [activeKeywords]);
+  }, [activeKeywords, sortValue]);
 
   return (
     <>
       <form>
-        <label htmlFor="active">Active</label>
-        <input
-          type="checkbox"
-          name="active"
-          value="active"
-          onChange={(e) => onCheckboxChange(e.target.value)}
-        />
-        <label htmlFor="active">Blocked</label>
-        <input
-          type="checkbox"
-          name="active"
-          value="blocked"
-          defaultChecked
-          onChange={(e) => onCheckboxChange(e.target.value)}
-        />
-        <label htmlFor="active">Inactive</label>
-        <input
-          type="checkbox"
-          name="active"
-          value="inactive"
-          onChange={(e) => onCheckboxChange(e.target.value)}
-        />
+        <div>
+          <label htmlFor="active">Active</label>
+          <input
+            type="checkbox"
+            name="active"
+            value="active"
+            onChange={(e) => onCheckboxChange(e.target.value)}
+          />
+          <label htmlFor="active">Blocked</label>
+          <input
+            type="checkbox"
+            name="active"
+            value="blocked"
+            defaultChecked
+            onChange={(e) => onCheckboxChange(e.target.value)}
+          />
+          <label htmlFor="active">Inactive</label>
+          <input
+            type="checkbox"
+            name="active"
+            value="inactive"
+            onChange={(e) => onCheckboxChange(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor="sortValue">Sort By:</label>
+          <select
+            name="sortValue"
+            onChange={(e) => onSortValueChange(e.target.value)}
+          >
+            <option value="lastName">Last Name</option>
+            <option value="gpa">GPA</option>
+            <option value="icr">ICR</option>
+            <option value="lastLogin">Last Login</option>
+          </select>
+        </div>
       </form>
     </>
   );

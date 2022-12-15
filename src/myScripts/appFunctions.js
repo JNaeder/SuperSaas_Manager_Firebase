@@ -41,6 +41,16 @@ export const getSuperSaasInfo = async () => {
   return output.data;
 };
 
+export const getSuperSaasTodayBookings = async () => {
+  console.log("Get Today Bookings");
+  const getTodayBookings = httpsCallable(
+    functions,
+    "getSuperSaasTodayBookings"
+  );
+  const output = await getTodayBookings();
+  console.log(output);
+};
+
 export const processSuperSaasStudents = async () => {
   const processSuperSaasStudents = httpsCallable(
     functions,

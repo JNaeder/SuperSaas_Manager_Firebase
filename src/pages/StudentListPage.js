@@ -1,11 +1,5 @@
-import {
-  collection,
-  getFirestore,
-  orderBy,
-  query,
-  getDocs,
-} from "firebase/firestore";
-import { useState, useEffect } from "react";
+import { getFirestore } from "firebase/firestore";
+import { useState } from "react";
 import SpotlightStudent from "../components/SpotlightStudent";
 import StudentFile from "../components/StudentFile";
 import StudentListSearch from "../components/StudentListSearch";

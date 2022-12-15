@@ -2,7 +2,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const googleSheets = require("./myScripts/googleSheets");
 const supersaasManager = require("./myScripts/supersaasManager");
-const logger = require("./myScripts/logger");
+const supersaas = require("./myScripts/supersaas");
 
 admin.initializeApp();
 const db = admin.firestore();
@@ -46,6 +46,11 @@ exports.removeOldStudents = functions.https.onCall(async () => {
 exports.getSupersaasUsers = functions.https.onCall(async () => {
   const allUsers = await supersaasManager.processSupersaasUsers(db);
   return allUsers;
+});
+
+exports.getSuperSaasTodayBookings = functions.https.onCaall(async () => {
+  const todayBookings = await supersaas.getAllAppointmentsfromToday();
+  return todayBookings;
 });
 
 exports.processSuperSaasStudents = functions.https.onCall(async () => {
