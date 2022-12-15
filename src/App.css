@@ -66,7 +66,7 @@
   text-align: left;
 }
 
-tr:nth-child(even) {
+.log_table tr:nth-child(even) {
   background-color: rgb(61, 61, 61);
 }
 
@@ -137,16 +137,31 @@ tr:nth-child(even) {
   padding: 10px 30px;
 }
 
+.todayBooking_table {
+  margin: auto;
+}
+
 .todayBooking_file {
-  background-color: rgb(71, 71, 71);
   color: white;
-  width: 50%;
-  margin: 10px auto;
-  padding: 2px 20px 2px 20px;
-  text-align: left;
-  border-radius: 20px;
-  display: flex;
-  justify-content: space-between;
+}
+
+.todayBooking_file td {
+  padding: 5px 20px;
+}
+
+.todayBooking_button {
+  border: none;
+  padding: 0px 10px;
+  color: white;
+  font-size: 30px;
+}
+
+.allow {
+  background-color: green;
+}
+
+.block {
+  background-color: red;
 }
 
 .suite {

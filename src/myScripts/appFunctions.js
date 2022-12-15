@@ -62,3 +62,8 @@ export const processAllBookings = async () => {
   const processAllBookings = httpsCallable(functions, "processAllBookings");
   await processAllBookings();
 };
+
+export const teacherBooking = async (bookingData) => {
+  const teacherBooking = httpsCallable(functions, "teacherBooking");
+  teacherBooking(bookingData);
+};

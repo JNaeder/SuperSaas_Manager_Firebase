@@ -252,8 +252,24 @@ async function logDeletedBooking(db, bookingData) {
   await logger.newLog(db, newLog);
 }
 
+async function teacherBooking(bookingData) {
+  const startDate = moment(bookingData["startDate"]);
+  const endDate = moment(bookingData["endDate"]);
+  const timeDiff = endDate.diff(startDate, "days");
+  const daysOfWeek = bookingData["daysOfWeek"];
+
+  for (let i = 0; i < timeDiff; i++) {
+    const currentDate = startDate.add(1, "days");
+    const dayName = currentDate.format("dddd");
+    if (daysOfWeek.includes(dayName)) {
+      supersaas.bookRoom(bookingData);
+    }
+  }
+}
+
 exports.processSuperSaasUsers = processSuperSaasUsers;
 exports.processStudentUser = processStudentUser;
 exports.processAllBookings = processAllBookings;
 exports.processBooking = processBooking;
 exports.logDeletedBooking = logDeletedBooking;
+exports.teacherBooking = teacherBooking;

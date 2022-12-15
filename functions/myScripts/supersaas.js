@@ -35,6 +35,13 @@ const updateUser = async function (supersaasID, newData) {
   return response.data;
 };
 
+const bookRoom = async function (bookingData) {
+  const url = `https://www.supersaas.com/api/bookings.json?schedule_id=${scheduleID}&account=${accountName}&api_key=${apiKey}`;
+  const payload = {
+    start: bookingData["start"],
+  };
+};
+
 const calculateCredits = function (studentData) {
   const { icr, gpa } = studentData;
   if (icr < 70.0 || gpa < 2.0) {
@@ -49,3 +56,4 @@ exports.updateAppointment = updateAppointment;
 exports.getAllUsers = getAllUsers;
 exports.updateUser = updateUser;
 exports.calculateCredits = calculateCredits;
+exports.bookRoom = bookRoom;

@@ -61,6 +61,10 @@ exports.processAllBookings = functions.https.onCall(async () => {
   await supersaasManager.processAllBookings(db);
 });
 
+exports.teacherBooking = functions.https.onCall(async (data, context) => {
+  await supersaasManager.teacherBooking(data);
+});
+
 // -------- Webhook Stuff --------------
 exports.addNewBookingWebHook = functions.https.onRequest(async (req, res) => {
   const bookingData = req.body;

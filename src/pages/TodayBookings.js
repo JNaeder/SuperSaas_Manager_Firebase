@@ -20,9 +20,23 @@ function TodayBookings({ app }) {
   return (
     <>
       <h1>Today Booking</h1>
-      {todayBookings.map((booking, i) => (
-        <TodayBookingFile booking={booking} key={i} />
-      ))}
+      <table className="todayBooking_table">
+        <thead>
+          <tr>
+            <td>Studio</td>
+            <td>Student Name</td>
+            <td>Start Time</td>
+            <td>End Timie</td>
+            <td>Allow</td>
+            <td>Block</td>
+          </tr>
+        </thead>
+        <tbody>
+          {todayBookings.map((booking, i) => (
+            <TodayBookingFile booking={booking} key={i} />
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }
