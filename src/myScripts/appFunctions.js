@@ -42,13 +42,12 @@ export const getSuperSaasInfo = async () => {
 };
 
 export const getSuperSaasTodayBookings = async () => {
-  console.log("Get Today Bookings");
   const getTodayBookings = httpsCallable(
     functions,
     "getSuperSaasTodayBookings"
   );
   const output = await getTodayBookings();
-  console.log(output);
+  return output;
 };
 
 export const processSuperSaasStudents = async () => {

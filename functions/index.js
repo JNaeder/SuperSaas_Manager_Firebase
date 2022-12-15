@@ -48,7 +48,7 @@ exports.getSupersaasUsers = functions.https.onCall(async () => {
   return allUsers;
 });
 
-exports.getSuperSaasTodayBookings = functions.https.onCaall(async () => {
+exports.getSuperSaasTodayBookings = functions.https.onCall(async () => {
   const todayBookings = await supersaas.getAllAppointmentsfromToday();
   return todayBookings;
 });

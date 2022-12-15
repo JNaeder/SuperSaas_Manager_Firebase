@@ -136,3 +136,39 @@ tr:nth-child(even) {
   background-color: aliceblue;
   padding: 10px 30px;
 }
+
+.todayBooking_file {
+  background-color: rgb(71, 71, 71);
+  color: white;
+  width: 50%;
+  margin: 10px auto;
+  padding: 2px 20px 2px 20px;
+  text-align: left;
+  border-radius: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.suite {
+  background-color: #5e35b1;
+}
+
+.audient {
+  background-color: #d81b60;
+}
+
+.ssl {
+  background-color: #01acc1;
+}
+
+.o2r {
+  background-color: #43a047;
+}
+
+.s6 {
+  background-color: #f9a825;
+}
+
+.neve {
+  background-color: #d81b60;
+}
