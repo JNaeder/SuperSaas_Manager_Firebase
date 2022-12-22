@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import SelectDaysOfWeek from "../components/SelectDaysOfWeek";
 import TeacherStudioSelection from "../components/TeacherStudioSelection";
 import TeacherTimeSelection from "../components/TeacherTimeSelection";
-import { teacherBooking } from "../myScripts/appFunctions";
+import { teacherBookingFunction } from "../myScripts/appFunctions";
 
 function TeacherBookingPage({ app }) {
   const [theDate, setTheDate] = useState();
@@ -38,8 +38,13 @@ function TeacherBookingPage({ app }) {
       endTime: endTime,
       mod: theMod,
     };
-    const output = await teacherBooking(payload);
-    console.log(output);
+    const output = await teacherBookingFunction(payload);
+    if (output === 201) {
+      alert("Successfully Created Bookings");
+      window.location.reload();
+    } else {
+      alert(`Could not create booking: Error code ${output}`);
+    }
   };
 
   useEffect(() => {
@@ -63,7 +68,11 @@ function TeacherBookingPage({ app }) {
           setTheMod={setTheMod}
           app={app}
         />
-        <Calendar onChange={setTheDate} selectRange={true} />
+        <Calendar
+          onChange={setTheDate}
+          selectRange={true}
+          calendarType={"US"}
+        />
         <TeacherTimeSelection
           setStartTime={setStartTime}
           setEndTime={setEndTime}

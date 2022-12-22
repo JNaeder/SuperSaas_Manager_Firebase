@@ -58,7 +58,7 @@ const bookRoom = async function (theDate, bookingData) {
   // console.log(payload);
   try {
     const response = await axios.post(url, payload);
-    return response;
+    return response.status;
   } catch (error) {
     return error.response.status;
   }

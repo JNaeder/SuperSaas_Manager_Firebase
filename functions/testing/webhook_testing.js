@@ -26,26 +26,28 @@ const newBookingPayload = {
 };
 
 const editBookingPayload = {
-  id: 81414012,
-  start: "2022-12-15T14:00",
-  finish: "2022-12-15T16:00",
-  resource_id: 866791,
-  created_on: "2022-12-13T02:40:54Z",
-  user_id: 11143691,
-  res_name: "Production Suite 3",
-  created_by: "22052045.us@saeinstitute.edu",
+  id: 81672782,
+  start: "2023-02-21T10:00",
+  finish: "2023-02-21T14:00",
+  resource_id: 772666,
+  created_on: "2022-12-22T17:27:49Z",
+  user_id: 9118085,
+  res_name: "SSL",
+  created_by: "alfred.johnson@sae.edu / *",
   price: 100,
-  deleted: false,
-  status: 104,
-  status_message: "Approved (unlimited credit)  ",
-  full_name: "Bailey Hamrick",
-  field_1_r: "Mod 2",
-  start_utc: "2022-12-15T19:00:00Z",
-  finish_utc: "2022-12-15T21:00:00Z",
-  email: "22052045.us@saeinstitute.edu",
+  deleted: true,
+  updated_on: "2022-12-22T17:30:26Z",
+  updated_by: "administrator",
+  status: 94,
+  status_message: "Administrator reversed approval",
+  full_name: "Alfred Johnson",
+  field_1_r: "Mod 3",
+  start_utc: "2023-02-21T15:00:00Z",
+  finish_utc: "2023-02-21T19:00:00Z",
+  email: "alfred.johnson@sae.edu",
   price_decimal: "1.00",
   role: 3,
-  event: "edit",
+  event: "destroy",
 };
 
 const newUserPayload = {
@@ -62,10 +64,10 @@ const newUserPayload = {
 };
 
 const main = async () => {
-  const url = `http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewBookingWebHook`;
-  // const url =
-  //   "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
-  axios.post(url, newBookingPayload);
+  // const url = `http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewBookingWebHook`;
+  const url =
+    "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
+  axios.post(url, editBookingPayload);
 };
 
 main();

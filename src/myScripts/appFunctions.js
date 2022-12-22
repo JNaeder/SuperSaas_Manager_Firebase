@@ -65,7 +65,7 @@ export const processAllBookings = async () => {
   console.log("Done!");
 };
 
-export const teacherBooking = async (bookingData) => {
+export const teacherBookingFunction = async (bookingData) => {
   const teacherBooking = httpsCallable(functions, "teacherBooking");
   const output = await teacherBooking(bookingData);
   return output.data;
