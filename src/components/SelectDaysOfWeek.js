@@ -4,6 +4,9 @@ function SelectDaysOfWeek({ daysOfWeek, setDaysOfWeek }) {
     const isChecked = e.target.checked;
 
     if (isChecked) {
+      if (!daysOfWeek) {
+        daysOfWeek = [];
+      }
       const listOfDays = [...daysOfWeek];
       listOfDays.push(newValue);
       setDaysOfWeek(listOfDays);

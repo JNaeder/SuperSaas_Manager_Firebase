@@ -55,14 +55,17 @@ exports.getSuperSaasTodayBookings = functions.https.onCall(async () => {
 
 exports.processSuperSaasStudents = functions.https.onCall(async () => {
   await supersaasManager.processSuperSaasUsers(db);
+  return;
 });
 
 exports.processAllBookings = functions.https.onCall(async () => {
   await supersaasManager.processAllBookings(db);
+  return;
 });
 
 exports.teacherBooking = functions.https.onCall(async (data, context) => {
-  await supersaasManager.teacherBooking(data);
+  const output = await supersaasManager.teacherBooking(data);
+  return output;
 });
 
 // -------- Webhook Stuff --------------

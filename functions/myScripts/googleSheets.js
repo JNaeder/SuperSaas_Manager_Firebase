@@ -88,9 +88,6 @@ async function getStudentDataFromGoogleSheets(db) {
       console.log(`Added ${studentName} to the system.`);
     }
   }
-
-  // Somehow loop through all the students in the database, and check to see if they are in the google sheet
-  // If not, remove them from the database
 }
 
 async function removeOldStudentsFromDB(db) {

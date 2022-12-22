@@ -146,7 +146,6 @@ async function processStudentUser(db, currentUser) {
 async function processAllBookings(db) {
   const allBookings = await supersaas.getAllFutureAppointments();
   for (let i = 0; i < allBookings.length; i++) {
-    // processBooking(db, allBookings[i]);
     const { created_by } = allBookings[i];
     const emailEnd = created_by.split("@")[1];
     if (emailEnd === "saeinstitute.edu") {
@@ -175,20 +174,27 @@ async function processBooking(db, bookingData) {
   const mod = parseInt(field_1_r.split(" ")[1]);
   const startTime = moment(start).format("MM/DD hh:mm A");
 
-  // Use the student ID to get academix data
+  // Use the student ID to get academic data
   const academicData = await academicStudents
     .doc(studentID)
     .get()
     .then((output) => output.data());
 
+  if (!academicData) {
+    console.log(
+      `${full_name} is not in the academic system. Cannot process booking.`
+    );
+    return;
+  }
+
   // See if student can even book the studio
   const correctMod = academicData["mod"];
   const studioRequirement = studioRequirements[res_name];
   const isAllowedToBook = correctMod >= studioRequirement;
-  console.log(res_name);
-  console.log(
-    `Correct Mod: ${correctMod} Student Req: ${studioRequirement} StudentName: ${academicData["fullName"]}`
-  );
+  // console.log(res_name);
+  // console.log(
+  //   `Correct Mod: ${correctMod} Student Req: ${studioRequirement} StudentName: ${academicData["fullName"]}`
+  // );
   if (!isAllowedToBook) {
     const newLog = {
       studentName: academicData["fullName"],
@@ -259,10 +265,11 @@ async function teacherBooking(bookingData) {
   const daysOfWeek = bookingData["daysOfWeek"];
 
   for (let i = 0; i < timeDiff; i++) {
-    const currentDate = startDate.add(1, "days");
-    const dayName = currentDate.format("dddd");
+    startDate.add(1, "days");
+    const dayName = startDate.format("dddd");
     if (daysOfWeek.includes(dayName)) {
-      supersaas.bookRoom(bookingData);
+      const output = await supersaas.bookRoom(startDate, bookingData);
+      return output;
     }
   }
 }
