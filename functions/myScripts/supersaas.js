@@ -30,9 +30,27 @@ const getAllUsers = async function () {
   return response.data;
 };
 
+const getUserByID = async function (supersaasID) {
+  const url = `https://supersaas.com/api/users/${supersaasID}.json?account=${accountName}&api_key=${apiKey}`;
+  try {
+    const response = await axios(url);
+    return response.status;
+  } catch (error) {
+    return error.response.status;
+  }
+};
+
 const updateUser = async function (supersaasID, newData) {
   const url = `https://supersaas.com/api/users/${supersaasID}.json?account=${accountName}&api_key=${apiKey}`;
   const response = await axios.put(url, newData);
+  return response.status;
+};
+
+const deleteUser = async function (supersaasID) {
+  console.log(`Deleted user ${supersaasID}`);
+  const url = `https://supersaas.com/api/users/${supersaasID}?account=${accountName}&api_key=${apiKey}`;
+  // console.log(url);
+  const response = await axios.delete(url);
   return response.data;
 };
 
@@ -54,8 +72,6 @@ const bookRoom = async function (theDate, bookingData) {
     full_name: theTeacher["fullName"],
     field_1_r: bookingData["mod"],
   };
-
-  // console.log(payload);
   try {
     const response = await axios.post(url, payload);
     return response.status;
@@ -76,6 +92,8 @@ exports.getAllAppointmentsfromToday = getAllAppointmentsfromToday;
 exports.getAllFutureAppointments = getAllFutureAppointments;
 exports.updateAppointment = updateAppointment;
 exports.getAllUsers = getAllUsers;
+exports.getUserByID = getUserByID;
 exports.updateUser = updateUser;
 exports.calculateCredits = calculateCredits;
+exports.deleteUser = deleteUser;
 exports.bookRoom = bookRoom;

@@ -91,6 +91,7 @@ async function getStudentDataFromGoogleSheets(db) {
 }
 
 async function removeOldStudentsFromDB(db) {
+  // Get student academic data from database
   const academicStudentDB = db.collection("academic_student");
   const result = await academicStudentDB.get();
   const allStudents = await result.docs.map((doc) => doc.data());
@@ -102,17 +103,21 @@ async function removeOldStudentsFromDB(db) {
   const allGoogleStudents = await sheet.getRows();
   const allStudentIDs = allGoogleStudents.map((student) => student["StuNum"]);
 
+  // Loop through all the students in the database
   for (let i = 0; i < allStudents.length; i++) {
     const theStudent = allStudents[i];
     const studentID = theStudent["studentID"];
+    // Check if current student ID is not in the google database
     if (!allStudentIDs.includes(studentID)) {
       console.log(
         `${theStudent["fullName"]} is NOT in the system. Deleted from Database.`
       );
+      // Remove student from academic database
       const docRef = academicStudentDB.doc(studentID);
       const output = await docRef.delete();
       console.log(`Deleted in ${output.writeTime.toDate()}`);
 
+      // Log it
       const newLog = {
         studentName: theStudent["fullName"],
         dateTime: new Date(),

@@ -1,6 +1,7 @@
 const supersaas = require("./supersaas");
 const logger = require("./logger");
 const moment = require("moment");
+const { all } = require("axios");
 
 const studioRequirements = {
   SSL: 3,
@@ -31,6 +32,56 @@ async function processSuperSaasUsers(db) {
       await processStudentUser(db, allUsers[i]);
     }
     // TODO: Setup something to process staff users as well
+  }
+}
+
+async function removeOldSupersaasAccounts(db) {
+  const supersaasStudentDB = db.collection("supersaas_student");
+  const allUsers = await supersaas.getAllUsers();
+  const today = moment(new Date());
+  for (let i = 0; i < allUsers.length; i++) {
+    const theUser = allUsers[i];
+    const emailEnding = theUser["name"].split("@")[1];
+    if (emailEnding === "saeinstitute.edu") {
+      const lastSignedIn = moment(theUser["last_login"]);
+      const daysSince = today.diff(lastSignedIn, "days");
+      if (daysSince > 30) {
+        // Get Data about the student from the Academic Databse
+        const supersaasID = theUser["id"].toString();
+        const studentDoc = await supersaasStudentDB.doc(supersaasID);
+        const output = await studentDoc.get();
+        const data = await output.data();
+        if (data["status"] === "inactive") {
+          supersaas.deleteUser(supersaasID);
+          // Add new log
+          const newLog = {
+            studentName: theUser["full_name"],
+            dateTime: new Date(),
+            log: `Deleted from Supersaas for being an inactive student, and not logged in for 30 days.`,
+          };
+          logger.newLog(db, newLog);
+        }
+      }
+    }
+  }
+
+  // Cleanup SuperSaas DB
+  cleanUpSuperSaasDB(db);
+}
+
+async function cleanUpSuperSaasDB(db) {
+  const supersaasStudentDB = db.collection("supersaas_student");
+  const qsnapshot = await supersaasStudentDB.get();
+  const docs = await qsnapshot.docs;
+  const data = docs.map((doc) => doc.data());
+  for (let i = 0; i < data.length; i++) {
+    const supersaasStudent = data[i];
+    const supersaasID = supersaasStudent["supersaasID"];
+    const statusCode = await supersaas.getUserByID(supersaasID);
+    if (statusCode !== 200) {
+      const output = await supersaasStudentDB.doc(supersaasID).delete();
+      console.log(output);
+    }
   }
 }
 
@@ -282,6 +333,7 @@ async function teacherBooking(bookingData) {
 }
 
 exports.processSuperSaasUsers = processSuperSaasUsers;
+exports.removeOldSupersaasAccounts = removeOldSupersaasAccounts;
 exports.processStudentUser = processStudentUser;
 exports.processAllBookings = processAllBookings;
 exports.processBooking = processBooking;

@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
-connectFunctionsEmulator(functions, "localhost", 5001);
+// connectFunctionsEmulator(functions, "localhost", 5001);
 
 export const getGoogleSheetInfo = async () => {
   console.log("Get Google Sheet Info");
@@ -31,6 +31,14 @@ export const removeOldStudents = async () => {
   console.log("Remove Old Students");
   const removeFunction = httpsCallable(functions, "removeOldStudents");
   const output = await removeFunction();
+  return output.data;
+};
+
+export const removeOldSupersaasAccounts = async () => {
+  console.log("Remove Old Supersaas Accounts");
+  const removeFunction = httpsCallable(functions, "removeOldSupersaasAccounts");
+  const output = await removeFunction();
+  console.log("Done");
   return output.data;
 };
 

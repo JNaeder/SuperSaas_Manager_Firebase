@@ -20,7 +20,7 @@ exports.removeOldStudentsSchedule = functions.pubsub
   .schedule("0 * * * *")
   .onRun(async () => {
     console.log("Start Remove Old Studnets");
-    await supersaasManager.removeOldStudents(db);
+    await googleSheets.removeOldStudentsFromDB(db);
     return null;
   });
 
@@ -40,6 +40,11 @@ exports.getSheetInfo = functions.https.onCall(async () => {
 
 exports.removeOldStudents = functions.https.onCall(async () => {
   const output = await googleSheets.removeOldStudentsFromDB(db);
+  return output;
+});
+
+exports.removeOldSupersaasAccounts = functions.https.onCall(async () => {
+  const output = await supersaasManager.removeOldSupersaasAccounts(db);
   return output;
 });
 

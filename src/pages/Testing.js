@@ -3,6 +3,7 @@ import {
   getGoogleSheetInfo,
   processAllBookings,
   removeOldStudents,
+  removeOldSupersaasAccounts,
 } from "../myScripts/appFunctions";
 
 function Testing() {
@@ -11,7 +12,12 @@ function Testing() {
       <h1>Testing Links</h1>
       <div className="button_container">
         <button onClick={getGoogleSheetInfo}>Update Academic Student</button>
-        <button onClick={removeOldStudents}>Remove Old Students</button>
+        <button onClick={removeOldStudents}>
+          Remove Old Academic Students
+        </button>
+        <button onClick={removeOldSupersaasAccounts}>
+          Remove Old SuperSaas Accounts
+        </button>
         <button onClick={processSuperSaasStudents}>Update All Users</button>
         <button onClick={processAllBookings}>Update All Bookings</button>
       </div>
