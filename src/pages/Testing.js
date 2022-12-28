@@ -4,6 +4,7 @@ import {
   processAllBookings,
   removeOldStudents,
   removeOldSupersaasAccounts,
+  getTodayBookings,
 } from "../myScripts/appFunctions";
 
 function Testing() {
@@ -20,6 +21,7 @@ function Testing() {
         </button>
         <button onClick={processSuperSaasStudents}>Update All Users</button>
         <button onClick={processAllBookings}>Update All Bookings</button>
+        <button onClick={getTodayBookings}>Get Today Bookings</button>
       </div>
     </>
   );

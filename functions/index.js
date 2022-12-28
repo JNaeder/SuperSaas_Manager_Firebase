@@ -34,6 +34,11 @@ exports.processAllStudentsSchedule = functions.pubsub
   });
 
 // ---------- Button Stuff -------------
+exports.getTodayBookings = functions.https.onCall(async () => {
+  const output = supersaasManager.getTodayBookings(db);
+  return output;
+});
+
 exports.getSheetInfo = functions.https.onCall(async () => {
   const output = await googleSheets.getStudentDataFromGoogleSheets(db);
   return output;

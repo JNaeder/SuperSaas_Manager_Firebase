@@ -11,6 +11,13 @@ function Navigation() {
     setCurrentLocation(newRoute);
   };
 
+  const openLink = () => {
+    window.open(
+      "https://supersaas.com/schedule/SAE_New_York/5th_Floor_Booking",
+      "_blank"
+    );
+  };
+
   useEffect(() => {
     const allLinks = document.getElementById("nav").children;
     for (let i = 0; i < allLinks.length; i++) {
@@ -46,6 +53,9 @@ function Navigation() {
         id="/todaybookings"
       >
         Today Bookings
+      </button>
+      <button className="nav_button" onClick={openLink}>
+        SuperSaas Page
       </button>
       <button
         className="nav_button hide"

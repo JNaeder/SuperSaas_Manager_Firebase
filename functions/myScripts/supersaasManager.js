@@ -332,6 +332,34 @@ async function teacherBooking(bookingData) {
   return 201;
 }
 
+async function getTodayBookings(db) {
+  const todayBookingDB = db.collection("today_bookings");
+  const output = [];
+
+  // Delete all old ones first
+  const allDocs = await todayBookingDB.listDocuments();
+  for (let i = 0; i < allDocs.length; i++) {
+    const doc = await allDocs[i].get();
+    const data = await doc.data();
+    output.push(data);
+  }
+
+  const allSuperSaasBookings = await supersaas.getAllAppointmentsfromToday();
+  for (let i = 0; i < allSuperSaasBookings.length; i++) {
+    const { id, start, finish, user_id, res_name, full_name, created_by } =
+      allSuperSaasBookings[i];
+    const bookingData = {
+      booking_id: id,
+      student_name: full_name,
+      student_email: created_by,
+      studio: res_name,
+      start_time: start,
+      end_time: finish,
+      supersaas_id: user_id,
+    };
+  }
+}
+
 exports.processSuperSaasUsers = processSuperSaasUsers;
 exports.removeOldSupersaasAccounts = removeOldSupersaasAccounts;
 exports.processStudentUser = processStudentUser;
@@ -339,3 +367,4 @@ exports.processAllBookings = processAllBookings;
 exports.processBooking = processBooking;
 exports.logDeletedBooking = logDeletedBooking;
 exports.teacherBooking = teacherBooking;
+exports.getTodayBookings = getTodayBookings;
