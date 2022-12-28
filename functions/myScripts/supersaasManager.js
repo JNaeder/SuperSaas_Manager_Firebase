@@ -1,6 +1,6 @@
 const supersaas = require("./supersaas");
 const logger = require("./logger");
-const moment = require("moment");
+const moment = require("moment-timezone");
 const { all } = require("axios");
 
 const studioRequirements = {
@@ -227,9 +227,7 @@ async function processBooking(db, bookingData) {
   const startTime = moment(start).format("MM/DD hh:mm A");
 
   // Check if the booking is for today. Add it to the DB if it is
-  const todayDate = moment(
-    new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
-  );
+  const todayDate = moment.tz(new Date(), "America/New_York");
   const bookingIsToday = moment(start).isSame(todayDate, "day");
   if (bookingIsToday) {
     addTodayBooking(todayBookingDB, bookingData);
@@ -342,15 +340,20 @@ async function teacherBooking(bookingData) {
 
 async function getTodayBookings(db) {
   const todayBookingDB = db.collection("today_bookings");
-  const output = [];
 
   // Delete all old ones first
   const allDocs = await todayBookingDB.listDocuments();
+  const todayDate = moment.tz(new Date(), "America/New_York");
+  console.log(todayDate);
   for (let i = 0; i < allDocs.length; i++) {
     const doc = await allDocs[i].get();
     const data = await doc.data();
-    output.push(data);
-    // Check date and delete if not today
+    const bookingDate = moment(data["start_time"]);
+    if (!bookingDate.isSame(todayDate, "day")) {
+      const docRef = todayBookingDB.doc(data["booking_id"].toString());
+      await docRef.delete();
+      console.log(`Deleted booking ${data["booking_id"]}`);
+    }
   }
 
   const allSuperSaasBookings = await supersaas.getAllAppointmentsfromToday();
