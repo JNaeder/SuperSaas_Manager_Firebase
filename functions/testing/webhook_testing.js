@@ -2,7 +2,7 @@ const axios = require("axios");
 
 const newBookingPayload = {
   id: 81474473,
-  start: "2022-12-19T14:00",
+  start: "2022-12-27T14:00",
   finish: "2022-12-19T16:00",
   resource_id: 772665,
   created_on: "2022-12-14T17:59:18Z",
@@ -64,10 +64,10 @@ const newUserPayload = {
 };
 
 const main = async () => {
-  // const url = `http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewBookingWebHook`;
-  const url =
-    "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
-  axios.post(url, editBookingPayload);
+  const url = `http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewBookingWebHook`;
+  // const url =
+  //   "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
+  axios.post(url, newBookingPayload);
 };
 
 main();

@@ -208,6 +208,7 @@ async function processAllBookings(db) {
 async function processBooking(db, bookingData) {
   // Get Collection reference to the academic database
   const academicStudents = db.collection("academic_student");
+  const todayBookingDB = db.collection("today_bookings");
 
   // Pull all the data I need from the booking data
   const {
@@ -224,6 +225,15 @@ async function processBooking(db, bookingData) {
   const studentID = created_by.split(".")[0];
   const mod = parseInt(field_1_r.split(" ")[1]);
   const startTime = moment(start).format("MM/DD hh:mm A");
+
+  // Check if the booking is for today. Add it to the DB if it is
+  const todayDate = moment(
+    new Date().toLocaleString("en-US", { timeZone: "America/New_York" })
+  );
+  const bookingIsToday = moment(start).isSame(todayDate, "day");
+  if (bookingIsToday) {
+    addTodayBooking(todayBookingDB, bookingData);
+  }
 
   // Use the student ID to get academic data
   const academicData = await academicStudents
@@ -242,11 +252,9 @@ async function processBooking(db, bookingData) {
   const correctMod = academicData["mod"];
   const studioRequirement = studioRequirements[res_name];
   const isAllowedToBook = correctMod >= studioRequirement;
-  // console.log(res_name);
-  // console.log(
-  //   `Correct Mod: ${correctMod} Student Req: ${studioRequirement} StudentName: ${academicData["fullName"]}`
-  // );
   if (!isAllowedToBook) {
+    // PLACEHOLDER - delete booking and email the student.
+
     const newLog = {
       studentName: academicData["fullName"],
       dateTime: new Date(),
@@ -342,21 +350,36 @@ async function getTodayBookings(db) {
     const doc = await allDocs[i].get();
     const data = await doc.data();
     output.push(data);
+    // Check date and delete if not today
   }
 
   const allSuperSaasBookings = await supersaas.getAllAppointmentsfromToday();
+
+  // Go through all today bookings on supersaas and add them to the database
   for (let i = 0; i < allSuperSaasBookings.length; i++) {
-    const { id, start, finish, user_id, res_name, full_name, created_by } =
-      allSuperSaasBookings[i];
-    const bookingData = {
-      booking_id: id,
-      student_name: full_name,
-      student_email: created_by,
-      studio: res_name,
-      start_time: start,
-      end_time: finish,
-      supersaas_id: user_id,
-    };
+    addTodayBooking(todayBookingDB, allSuperSaasBookings[i]);
+  }
+}
+
+async function addTodayBooking(todayBookingDB, theBookingData) {
+  const { id, start, finish, user_id, res_name, full_name, created_by } =
+    theBookingData;
+  const bookingData = {
+    booking_id: id,
+    student_name: full_name,
+    student_email: created_by,
+    studio: res_name,
+    start_time: start,
+    end_time: finish,
+    supersaas_id: user_id,
+    status: "OPEN",
+  };
+
+  const oldDoc = await todayBookingDB.doc(id.toString()).get();
+  if (!oldDoc.exists) {
+    const newDoc = todayBookingDB.doc(id.toString());
+    const result = await newDoc.create(bookingData);
+    console.log(`Wrote Data at ${result.writeTime.toDate()}`);
   }
 }
 
