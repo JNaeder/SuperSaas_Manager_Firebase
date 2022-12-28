@@ -1,5 +1,6 @@
 import { getFirestore, collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import TodayBookingContainer from "../components/TodayBookingContainer";
 
 function TodayBookings({ app }) {
   const [todayBookings, setTodayBookings] = useState([]);
@@ -19,9 +20,7 @@ function TodayBookings({ app }) {
   return (
     <>
       <h1>Today Bookings</h1>
-      {todayBookings.map((booking, i) => (
-        <h3 key={i}>{booking["student_name"]}</h3>
-      ))}
+      <TodayBookingContainer todayBookings={todayBookings} />
     </>
   );
 }
