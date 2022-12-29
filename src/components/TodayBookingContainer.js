@@ -5,8 +5,9 @@ function TodayBookingContainer({ todayBookings }) {
   return (
     <>
       <div className="booking_container">
-        <div className="booking">TEST</div>
-        <div className="booking">HEY</div>
+        {todayBookings.map((booking, i) => (
+          <TodayBookingFile booking={booking} key={i} />
+        ))}
       </div>
     </>
   );

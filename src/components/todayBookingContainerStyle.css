@@ -1,14 +1,8 @@
-.today_booking_table {
-  margin: auto;
+.booking_container {
   background-color: aqua;
+  margin: auto;
   display: grid;
-  grid-template-columns: 50px;
-  grid-template-rows: 50px;
+  grid-template-columns: repeat(10, 100px);
+  grid-template-rows: repeat(10, 40px);
   width: 80%;
-}
-
-.booking {
-  background-color: blueviolet;
-  grid-column-start: 2;
-  grid-column-end: 4;
 }
