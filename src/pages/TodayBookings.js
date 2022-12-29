@@ -1,4 +1,10 @@
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import {
+  getFirestore,
+  collection,
+  getDocs,
+  query,
+  onSnapshot,
+} from "firebase/firestore";
 import { useState, useEffect } from "react";
 import TodayBookingContainer from "../components/TodayBookingContainer";
 
@@ -9,17 +15,23 @@ function TodayBookings({ app }) {
     const getData = async () => {
       const db = getFirestore(app);
       const todayBookingDB = collection(db, "today_bookings");
-      const docs = await getDocs(todayBookingDB);
+      onSnapshot(todayBookingDB, (output) => {
+        const data = [];
+        output.docs.forEach((doc) => {
+          data.push(doc.data());
+        });
+        setTodayBookings(data);
+      });
+      // const docs = await getDocs(todayBookingDB);
       const data = [];
-      docs.forEach((doc) => data.push(doc.data()));
-      setTodayBookings(data);
+      // docs.forEach((doc) => data.push(doc.data()));
+      // setTodayBookings(data);
     };
     getData();
   }, []);
 
   return (
     <>
-      <h1>Today Bookings</h1>
       <TodayBookingContainer todayBookings={todayBookings} />
     </>
   );

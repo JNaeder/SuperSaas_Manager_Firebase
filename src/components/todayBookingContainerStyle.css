@@ -3,11 +3,11 @@
   border-radius: 10px;
   background-color: rgb(187, 187, 187);
   display: grid;
-  grid-template-columns: repeat(10, 100px);
-  grid-template-rows: 20px repeat(12, 5vh);
-  gap: 10px 10px;
-  width: 80%;
-  margin: 0px auto;
+  grid-template-columns: repeat(10, 7vw);
+  grid-template-rows: 20px repeat(12, 6vh);
+  gap: 1vh 1vw;
+  width: 80vw;
+  margin: 10px auto;
   padding: 0px;
 }
 
@@ -23,18 +23,19 @@
   box-shadow: 1px 1px 5px black;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: flex-end;
 }
 
 .booking_student_name {
   margin: 2px;
-  font-size: 14px;
+  font-size: 0.75rem;
   font-weight: normal;
 }
 
 .booking_buttons_container {
   background-color: black;
   padding: 5px 0px;
+  border-radius: 0px 0px 10px 10px;
 }
 
 .booking_button {

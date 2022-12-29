@@ -229,6 +229,7 @@ async function processBooking(db, bookingData) {
   // Check if the booking is for today. Add it to the DB if it is
   const todayDate = moment.tz(new Date(), "America/New_York");
   const bookingIsToday = moment(start).isSame(todayDate, "day");
+  console.log(bookingData);
   if (bookingIsToday) {
     addTodayBooking(todayBookingDB, bookingData);
   }
@@ -304,11 +305,19 @@ async function processBooking(db, bookingData) {
 }
 
 async function logDeletedBooking(db, bookingData) {
+  // Get data from booking data
   const { full_name, res_name, start, email } = bookingData;
   const emailEnding = email.split("@")[1];
+
+  // Remove it from today bookings
+  const todayBookingDB = db.collection("today_bookings");
+  // const doc = todayBookingDB.doc()
+
+  // Don't log if a non-user deletes a booking
   if (emailEnding !== "saeinstitute.edu") {
     return;
   }
+  // Start the Log
   const startTime = moment(start).format("MM/DD hh:mm A");
   const newString = `Deleted the ${res_name} booking for ${startTime}`;
   const newLog = {
