@@ -33,6 +33,14 @@ exports.processAllStudentsSchedule = functions.pubsub
     return null;
   });
 
+exports.getTodayBookingsSchedule = functions.pubsub
+  .schedule("0 1 * * *")
+  .onRun(async () => {
+    console.log("Get Today Bookings");
+    await supersaasManager.getTodayBookings(db);
+    return null;
+  });
+
 // ---------- Button Stuff -------------
 exports.getTodayBookings = functions.https.onCall(async () => {
   const output = supersaasManager.getTodayBookings(db);
