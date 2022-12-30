@@ -210,7 +210,7 @@ async function processBooking(db, bookingData) {
   const academicStudents = db.collection("academic_student");
   const todayBookingDB = db.collection("today_bookings");
 
-  // Pull all the data I need from the booking data
+  // Pull all the data needed from the booking data
   const {
     id: booking_id,
     res_name,
@@ -230,10 +230,10 @@ async function processBooking(db, bookingData) {
   const todayDate = moment.tz(new Date(), "America/New_York");
   const startDate = moment.tz(start, "America/New_York");
   const bookingIsToday = startDate.isSame(todayDate, "day");
-  console.log(todayDate);
-  console.log(startDate);
-  console.log(`Is booking today: ${bookingIsToday}`);
   if (bookingIsToday) {
+    if (event === "edit") {
+      deleteTodayBooking(todayBookingDB, booking_id);
+    }
     addTodayBooking(todayBookingDB, bookingData);
   }
 
@@ -307,7 +307,7 @@ async function processBooking(db, bookingData) {
   }
 }
 
-async function logDeletedBooking(db, bookingData) {
+async function deleteBooking(db, bookingData) {
   // Get data from booking data
   const { full_name, res_name, start, email, id } = bookingData;
   const emailEnding = email.split("@")[1];
@@ -360,15 +360,12 @@ async function getTodayBookings(db) {
   // Delete all old ones first
   const allDocs = await todayBookingDB.listDocuments();
   const todayDate = moment.tz(new Date(), "America/New_York");
-  console.log(todayDate);
   for (let i = 0; i < allDocs.length; i++) {
     const doc = await allDocs[i].get();
     const data = await doc.data();
     const bookingDate = moment(data["start_time"]);
     if (!bookingDate.isSame(todayDate, "day")) {
-      const docRef = todayBookingDB.doc(data["booking_id"].toString());
-      await docRef.delete();
-      console.log(`Deleted booking ${data["booking_id"]}`);
+      deleteTodayBooking(todayBookingDB, data["booking_id"]);
     }
   }
 
@@ -402,11 +399,17 @@ async function addTodayBooking(todayBookingDB, theBookingData) {
   }
 }
 
+async function deleteTodayBooking(todayBookingDB, booking_id) {
+  const docRef = todayBookingDB.doc(booking_id.toString());
+  await docRef.delete();
+  console.log(`Deleted booking ${booking_id}`);
+}
+
 exports.processSuperSaasUsers = processSuperSaasUsers;
 exports.removeOldSupersaasAccounts = removeOldSupersaasAccounts;
 exports.processStudentUser = processStudentUser;
 exports.processAllBookings = processAllBookings;
 exports.processBooking = processBooking;
-exports.logDeletedBooking = logDeletedBooking;
+exports.deleteBooking = deleteBooking;
 exports.teacherBooking = teacherBooking;
 exports.getTodayBookings = getTodayBookings;

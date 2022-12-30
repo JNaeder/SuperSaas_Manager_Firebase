@@ -98,7 +98,7 @@ exports.changeBookingWebHook = functions.https.onRequest(async (req, res) => {
   const bookingData = req.body;
   const { event } = bookingData;
   if (event === "destroy") {
-    supersaasManager.logDeletedBooking(db, bookingData);
+    supersaasManager.deleteBooking(db, bookingData);
   } else {
     await supersaasManager.processBooking(db, bookingData);
   }
