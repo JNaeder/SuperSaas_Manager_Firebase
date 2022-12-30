@@ -16,6 +16,13 @@
   margin: 0px auto;
 }
 
+.booking_time {
+  height: 100%;
+  border-top: solid black 1px;
+  /* border-radius: 10px; */
+  margin: 0;
+}
+
 .booking {
   color: white;
   border-radius: 10px;

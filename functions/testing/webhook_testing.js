@@ -1,32 +1,32 @@
 const axios = require("axios");
 
 const newBookingPayload = {
-  id: 81773234,
+  id: 81784192,
   start: "2022-12-29T10:00",
   finish: "2022-12-29T12:00",
-  resource_id: 740582,
-  created_on: "2022-12-29T14:58:50Z",
-  user_id: 11429396,
-  res_name: "Production Suite 1",
-  created_by: "22051974.us@saeinstitute.edu / administrator",
+  resource_id: 866791,
+  created_on: "2022-12-30T02:13:30Z",
+  user_id: 11115289,
+  res_name: "Production Suite 3",
+  created_by: "22031592.us@saeinstitute.edu / administrator",
   price: 100,
-  deleted: true,
-  updated_on: "2022-12-29T14:59:13Z",
-  updated_by: "22051974.us@saeinstitute.edu / administrator",
-  status: 94,
-  status_message: "Administrator reversed approval",
-  full_name: "Eric Seith",
-  field_1_r: "Mod 2",
+  deleted: false,
+  updated_on: "2022-12-30T02:13:36Z",
+  updated_by: "administrator",
+  status: 104,
+  status_message: "Approved (unlimited credit)  ",
+  full_name: "Seydu Niang",
+  field_1_r: "Mod 3",
   start_utc: "2022-12-29T15:00:00Z",
   finish_utc: "2022-12-29T17:00:00Z",
-  email: "22051974.us@saeinstitute.edu",
+  email: "22031592.us@saeinstitute.edu",
   price_decimal: "1.00",
   role: 3,
   event: "create",
 };
 
 const editBookingPayload = {
-  id: 81672782,
+  id: 81758792,
   start: "2023-02-21T10:00",
   finish: "2023-02-21T14:00",
   resource_id: 772666,
@@ -66,7 +66,7 @@ const newUserPayload = {
 const main = async () => {
   const url = `http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewBookingWebHook`;
   // const url =
-  //   "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
+  // "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
   axios.post(url, newBookingPayload);
 };
 

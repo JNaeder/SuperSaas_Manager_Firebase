@@ -5,7 +5,7 @@ const chooseColor = (res_name) => {
   if (res_name.includes("Suite")) {
     return "#5e35b1";
   } else if (res_name.includes("Audient")) {
-    return "#d81b60";
+    return "#d2635a";
   } else if (res_name.includes("02R")) {
     return "#43a047";
   } else if (res_name.includes("Neve")) {
@@ -38,6 +38,7 @@ const getColumn = (res_name) => {
     case "SSL":
       return 8;
     case "Avid S6":
+    case "Avid_S6":
       return 9;
     case "Neve":
       return 10;
