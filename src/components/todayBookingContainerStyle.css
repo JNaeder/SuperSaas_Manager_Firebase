@@ -3,10 +3,10 @@
   border-radius: 10px;
   background-color: rgb(187, 187, 187);
   display: grid;
-  grid-template-columns: repeat(10, 7vw);
+  grid-template-columns: repeat(10, 8.5vw);
   grid-template-rows: 20px repeat(12, 6vh);
-  gap: 1vh 1vw;
-  width: 80vw;
+  gap: 0.5vh 0.5vw;
+  width: 90vw;
   margin: 10px auto;
   padding: 0px;
 }
@@ -15,9 +15,14 @@
   border-top: solid black 1px;
 }
 
+.booking_lines_horizontal {
+  /* background-color: aqua; */
+  border-left: solid black 1px;
+}
+
 .booking_title {
   grid-row: 1;
-  font-size: 2vw;
+  font-size: 2vh;
   margin: 0px auto;
 }
 
@@ -31,11 +36,12 @@
 .booking {
   color: white;
   border-radius: 10px;
-  margin-top: 10px;
+  margin-top: 0.5vh;
+  margin-left: 0.5vw;
   box-shadow: 1px 1px 5px black;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
 }
 
 .booking_student_name {

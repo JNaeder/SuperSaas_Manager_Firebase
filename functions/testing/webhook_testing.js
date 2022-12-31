@@ -1,73 +1,62 @@
 const axios = require("axios");
 
 const newBookingPayload = {
-  id: 81784192,
-  start: "2022-12-29T10:00",
-  finish: "2022-12-29T12:00",
-  resource_id: 866791,
-  created_on: "2022-12-30T02:13:30Z",
-  user_id: 11115289,
-  res_name: "Production Suite 3",
-  created_by: "22031592.us@saeinstitute.edu / administrator",
+  id: 81800412,
+  start: "2022-12-30T18:00",
+  finish: "2022-12-30T20:00",
+  resource_id: 772666,
+  created_on: "2022-12-31T03:18:49Z",
+  user_id: 0,
+  res_name: "SSL",
+  created_by: "administrator",
   price: 100,
   deleted: false,
-  updated_on: "2022-12-30T02:13:36Z",
-  updated_by: "administrator",
   status: 104,
   status_message: "Approved (unlimited credit)  ",
-  full_name: "Seydu Niang",
-  field_1_r: "Mod 3",
-  start_utc: "2022-12-29T15:00:00Z",
-  finish_utc: "2022-12-29T17:00:00Z",
-  email: "22031592.us@saeinstitute.edu",
+  full_name: "SAE Institute of Technology - New York",
+  field_1_r: "Mod 1",
+  start_utc: "2022-12-30T23:00:00Z",
+  finish_utc: "2022-12-31T01:00:00Z",
   price_decimal: "1.00",
   role: 3,
   event: "create",
 };
 
 const editBookingPayload = {
-  id: 81758792,
-  start: "2023-02-21T10:00",
-  finish: "2023-02-21T14:00",
-  resource_id: 772666,
-  created_on: "2022-12-22T17:27:49Z",
-  user_id: 9118085,
-  res_name: "SSL",
-  created_by: "alfred.johnson@sae.edu / *",
+  id: 81800412,
+  start: "2022-12-30T18:00",
+  finish: "2022-12-30T20:00",
+  resource_id: 740587,
+  created_on: "2022-12-31T03:18:49Z",
+  user_id: 0,
+  res_name: "Avid S6",
+  created_by: "administrator",
   price: 100,
-  deleted: true,
-  updated_on: "2022-12-22T17:30:26Z",
+  deleted: false,
+  updated_on: "2022-12-31T03:19:08Z",
   updated_by: "administrator",
-  status: 94,
-  status_message: "Administrator reversed approval",
-  full_name: "Alfred Johnson",
-  field_1_r: "Mod 3",
-  start_utc: "2023-02-21T15:00:00Z",
-  finish_utc: "2023-02-21T19:00:00Z",
-  email: "alfred.johnson@sae.edu",
+  status: 104,
+  status_message: "Approved (unlimited credit)  ",
+  full_name: "SAE Institute of Technology - New York",
+  field_1_r: "Mod 1",
+  start_utc: "2022-12-30T23:00:00Z",
+  finish_utc: "2022-12-31T01:00:00Z",
   price_decimal: "1.00",
   role: 3,
-  event: "destroy",
+  event: "edit",
 };
 
-const newUserPayload = {
-  id: 11506891,
-  fk: null,
-  created_on: "2022-12-12T15:23:53Z",
-  role: 3,
-  last_login: "2022-12-12T15:25:24Z",
-  name: "22052066.us@saeinstitute.edu",
-  full_name: "Justin Dantes",
-  credit: "10",
-  email: "22052066.us@saeinstitute.edu",
-  event: "new",
-};
-
-const main = async () => {
-  const url = `http://127.0.0.1:5001/sae-supersaas-manager/us-central1/addNewBookingWebHook`;
-  // const url =
-  // "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
+const createBooking = async () => {
+  const url =
+    "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
   axios.post(url, newBookingPayload);
 };
 
-main();
+const editBooking = async () => {
+  const url =
+    "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";
+  axios.post(url, editBookingPayload);
+};
+
+// createBooking();
+editBooking();

@@ -92,6 +92,43 @@ function TodayBookingContainer({ todayBookings, todayBookingDB }) {
           style={{ gridRow: "12  / span 2", gridColumn: "1 / span 10" }}
           className="booking_lines"
         ></div>
+
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "2" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "3" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "4" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "5" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "6" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "7" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "8" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "9" }}
+          className="booking_lines_horizontal"
+        ></div>
+        <div
+          style={{ gridRow: "1 / span 13", gridColumn: "10" }}
+          className="booking_lines_horizontal"
+        ></div>
         {todayBookings.map((booking, i) => (
           <TodayBookingFile
             booking={booking}

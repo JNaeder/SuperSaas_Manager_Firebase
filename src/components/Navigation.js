@@ -35,6 +35,13 @@ function Navigation() {
       </button>
       <button
         className="nav_button"
+        onClick={() => changeRoute("/logs")}
+        id="/logs"
+      >
+        Logs
+      </button>
+      <button
+        className="nav_button"
         onClick={() => changeRoute("/teacherbooking")}
         id="/teacherbooking"
       >

@@ -5,6 +5,7 @@
   "dependencies": {
     "firebase": "^9.14.0",
     "firebase-functions": "^4.1.1",
+    "firebaseui": "^6.0.2",
     "google-spreadsheet": "^3.3.0",
     "latest-version": "^7.0.0",
     "moment": "^2.29.4",

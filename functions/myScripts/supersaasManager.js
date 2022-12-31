@@ -232,8 +232,9 @@ async function processBooking(db, bookingData) {
   const bookingIsToday = startDate.isSame(todayDate, "day");
   if (bookingIsToday) {
     if (event === "edit") {
-      deleteTodayBooking(todayBookingDB, booking_id);
+      await deleteTodayBooking(todayBookingDB, booking_id);
     }
+    console.log("Make new booking");
     addTodayBooking(todayBookingDB, bookingData);
   }
 
