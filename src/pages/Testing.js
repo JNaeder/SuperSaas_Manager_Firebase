@@ -6,8 +6,19 @@ import {
   removeOldSupersaasAccounts,
   getTodayBookings,
 } from "../myScripts/appFunctions";
+import { updateProfile } from "firebase/auth";
+import { useState } from "react";
 
-function Testing() {
+function Testing({ auth }) {
+  const [theDisplayName, setTheDisplayName] = useState("");
+
+  const setDisplayName = async (e) => {
+    e.preventDefault();
+    await updateProfile(auth.currentUser, {
+      displayName: theDisplayName,
+    });
+    console.log(`Changed display name to ${theDisplayName}`);
+  };
   return (
     <>
       <h1>Testing Links</h1>
@@ -23,6 +34,19 @@ function Testing() {
         <button onClick={processAllBookings}>Update All Bookings</button>
         <button onClick={getTodayBookings}>Get Today Bookings</button>
       </div>
+
+      <form>
+        <label htmlFor="displayName">Display Name</label>
+        <input
+          type="text"
+          name="display_name"
+          onChange={(e) => setTheDisplayName(e.target.value)}
+        />
+
+        <button type="submit" onClick={setDisplayName}>
+          Set Info
+        </button>
+      </form>
     </>
   );
 }

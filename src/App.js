@@ -1,13 +1,10 @@
 import "./App.css";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { initializeApp } from "firebase/app";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import HomePage from "./pages/HomePage";
-import Navigation from "./components/Navigation";
-import StudentListPage from "./pages/StudentListPage";
-import TeacherBookingPage from "./pages/TeacherBookingPage";
-import TodayBookings from "./pages/TodayBookings";
-import Testing from "./pages/Testing";
-import LogsPage from "./pages/LogsPage";
+import { BrowserRouter } from "react-router-dom";
+import { useState } from "react";
+import RoutingStuff from "./components/RoutingStuff";
+import LogInPage from "./pages/LogInPage";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA_vtl1iTjk7KR_5JElhtFX5ycWAWjVpxE",
@@ -22,22 +19,21 @@ const firebaseConfig = {
 
 function App() {
   const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const [currentUser, setCurrentUser] = useState(auth.currentUser);
+
+  onAuthStateChanged(auth, () => {
+    setCurrentUser(auth.currentUser);
+  });
 
   return (
     <div className="App">
       <BrowserRouter>
-        <Navigation />
-        <Routes>
-          <Route path="/" element={<HomePage app={app} />} />
-          <Route path="/logs" element={<LogsPage app={app} />} />
-          <Route path="/studentlist" element={<StudentListPage app={app} />} />
-          <Route
-            path="/teacherbooking"
-            element={<TeacherBookingPage app={app} />}
-          />
-          <Route path="/todaybookings" element={<TodayBookings app={app} />} />
-          <Route path="/testing" element={<Testing />} />
-        </Routes>
+        {currentUser ? (
+          <RoutingStuff app={app} auth={auth} />
+        ) : (
+          <LogInPage auth={auth} />
+        )}
       </BrowserRouter>
     </div>
   );

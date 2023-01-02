@@ -1,7 +1,8 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { signOut } from "firebase/auth";
 
-function Navigation() {
+function Navigation({ auth }) {
   const navigate = useNavigate();
   const location = useLocation();
   const [currentLocation, setCurrentLocation] = useState(location.pathname);
@@ -16,6 +17,11 @@ function Navigation() {
       "https://supersaas.com/schedule/SAE_New_York/5th_Floor_Booking",
       "_blank"
     );
+  };
+
+  const signOutUser = () => {
+    signOut(auth);
+    navigate("/login");
   };
 
   useEffect(() => {
@@ -63,6 +69,9 @@ function Navigation() {
       </button>
       <button className="nav_button" onClick={openLink}>
         SuperSaas Page
+      </button>
+      <button className="nav_button" onClick={signOutUser}>
+        Sign Out
       </button>
       <button
         className="nav_button hide"

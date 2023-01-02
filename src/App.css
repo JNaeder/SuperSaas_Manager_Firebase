@@ -1,4 +1,9 @@
+:root {
+  --darkgray_1: #292929;
+}
+
 .App {
+  background-color: var(--darkgray_1);
   text-align: center;
 }
 
