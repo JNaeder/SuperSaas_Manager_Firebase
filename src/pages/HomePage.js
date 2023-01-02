@@ -1,10 +1,12 @@
-function HomePage({ auth }) {
-  const displayName = auth.currentUser.displayName;
+import "../components/HomePage_Style.css";
 
+function HomePage() {
   return (
     <>
-      <h1>Home Page</h1>
-      <h2>{`Hello ${displayName}! Welcome`}</h2>
+      <iframe
+        className="main_cal"
+        src="https://www.supersaas.com/schedule/SAE_New_York/5th_Floor_Booking"
+      ></iframe>
     </>
   );
 }

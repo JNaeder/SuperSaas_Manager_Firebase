@@ -1,0 +1,72 @@
+:root {
+  --darkgray_1: #292929;
+  --blue_1: #307fe2;
+  --red_1: #ee2737;
+}
+
+.login_container {
+  height: 100vh;
+  background-color: var(--darkgray_1);
+  color: white;
+}
+
+.login_container h1 {
+  margin: 0;
+  font-size: 3rem;
+}
+
+.main_logo {
+  height: 30vh;
+  margin: 0;
+}
+
+.login_form {
+  /* background-color: white; */
+  width: 50%;
+  margin: auto;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.login_form label {
+  /* color: black; */
+  display: block;
+  font-weight: bold;
+  font-size: larger;
+}
+
+.login_form input {
+  display: block;
+  margin: auto;
+  margin-bottom: 2vh;
+  width: 50%;
+  height: 4vh;
+  font-weight: bold;
+
+  /* border: solid var(--blue_1) 2px; */
+  border: none;
+  border-radius: 10px;
+}
+
+.login_form button {
+  background-color: var(--blue_1);
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  opacity: 90%;
+  border: none;
+  border-radius: 10px;
+  width: 25%;
+  height: 5vh;
+}
+
+.login_form button:hover {
+  opacity: 100%;
+}
+
+.error_message {
+  padding: 0;
+  margin: 0;
+  height: 4vh;
+  color: red;
+}
