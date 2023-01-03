@@ -1,7 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import "../components/LoginPage_Style.css";
+import "../components/Login Page Stuff/LoginPage_Style.css";
 import mainLogo from "../imgs/SAE_logo_1.png";
 
 function LogInPage({ auth }) {

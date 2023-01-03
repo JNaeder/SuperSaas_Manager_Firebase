@@ -37,36 +37,48 @@ function StudentListSearch({ setAllStudents, db }) {
   }, [activeKeywords, sortValue]);
 
   return (
-    <>
+    <div className="search_form">
       <form>
-        <div>
-          <label htmlFor="active">Active</label>
+        <div className="filter_container">
+          <label htmlFor="active" className="filter_label">
+            Active
+          </label>
           <input
             type="checkbox"
+            className="filter_checkbox"
             name="active"
             value="active"
             onChange={(e) => onCheckboxChange(e.target.value)}
           />
-          <label htmlFor="active">Blocked</label>
+          <label htmlFor="blocked" className="filter_label">
+            Blocked
+          </label>
           <input
             type="checkbox"
-            name="active"
+            className="filter_checkbox"
+            name="blocked"
             value="blocked"
             defaultChecked
             onChange={(e) => onCheckboxChange(e.target.value)}
           />
-          <label htmlFor="active">Inactive</label>
+          <label htmlFor="inactive" className="filter_label">
+            Inactive
+          </label>
           <input
             type="checkbox"
-            name="active"
+            className="filter_checkbox"
+            name="inactive"
             value="inactive"
             onChange={(e) => onCheckboxChange(e.target.value)}
           />
         </div>
-        <div>
-          <label htmlFor="sortValue">Sort By:</label>
+        <div className="sort_container">
+          <label htmlFor="sortValue" className="sort_label">
+            Sort By:
+          </label>
           <select
             name="sortValue"
+            className="sort_select"
             onChange={(e) => onSortValueChange(e.target.value)}
           >
             <option value="lastName">Last Name</option>
@@ -76,7 +88,7 @@ function StudentListSearch({ setAllStudents, db }) {
           </select>
         </div>
       </form>
-    </>
+    </div>
   );
 }
 

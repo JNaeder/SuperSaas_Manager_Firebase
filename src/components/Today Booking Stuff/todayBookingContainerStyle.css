@@ -1,23 +1,35 @@
+:root {
+  --darkgray_1: #292929;
+  --darkergray_1: #202020;
+  --blue_1: #307fe2;
+  --red_1: #ee2737;
+}
+
+.today_booking_page {
+  background-color: var(--darkgray_1);
+  height: 86vh;
+}
+
 .booking_container {
-  border: solid black 2px;
+  border: solid white 2px;
   border-radius: 10px;
-  background-color: rgb(187, 187, 187);
+  background-color: var(--darkergray_1);
+  color: white;
   display: grid;
   grid-template-columns: repeat(10, 8.5vw);
   grid-template-rows: 20px repeat(12, 6vh);
   gap: 0.5vh 0.5vw;
   width: 90vw;
-  margin: 10px auto;
+  margin: 4vh auto;
   padding: 0px;
 }
 
 .booking_lines {
-  border-top: solid black 1px;
+  border-top: solid white 1px;
 }
 
 .booking_lines_horizontal {
-  /* background-color: aqua; */
-  border-left: solid black 1px;
+  border-left: solid white 1px;
 }
 
 .booking_title {
@@ -28,8 +40,6 @@
 
 .booking_time {
   height: 100%;
-  /* border-top: solid black 1px; */
-  /* border-radius: 10px; */
   margin: 0;
 }
 
@@ -38,7 +48,6 @@
   border-radius: 10px;
   margin-top: 0.5vh;
   margin-left: 0.5vw;
-  box-shadow: 1px 1px 5px black;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -76,4 +85,55 @@
 
 .bad {
   background-color: red;
+}
+
+.todayBooking_table {
+  margin: auto;
+}
+
+.todayBooking_file {
+  color: white;
+}
+
+.todayBooking_file td {
+  padding: 5px 20px;
+}
+
+.todayBooking_button {
+  border: none;
+  padding: 0px 10px;
+  color: white;
+  font-size: 30px;
+}
+
+.allow {
+  background-color: green;
+}
+
+.block {
+  background-color: red;
+}
+
+.suite {
+  background-color: #5e35b1;
+}
+
+.audient {
+  background-color: #d81b60;
+}
+
+.ssl {
+  background-color: #01acc1;
+}
+
+.o2r {
+  background-color: #43a047;
+}
+
+.s6 {
+  background-color: #f9a825;
+}
+
+.neve {
+  background-color: #d81b60;
 }

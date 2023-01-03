@@ -1,9 +1,19 @@
+:root {
+  --lighter_gray_1: #363636;
+  --darkgray_1: #292929;
+  --darkergray_1: #202020;
+  --blue_1: #307fe2;
+  --red_1: #ee2737;
+}
+
 .react-calendar {
   margin: 20px auto;
   width: 550px;
   max-width: 100%;
-  background: white;
-  border: 1px solid #a0a096;
+  background: var(--darkergray_1);
+  color: white;
+  /* border: 1px solid #a0a096; */
+  border-radius: 10px;
   font-family: Arial, Helvetica, sans-serif;
   line-height: 1.125em;
 }
@@ -27,6 +37,7 @@
   box-sizing: border-box;
 }
 .react-calendar button {
+  color: white;
   margin: 0;
   border: 0;
   outline: none;
@@ -48,7 +59,7 @@
 }
 .react-calendar__navigation button:enabled:hover,
 .react-calendar__navigation button:enabled:focus {
-  background-color: #e6e6e6;
+  background-color: var(--lighter_gray_1);
 }
 .react-calendar__month-view__weekdays {
   text-align: center;
@@ -67,7 +78,7 @@
   font-weight: bold;
 }
 .react-calendar__month-view__days__day--weekend {
-  color: #d10000;
+  color: var(--red_1);
 }
 .react-calendar__month-view__days__day--neighboringMonth {
   color: #757575;
@@ -89,30 +100,30 @@
 }
 .react-calendar__tile:enabled:hover,
 .react-calendar__tile:enabled:focus {
-  background-color: #e6e6e6;
+  background-color: var(--blue_1);
 }
 .react-calendar__tile--now {
-  background: #ffff76;
+  background: var(--red_1);
 }
 .react-calendar__tile--now:enabled:hover,
 .react-calendar__tile--now:enabled:focus {
   background: #ffffa9;
 }
 .react-calendar__tile--hasActive {
-  background: #76baff;
+  background: var(--blue_1);
 }
 .react-calendar__tile--hasActive:enabled:hover,
 .react-calendar__tile--hasActive:enabled:focus {
   background: #a9d4ff;
 }
 .react-calendar__tile--active {
-  background: #006edc;
+  background: var(--blue_1);
   color: white;
 }
 .react-calendar__tile--active:enabled:hover,
 .react-calendar__tile--active:enabled:focus {
-  background: #1087ff;
+  background: var(--blue_1);
 }
 .react-calendar--selectRange .react-calendar__tile--hover {
-  background-color: #e6e6e6;
+  background-color: var(--lighter_gray_1);
 }

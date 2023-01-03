@@ -1,0 +1,33 @@
+:root {
+  --darkgray_1: #292929;
+  --lightergray_1: #383838;
+}
+
+.log_container {
+  margin: auto;
+  height: 90vh;
+  width: 100vw;
+  overflow-y: scroll;
+  border-radius: 10px;
+}
+
+.log_table {
+  width: 100%;
+  border: black solid 1px;
+  margin: auto;
+  border-collapse: collapse;
+  background-color: var(--darkgray_1);
+  color: white;
+  font-family: monospace;
+  font-size: larger;
+  text-align: left;
+}
+
+.log_table tr:nth-child(even) {
+  background-color: var(--lightergray_1);
+}
+
+.log_table tr td {
+  border: black solid 1px;
+  padding: 5px 10px;
+}

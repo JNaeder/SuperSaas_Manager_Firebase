@@ -17,7 +17,7 @@ function SelectDaysOfWeek({ daysOfWeek, setDaysOfWeek }) {
   };
 
   return (
-    <div>
+    <div className="day_selection">
       <form>
         <label htmlFor="monday">Monday</label>
         <input

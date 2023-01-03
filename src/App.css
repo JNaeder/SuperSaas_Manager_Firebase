@@ -1,40 +1,34 @@
 :root {
   --darkgray_1: #292929;
+  --darkergray_1: #202020;
+  --blue_1: #307fe2;
+  --red_1: #ee2737;
+}
+
+/* Scroll Bar Stuff */
+::-webkit-scrollbar {
+  width: 1vw;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--darkergray_1);
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 
 .App {
   text-align: center;
+  background-color: var(--darkgray_1);
 }
 
 .hide {
   display: none;
-}
-
-.navigation {
-  background-color: blue;
-  min-height: 50px;
-  display: flex;
-  flex-direction: row;
-  align-content: space-between;
-}
-
-.nav_button {
-  background-color: white;
-  color: blue;
-  border: white solid 1px;
-  border-radius: 10px;
-  text-decoration: none;
-  padding: 10px;
-  margin: 10px;
-}
-
-.nav_button:hover {
-  background-color: rgb(190, 190, 190);
-}
-
-.selected {
-  background-color: blue;
-  color: white;
 }
 
 .button_container {
@@ -48,146 +42,4 @@
 .button_container button {
   margin: 5px 40px;
   padding: 10px;
-}
-
-.log_container {
-  margin: auto;
-  height: 80vh;
-  overflow-y: scroll;
-  width: 90%;
-  border-radius: 10px;
-}
-
-.log_table {
-  width: 100%;
-  border: black solid 1px;
-  margin: auto;
-  border-collapse: collapse;
-  background-color: rgb(80, 80, 80);
-  color: white;
-  font-family: monospace;
-  font-size: larger;
-  text-align: left;
-}
-
-.log_table tr:nth-child(even) {
-  background-color: rgb(61, 61, 61);
-}
-
-.log_table tr td {
-  border: black solid 1px;
-  padding: 5px 10px;
-}
-
-.page_container {
-  display: grid;
-  grid-template-columns: 50% auto;
-  height: 50vh;
-  margin: auto;
-  width: 75%;
-}
-
-.student_file_container {
-  margin: auto;
-  width: 100%;
-  height: 70vh;
-  overflow-y: scroll;
-  text-align: left;
-  /* background-color: black; */
-}
-
-.student_file {
-  margin: 2px auto;
-  border-radius: 20px;
-  width: 75%;
-  display: block;
-  padding: 0px;
-  border: none;
-  font-weight: bold;
-}
-
-.student_file:hover {
-  background-color: antiquewhite;
-}
-
-.blocked {
-  background-color: red;
-}
-
-.active {
-  background-color: green;
-}
-
-.inactive {
-  background-color: grey;
-}
-
-.student_spotlight {
-  /* background-color: grey; */
-  color: black;
-}
-
-.spotlight_table {
-  margin: auto;
-  width: 90%;
-  border-collapse: collapse;
-  height: 60vh;
-}
-
-.spotlight_table td {
-  font-size: 30px;
-  border: solid black 1px;
-  background-color: aliceblue;
-  padding: 10px 30px;
-}
-
-.todayBooking_table {
-  margin: auto;
-}
-
-.todayBooking_file {
-  color: white;
-}
-
-.todayBooking_file td {
-  padding: 5px 20px;
-}
-
-.todayBooking_button {
-  border: none;
-  padding: 0px 10px;
-  color: white;
-  font-size: 30px;
-}
-
-.allow {
-  background-color: green;
-}
-
-.block {
-  background-color: red;
-}
-
-.suite {
-  background-color: #5e35b1;
-}
-
-.audient {
-  background-color: #d81b60;
-}
-
-.ssl {
-  background-color: #01acc1;
-}
-
-.o2r {
-  background-color: #43a047;
-}
-
-.s6 {
-  background-color: #f9a825;
-}
-
-.neve {
-  background-color: #d81b60;
 }

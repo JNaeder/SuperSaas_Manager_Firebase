@@ -1,9 +1,9 @@
-import LogContainer from "../components/LogContainer";
+import LogContainer from "../components/Logs Page Stuff/LogContainer";
+import "../components/Logs Page Stuff/LogsPage_Style.css";
 
 function LogsPage({ app }) {
   return (
     <>
-      <h1>Logs</h1>
       <LogContainer app={app} />
     </>
   );

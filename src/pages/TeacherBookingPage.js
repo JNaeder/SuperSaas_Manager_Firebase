@@ -1,9 +1,10 @@
 import { Calendar } from "react-calendar";
-import "../components/teacherBookingStyle.css";
+import "../components/Teacher Booking Stuff/TeacherBooking_Style.css";
+import "../components/Teacher Booking Stuff/TeacherBooking_Calendar_Style.css";
 import { useState, useEffect } from "react";
-import SelectDaysOfWeek from "../components/SelectDaysOfWeek";
-import TeacherStudioSelection from "../components/TeacherStudioSelection";
-import TeacherTimeSelection from "../components/TeacherTimeSelection";
+import SelectDaysOfWeek from "../components/Teacher Booking Stuff/SelectDaysOfWeek";
+import TeacherStudioSelection from "../components/Teacher Booking Stuff/TeacherStudioSelection";
+import TeacherTimeSelection from "../components/Teacher Booking Stuff/TeacherTimeSelection";
 import { teacherBookingFunction } from "../myScripts/appFunctions";
 
 function TeacherBookingPage({ app }) {
@@ -59,33 +60,28 @@ function TeacherBookingPage({ app }) {
   }, listOfData);
 
   return (
-    <>
-      <h1>Teacher Booking</h1>
-      <div className="teacherBooking_section">
-        <TeacherStudioSelection
-          setTheTeacher={setTheTeacher}
-          setTheStudio={setTheStudio}
-          setTheMod={setTheMod}
-          app={app}
-        />
-        <Calendar
-          onChange={setTheDate}
-          selectRange={true}
-          calendarType={"US"}
-        />
-        <TeacherTimeSelection
-          setStartTime={setStartTime}
-          setEndTime={setEndTime}
-        />
-        <SelectDaysOfWeek
-          setDaysOfWeek={setDaysOfWeek}
-          daysOfWeek={daysOfWeek}
-        />
-        <button onClick={onSubmit} id="submit_button" disabled={buttonState}>
-          Book
-        </button>
-      </div>
-    </>
+    <div className="teacher_booking_section">
+      <TeacherStudioSelection
+        setTheTeacher={setTheTeacher}
+        setTheStudio={setTheStudio}
+        setTheMod={setTheMod}
+        app={app}
+      />
+      <Calendar onChange={setTheDate} selectRange={true} calendarType={"US"} />
+      <TeacherTimeSelection
+        setStartTime={setStartTime}
+        setEndTime={setEndTime}
+      />
+      <SelectDaysOfWeek setDaysOfWeek={setDaysOfWeek} daysOfWeek={daysOfWeek} />
+      <button
+        onClick={onSubmit}
+        id="submit_button"
+        disabled={buttonState}
+        className="book_button"
+      >
+        Book
+      </button>
+    </div>
   );
 }
 

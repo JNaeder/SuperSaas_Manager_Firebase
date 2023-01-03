@@ -1,0 +1,78 @@
+:root {
+  --darkgray_1: #292929;
+  --blue_1: #307fe2;
+  --red_1: #ee2737;
+}
+
+.sae_logo {
+  display: inline;
+  height: 8vh;
+  /* padding: 10px; */
+}
+
+.navigation {
+  background-color: var(--blue_1);
+  /* padding-top: 5px; */
+  min-height: 10vh;
+  max-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.main_nav {
+  display: flex;
+}
+
+.nav_button {
+  /* background-color: white; */
+  /* color: var(--blue_1); */
+  background-color: var(--blue_1);
+  color: white;
+  border: white solid 2px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin: 1vh 1vw;
+  height: 7vh;
+  width: 7vw;
+  font-weight: bold;
+  font-size: 1vw;
+  opacity: 0.9;
+}
+
+.signout_button {
+  background-color: var(--blue_1);
+  color: white;
+  border: white solid 2px;
+  border-radius: 10px;
+  text-decoration: none;
+  margin: 1vh 1vw;
+  height: 4vh;
+  width: 7vw;
+  font-weight: bold;
+  font-size: 1vw;
+  opacity: 0.9;
+}
+
+.signout_button:hover {
+  opacity: 1;
+}
+
+.user_name {
+  color: white;
+  font-weight: bold;
+  margin: 0;
+}
+
+.nav_button:hover {
+  opacity: 1;
+}
+
+.selected {
+  /* background-color: var(--blue_1); */
+  /* color: white; */
+  background-color: white;
+  color: var(--blue_1);
+  opacity: 1;
+}

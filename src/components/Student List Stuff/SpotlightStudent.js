@@ -1,18 +1,36 @@
 import moment from "moment";
+import { MdContentCopy } from "react-icons/md";
 
 function SpotlightStudent({ spotlightStudent }) {
   if (spotlightStudent) {
     const momentTime = moment(spotlightStudent["lastLogin"]);
     const newDate = momentTime.format("MM/DD/YYYY");
     const dateDiff = momentTime.fromNow();
+
+    const copyEmailToClipboard = () => {
+      navigator.clipboard.writeText(spotlightStudent["email"]);
+    };
+
     return (
       <div>
-        <h1>{spotlightStudent["fullName"]}</h1>
+        <div className="student_name_container">
+          <h1 className="student_name">{spotlightStudent["fullName"]}</h1>
+        </div>
         <table className="spotlight_table">
           <tbody>
             <tr>
               <td>Email</td>
-              <td>{spotlightStudent["email"]}</td>
+              <td>
+                <div className="email_section">
+                  <span>{spotlightStudent["email"]}</span>
+                  <button
+                    onClick={copyEmailToClipboard}
+                    className="copy_button"
+                  >
+                    <MdContentCopy />
+                  </button>
+                </div>
+              </td>
             </tr>
             <tr>
               <td>Mod</td>

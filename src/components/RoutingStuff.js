@@ -5,7 +5,7 @@ import TeacherBookingPage from "../pages/TeacherBookingPage";
 import TodayBookings from "../pages/TodayBookings";
 import Testing from "../pages/Testing";
 import LogsPage from "../pages/LogsPage";
-import Navigation from "./Navigation";
+import Navigation from "./Navigation Stuff/Navigation";
 import LogInPage from "../pages/LogInPage";
 
 function RoutingStuff({ app, auth }) {

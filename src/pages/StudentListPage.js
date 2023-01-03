@@ -1,8 +1,9 @@
 import { getFirestore } from "firebase/firestore";
 import { useState } from "react";
-import SpotlightStudent from "../components/SpotlightStudent";
-import StudentFile from "../components/StudentFile";
-import StudentListSearch from "../components/StudentListSearch";
+import SpotlightStudent from "../components/Student List Stuff/SpotlightStudent";
+import StudentFile from "../components/Student List Stuff/StudentFile";
+import StudentListSearch from "../components/Student List Stuff/StudentListSearch";
+import "../components/Student List Stuff/StudentList_Style.css";
 
 function StudentListPage({ app }) {
   const [allStudents, setAllStudents] = useState([]);
@@ -11,7 +12,6 @@ function StudentListPage({ app }) {
 
   return (
     <>
-      <h1>Student List</h1>
       <div className="page_container">
         <div>
           <StudentListSearch setAllStudents={setAllStudents} db={db} />

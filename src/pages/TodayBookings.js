@@ -1,6 +1,6 @@
 import { getFirestore, collection, onSnapshot } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import TodayBookingContainer from "../components/TodayBookingContainer";
+import TodayBookingContainer from "../components/Today Booking Stuff/TodayBookingContainer";
 
 function TodayBookings({ app }) {
   const [todayBookings, setTodayBookings] = useState([]);
@@ -21,12 +21,12 @@ function TodayBookings({ app }) {
   }, []);
 
   return (
-    <>
+    <div className="today_booking_page">
       <TodayBookingContainer
         todayBookings={todayBookings}
         todayBookingDB={todayBookingDB}
       />
-    </>
+    </div>
   );
 }
 

@@ -1,0 +1,81 @@
+:root {
+  --darkgray_1: #292929;
+  --darkergray_1: #202020;
+  --blue_1: #307fe2;
+  --red_1: #ee2737;
+}
+
+.teacher_booking_section {
+  margin-top: 3vh;
+  height: 87vh;
+}
+
+.teacher_studio_selection {
+  /* background-color: aqua; */
+  width: 30vw;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.label_select {
+  /* background-color: blueviolet; */
+  display: flex;
+  flex-direction: column;
+}
+
+.label_select label {
+  color: white;
+  font-weight: bold;
+}
+
+.label_select select {
+  background-color: var(--blue_1);
+  border: none;
+  color: white;
+  border-radius: 10px;
+  height: 30px;
+}
+
+.time_selection_container {
+  width: 30vw;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.day_selection {
+  background-color: var(--blue_1);
+  border-radius: 10px;
+  padding: 10px;
+  color: white;
+  width: 600px;
+  margin: 10px auto;
+}
+
+.day_selection label {
+  margin-left: 1vw;
+}
+
+.book_button {
+  background-color: var(--blue_1);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  width: 20vw;
+  height: 5vh;
+  font-size: large;
+}
+
+.book_button:disabled {
+  background-color: var(--lighter_gray_1);
+  opacity: 0.5;
+}
+
+.book_button:hover {
+  background-color: var(--red_1);
+}
