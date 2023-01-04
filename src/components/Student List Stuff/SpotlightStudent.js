@@ -41,6 +41,14 @@ function SpotlightStudent({ spotlightStudent }) {
               </td>
             </tr>
             <tr>
+              <td>Instructor</td>
+              <td>
+                {spotlightStudent["status"] !== "inactive"
+                  ? spotlightStudent["instructor"]
+                  : "n/a"}
+              </td>
+            </tr>
+            <tr>
               <td>Credits</td>
               <td>{spotlightStudent["credits"]}</td>
             </tr>
@@ -59,14 +67,6 @@ function SpotlightStudent({ spotlightStudent }) {
                   ? spotlightStudent["icr"]
                   : "n/a"}
                 %
-              </td>
-            </tr>
-            <tr>
-              <td>Instructor</td>
-              <td>
-                {spotlightStudent["status"] !== "inactive"
-                  ? spotlightStudent["instructor"]
-                  : "n/a"}
               </td>
             </tr>
             <tr>
