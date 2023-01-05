@@ -234,7 +234,7 @@ async function processBooking(db, bookingData) {
     if (event === "edit") {
       await deleteTodayBooking(todayBookingDB, booking_id);
     }
-    console.log(`Make new booking. ${created_by}`);
+    console.log(`Booking is Today. Email is: ${created_by}`);
     addTodayBooking(todayBookingDB, bookingData);
   }
 
