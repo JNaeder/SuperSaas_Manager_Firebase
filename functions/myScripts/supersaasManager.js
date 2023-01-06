@@ -379,12 +379,12 @@ async function getTodayBookings(db) {
 }
 
 async function addTodayBooking(todayBookingDB, theBookingData) {
-  const { id, start, finish, user_id, res_name, full_name, created_by } =
+  const { id, start, finish, user_id, res_name, full_name, email } =
     theBookingData;
   const bookingData = {
     booking_id: id,
     student_name: full_name,
-    student_email: created_by,
+    student_email: email,
     studio: res_name,
     start_time: start,
     end_time: finish,

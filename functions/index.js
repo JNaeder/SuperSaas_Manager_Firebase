@@ -96,8 +96,9 @@ exports.addNewBookingWebHook = functions.https.onRequest(async (req, res) => {
 
 exports.changeBookingWebHook = functions.https.onRequest(async (req, res) => {
   const bookingData = req.body;
-  const { created_by } = bookingData;
+  const { created_by, email } = bookingData;
   console.log(`Booking made by: ${created_by}`);
+  console.log(`Email: ${email}`);
   const { event } = bookingData;
   if (event === "destroy") {
     supersaasManager.deleteBooking(db, bookingData);
