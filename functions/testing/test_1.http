@@ -10,3 +10,12 @@ content-type: application/json
     "unit": "lbs",
     "date": "08-10-21"
 }
+
+###
+POST https://us-central1-sae-supersaas-manager.cloudfunctions.net/getStudentDataWebHook HTTP/1.1
+Content-Type: application/json
+
+{
+    "api_key": "pE4XV7mkJXqfHqzaf7FJ6yp53dsBROyQRg3FPLYjB7BnSUWDAvFQU9jKFdALl8gf",
+    "name": "John"
+}
