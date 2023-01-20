@@ -113,3 +113,14 @@ exports.addNewUserWebHook = functions.https.onRequest(async (req, res) => {
   await supersaasManager.processStudentUser(db, newUserData);
   res.sendStatus(200);
 });
+
+exports.getStudentDataWebHook = functions.https.onRequest(async (req, res) => {
+  const stored_key =
+    "pE4XV7mkJXqfHqzaf7FJ6yp53dsBROyQRg3FPLYjB7BnSUWDAvFQU9jKFdALl8gf";
+  const { api_key } = req.body;
+  if (stored_key == api_key) {
+    res.status(200).send("Hey Buddy");
+  } else {
+    res.sendStatus(401);
+  }
+});
