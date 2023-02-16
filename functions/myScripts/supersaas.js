@@ -42,6 +42,8 @@ const getUserByID = async function (supersaasID) {
 
 const updateUser = async function (supersaasID, newData) {
   const url = `https://supersaas.com/api/users/${supersaasID}.json?account=${accountName}&api_key=${apiKey}`;
+  // console.log(url);
+  // console.log(newData);
   const response = await axios.put(url, newData);
   return response.status;
 };

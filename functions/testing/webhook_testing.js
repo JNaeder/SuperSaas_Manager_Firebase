@@ -46,6 +46,19 @@ const editBookingPayload = {
   event: "edit",
 };
 
+const newUserPayload = {
+  id: 11714501,
+  fk: null,
+  created_on: "2023-02-15T14:03:36Z",
+  role: 3,
+  last_login: "2023-02-15T14:04:00Z",
+  name: "23013508.us@saeinstitute.edu",
+  full_name: "Robert Espinal",
+  credit: "0",
+  email: "23013508.us@saeinstitute.edu",
+  event: "new",
+};
+
 const createBooking = async () => {
   const url =
     "http://127.0.0.1:5001/sae-supersaas-manager/us-central1/changeBookingWebHook";

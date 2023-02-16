@@ -3,8 +3,12 @@ const admin = require("firebase-admin");
 const googleSheets = require("./myScripts/googleSheets");
 const supersaasManager = require("./myScripts/supersaasManager");
 const supersaas = require("./myScripts/supersaas");
+var serviceAccount = require("./firebase_credentials.json");
 
-admin.initializeApp();
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://sae-supersaas-manager-default-rtdb.firebaseio.com",
+});
 const db = admin.firestore();
 
 // ---------- Scheduled Stuff --------
@@ -122,10 +126,12 @@ exports.getStudentDataWebHook = functions.https.onRequest(async (req, res) => {
   const { api_key } = req.body;
   if (stored_key == api_key) {
     logger.debug(req.body);
-    console.log(req.body)
+    console.log(req.body);
     res.status(200).send("Hey Buddy. Thanks for sending me data!");
   } else {
     logger.debug(`Invalid request with API_KEY: ${api_key}`);
     res.sendStatus(401);
   }
 });
+
+supersaasManager.processSuperSaasUsers(db);

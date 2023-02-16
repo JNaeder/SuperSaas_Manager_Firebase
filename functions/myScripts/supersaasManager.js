@@ -30,6 +30,10 @@ async function processSuperSaasUsers(db) {
     const emailEnding = currentUser["name"].split("@")[1];
     if (emailEnding === "saeinstitute.edu") {
       await processStudentUser(db, allUsers[i]);
+      {
+      }
+    } else {
+      await processStaffUser(db, allUsers[i]);
     }
     // TODO: Setup something to process staff users as well
   }
@@ -191,6 +195,46 @@ async function processStudentUser(db, currentUser) {
       credit: "0",
     };
     await supersaas.updateUser(supersaasID, userData);
+  }
+}
+
+async function processStaffUser(db, currentUser) {
+  const staffDB = db.collection("supersaas_staff");
+
+  const role = currentUser["role"];
+  const supersaasID = currentUser["id"].toString();
+  const lastLogin = currentUser["last_login"];
+  const supersaasEmail = currentUser["name"];
+  const fullName = currentUser["full_name"];
+
+  // Make new Data for supersaas
+  const newSuperSaasData = {
+    credit: "-",
+    role: 4,
+  };
+
+  // Update the supersaas account
+  if (role !== 4) {
+    await supersaas.updateUser(supersaasID, newSuperSaasData);
+  }
+
+  // Make Data for Database
+  const newDBData = {
+    credits: "-",
+    email: supersaasEmail,
+    fullName: fullName,
+    lastLogin: lastLogin,
+    role: 4,
+    supersaasID: supersaasID,
+  };
+
+  const docRef = await staffDB.doc(supersaasID).get();
+  // console.log(fullName, docRef.exists);
+  if (!docRef.exists) {
+    // Add it to staff Database
+    const newDoc = await staffDB.doc(supersaasID).set(newDBData);
+    const writeTime = newDoc.writeTime;
+    console.log(`Added ${fullName} to DB`);
   }
 }
 
@@ -379,12 +423,12 @@ async function getTodayBookings(db) {
 }
 
 async function addTodayBooking(todayBookingDB, theBookingData) {
-  const { id, start, finish, user_id, res_name, full_name, email } =
+  const { id, start, finish, user_id, res_name, full_name, created_by } =
     theBookingData;
   const bookingData = {
     booking_id: id,
     student_name: full_name,
-    student_email: email,
+    student_email: created_by,
     studio: res_name,
     start_time: start,
     end_time: finish,
