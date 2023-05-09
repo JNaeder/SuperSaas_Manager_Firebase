@@ -18,7 +18,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
-// connectFunctionsEmulator(functions, "localhost", 5001);
+connectFunctionsEmulator(functions, "localhost", 5001);
 
 export const getGoogleSheetInfo = async () => {
   console.log("Get Google Sheet Info");
@@ -57,6 +57,7 @@ export const getTodayBookings = async () => {
 };
 
 export const processSuperSaasStudents = async () => {
+  console.log("Lets gooooo");
   const processSuperSaasStudents = httpsCallable(
     functions,
     "processSuperSaasStudents"
@@ -72,7 +73,9 @@ export const processAllBookings = async () => {
 };
 
 export const teacherBookingFunction = async (bookingData) => {
+  console.log("Start Teacher Booking");
   const teacherBooking = httpsCallable(functions, "teacherBooking");
   const output = await teacherBooking(bookingData);
+  console.log("Done!");
   return output.data;
 };

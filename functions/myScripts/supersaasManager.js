@@ -29,13 +29,10 @@ async function processSuperSaasUsers(db) {
     const currentUser = allUsers[i];
     const emailEnding = currentUser["name"].split("@")[1];
     if (emailEnding === "saeinstitute.edu") {
-      await processStudentUser(db, allUsers[i]);
-      {
-      }
+      await processStudentUser(db, currentUser);
     } else {
-      await processStaffUser(db, allUsers[i]);
+      await processStaffUser(db, currentUser);
     }
-    // TODO: Setup something to process staff users as well
   }
 }
 
@@ -109,16 +106,19 @@ async function processStudentUser(db, currentUser) {
   const output = await studentDoc.get();
   const data = await output.data();
 
+  if (!data) {
+    console.log(`Not A Student?? ${supersaasName}}`);
+  }
+
   // If student exists in the database
   if (data) {
-    // Get data from the database and calculate the credits they should have
+    //   // Get data from the database and calculate the credits they should have
     const { gpa, icr, fullName, firstName, lastName, mod, instructor } = data;
+    console.log(`Is a student ${fullName}`);
     const newCredits = supersaas.calculateCredits(data);
-
-    // If the credits they have now are different than the credits they should have
+    //   // If the credits they have now are different than the credits they should have
     if (credits !== newCredits) {
       const theLog = theEvent === "new" ? `New User Created.` : "";
-
       // Add new log
       const newLog = {
         studentName: fullName,
@@ -127,7 +127,6 @@ async function processStudentUser(db, currentUser) {
       };
       console.log(`${fullName} changed credits`);
       logger.newLog(db, newLog);
-
       // Update the user in supersaas
       const userData = {
         name: supersaasEmail,
@@ -135,66 +134,61 @@ async function processStudentUser(db, currentUser) {
       };
       await supersaas.updateUser(supersaasID, userData);
     }
-    // Check if the name in SuperSaas is correct
-    if (fullName !== supersaasName) {
-      const newLog = {
-        studentName: fullName,
-        dateTime: new Date(),
-        log: `Name has been corrected. Old name: ${supersaasName}`,
-      };
-      console.log(`${fullName} changed name`);
-      logger.newLog(db, newLog);
-
-      // Update the user in supersaas
-      const userData = {
-        name: supersaasEmail,
-        full_name: fullName,
-      };
-      await supersaas.updateUser(supersaasID, userData);
-    }
-
-    const status = newCredits === "-" ? "active" : "blocked";
-
-    // Setup Data for the SuperSaas Student Database
-    const superSaasData = {
-      fullName: fullName,
-      gpa: gpa,
-      icr: icr,
-      firstName: firstName,
-      lastName: lastName,
-      credits: newCredits,
-      mod: mod,
-      lastLogin: lastLogin,
-      supersaasID: supersaasID,
-      email: supersaasEmail,
-      status: status,
-      instructor: instructor,
-    };
-
-    const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
-    const writeTime = newDoc.writeTime;
-  } else {
-    // Setup Data for the SuperSaas Student Database
-    // console.log(`${supersaasName} is not in the system`);
-    const superSaasData = {
-      fullName: supersaasName,
-      firstName: supersaasName.split(" ")[0],
-      lastName: supersaasName.split(" ")[1],
-      credits: "0",
-      lastLogin: lastLogin,
-      supersaasID: supersaasID,
-      email: supersaasEmail,
-      status: "inactive",
-    };
-    const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
-    const writeTime = newDoc.writeTime;
-
-    // Update the user in supersaas
-    const userData = {
-      name: supersaasEmail,
-      credit: "0",
-    };
-    await supersaas.updateUser(supersaasID, userData);
+    //   // Check if the name in SuperSaas is correct
+    //   if (fullName !== supersaasName) {
+    //     const newLog = {
+    //       studentName: fullName,
+    //       dateTime: new Date(),
+    //       log: `Name has been corrected. Old name: ${supersaasName}`,
+    //     };
+    //     console.log(`${fullName} changed name`);
+    //     logger.newLog(db, newLog);
+    //     // Update the user in supersaas
+    //     const userData = {
+    //       name: supersaasEmail,
+    //       full_name: fullName,
+    //     };
+    //     await supersaas.updateUser(supersaasID, userData);
+    //   }
+    //   const status = newCredits === "-" ? "active" : "blocked";
+    //   // Setup Data for the SuperSaas Student Database
+    //   const superSaasData = {
+    //     fullName: fullName,
+    //     gpa: gpa,
+    //     icr: icr,
+    //     firstName: firstName,
+    //     lastName: lastName,
+    //     credits: newCredits,
+    //     mod: mod,
+    //     lastLogin: lastLogin,
+    //     supersaasID: supersaasID,
+    //     email: supersaasEmail,
+    //     status: status,
+    //     instructor: instructor,
+    //   };
+    //   const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
+    //   const writeTime = newDoc.writeTime;
+    // } else {
+    //   // Setup Data for the SuperSaas Student Database
+    //   // console.log(`${supersaasName} is not in the system`);
+    //   const superSaasData = {
+    //     fullName: supersaasName,
+    //     firstName: supersaasName.split(" ")[0],
+    //     lastName: supersaasName.split(" ")[1],
+    //     credits: "0",
+    //     lastLogin: lastLogin,
+    //     supersaasID: supersaasID,
+    //     email: supersaasEmail,
+    //     status: "inactive",
+    //   };
+    //   const newDoc = await supersaasStudentDB.doc(supersaasID).set(superSaasData);
+    //   const writeTime = newDoc.writeTime;
+    //   // Update the user in supersaas
+    //   const userData = {
+    //     name: supersaasEmail,
+    //     credit: "0",
+    //   };
+    //   await supersaas.updateUser(supersaasID, userData);
   }
 }
 

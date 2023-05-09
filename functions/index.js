@@ -118,20 +118,20 @@ exports.addNewUserWebHook = functions.https.onRequest(async (req, res) => {
   res.sendStatus(200);
 });
 
-exports.getStudentDataWebHook = functions.https.onRequest(async (req, res) => {
-  const logger = functions.logger;
+// exports.getStudentDataWebHook = functions.https.onRequest(async (req, res) => {
+//   const logger = functions.logger;
 
-  const stored_key =
-    "pE4XV7mkJXqfHqzaf7FJ6yp53dsBROyQRg3FPLYjB7BnSUWDAvFQU9jKFdALl8gf";
-  const { api_key } = req.body;
-  if (stored_key == api_key) {
-    logger.debug(req.body);
-    console.log(req.body);
-    res.status(200).send("Hey Buddy. Thanks for sending me data!");
-  } else {
-    logger.debug(`Invalid request with API_KEY: ${api_key}`);
-    res.sendStatus(401);
-  }
-});
+//   const stored_key =
+//     "pE4XV7mkJXqfHqzaf7FJ6yp53dsBROyQRg3FPLYjB7BnSUWDAvFQU9jKFdALl8gf";
+//   const { api_key } = req.body;
+//   if (stored_key == api_key) {
+//     logger.debug(req.body);
+//     console.log(req.body);
+//     res.status(200).send("Hey Buddy. Thanks for sending me data!");
+//   } else {
+//     logger.debug(`Invalid request with API_KEY: ${api_key}`);
+//     res.sendStatus(401);
+//   }
+// });
 
-supersaasManager.processSuperSaasUsers(db);
+// supersaasManager.processSuperSaasUsers(db);
