@@ -8,6 +8,7 @@ const studioRequirements = {
   Audient: 2,
   "02R": 2,
   Avid_S6: 4,
+  "Avid S6": 4,
   Neve: 2,
   Production_Suite_1: 2,
   Production_Suite_2: 2,
@@ -110,9 +111,24 @@ async function processStudentUser(db, currentUser) {
   if (data) {
     //   // Get data from the database and calculate the credits they should have
     const { gpa, icr, fullName, firstName, lastName, mod, instructor } = data;
-    const newCredits = supersaas.calculateCredits(data);
+
+    let newCredits = supersaas.calculateCredits(data);
     //   // If the credits they have now are different than the credits they should have
-    if (credits !== newCredits) {
+    if (mod === 1 && credits == "-") {
+      const newLog = {
+        studentName: fullName,
+        dateTime: new Date(),
+        log: `Student in Module 1. Credits changed to 0`,
+      };
+      logger.newLog(db, newLog);
+      // Update the user in supersaas
+      const userData = {
+        name: supersaasEmail,
+        credit: "0",
+      };
+      await supersaas.updateUser(supersaasID, userData);
+      newCredits = "0";
+    } else if (credits !== newCredits && mod !== 1) {
       const theLog = theEvent === "new" ? `New User Created.` : "";
       // Add new log
       const newLog = {
@@ -129,6 +145,7 @@ async function processStudentUser(db, currentUser) {
       };
       await supersaas.updateUser(supersaasID, userData);
     }
+
     // Check if the name in SuperSaas is correct
     if (fullName !== supersaasName) {
       const newLog = {
@@ -288,8 +305,9 @@ async function processBooking(db, bookingData) {
   const correctMod = academicData["mod"];
   const studioRequirement = studioRequirements[res_name];
   const isAllowedToBook = correctMod >= studioRequirement;
+
   if (!isAllowedToBook) {
-    // PLACEHOLDER - delete booking and email the student.
+    //TODO: PLACEHOLDER - delete booking and email the student.
 
     const newLog = {
       studentName: academicData["fullName"],

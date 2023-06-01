@@ -57,7 +57,7 @@ export const getTodayBookings = async () => {
 };
 
 export const processSuperSaasStudents = async () => {
-  console.log("Lets gooooo");
+  console.log("Processing Supersaas Students");
   const processSuperSaasStudents = httpsCallable(
     functions,
     "processSuperSaasStudents"

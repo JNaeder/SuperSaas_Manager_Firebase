@@ -20,20 +20,21 @@ async function getStudentDataFromGoogleSheets(db) {
   for (let i = 0; i < allStudents.length; i++) {
     // Get Student Info
     const studentID = allStudents[i]["StuNum"];
-    const studentName = allStudents[i]["Student Name"];
-    const studentNameFirst = studentName.split(" ")[0];
-    const studentNameLast = studentName.split(" ").slice(1).join(" ");
+    const rawStudentName = allStudents[i]["Student Name"];
+    const studentNameFirst = rawStudentName.split(", ")[1];
+    const studentNameLast = rawStudentName.split(", ")[0];
+    const studentName = `${studentNameFirst} ${studentNameLast}`;
     const studentModAndClassTime = allStudents[i]["CourseCode"];
     const studentMod = parseInt(studentModAndClassTime[4]);
     const currentInstructor = allStudents[i]["Instructor"];
-    const gpa = parseFloat(allStudents[i]["ProjectedGPA"]);
-    const icr = parseFloat(allStudents[i]["ICR"]);
+    const gpa = parseFloat(allStudents[i]["ProjectedGPA"]).toFixed(2);
+    const icr = (parseFloat(allStudents[i]["ICR"]) * 100).toFixed(2);
 
     // Create Student Object
     const newStudentObject = {
-      firstName: studentNameFirst,
-      lastName: studentNameLast,
-      fullName: studentName,
+      firstName: studentNameFirst.trim(),
+      lastName: studentNameLast.trim(),
+      fullName: studentName.trim(),
       studentID: studentID,
       instructor: currentInstructor,
       mod: studentMod,
