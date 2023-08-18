@@ -27,6 +27,13 @@ export const getGoogleSheetInfo = async () => {
   return output.data;
 };
 
+export const banStudents = async () => {
+  console.log("Banning Students...");
+  const banFunction = httpsCallable(functions, "banStudents");
+  const output = await banFunction();
+  return output.data;
+};
+
 export const removeOldStudents = async () => {
   console.log("Remove Old Students");
   const removeFunction = httpsCallable(functions, "removeOldStudents");

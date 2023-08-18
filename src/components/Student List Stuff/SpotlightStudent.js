@@ -52,7 +52,7 @@ function SpotlightStudent({ spotlightStudent }) {
               <td>Credits</td>
               <td>{spotlightStudent["credits"]}</td>
             </tr>
-            <tr>
+            {/* <tr>
               <td>GPA</td>
               <td>
                 {spotlightStudent["status"] !== "inactive"
@@ -68,7 +68,7 @@ function SpotlightStudent({ spotlightStudent }) {
                   : "n/a"}
                 %
               </td>
-            </tr>
+            </tr> */}
             <tr>
               <td>Last Login</td>
               <td>

@@ -91,6 +91,51 @@ async function getStudentDataFromGoogleSheets(db) {
   }
 }
 
+async function clearBannedDB(db) {
+  console.log("Clearing Banned DB");
+  const bannedStudentDB = db.collection("banned");
+  const result = await bannedStudentDB.get();
+  await result.docs.map((doc) => {
+    bannedStudentDB.doc(doc.id).delete();
+  });
+  console.log("Done clearing DB");
+}
+
+async function getBannedStudentData(db) {
+  // TODO: Clear Student DB
+  await clearBannedDB(db);
+
+  // Get banned student database
+  const bannedStudentDB = db.collection("banned");
+
+  // Setup the Google Sheets
+  await doc.useServiceAccountAuth(creds);
+  await doc.loadInfo();
+  const sheet = doc.sheetsByTitle["High Risk Summary PowerBI "];
+  const allStudents = await sheet.getRows();
+  // let output = [];
+
+  for (let i = 0; i < allStudents.length; i++) {
+    // output.push(allStudents[i]["StuNum"]);
+
+    const studentId = allStudents[i]["StuNum"];
+    const attendancePercentage = allStudents[i]["Attendance Percentage"];
+    const canvasGrade = allStudents[i]["Canvas Grade"];
+
+    const newStudentObject = {
+      studentID: studentId,
+      attendancePercentage: attendancePercentage,
+      canvasGrade: canvasGrade,
+    };
+
+    const newDoc = await bannedStudentDB.doc(studentId).set(newStudentObject);
+    const writeTime = newDoc.writeTime;
+    console.log(`Added ${studentId} to the banned database.`);
+  }
+
+  // return output;
+}
+
 async function removeOldStudentsFromDB(db) {
   // Get student academic data from database
   const academicStudentDB = db.collection("academic_student");
@@ -132,3 +177,4 @@ async function removeOldStudentsFromDB(db) {
 
 exports.getStudentDataFromGoogleSheets = getStudentDataFromGoogleSheets;
 exports.removeOldStudentsFromDB = removeOldStudentsFromDB;
+exports.getBannedStudentData = getBannedStudentData;

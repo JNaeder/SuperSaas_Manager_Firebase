@@ -67,7 +67,8 @@ function Navigation({ auth }) {
           Teacher Booking
         </button>
         <button
-          className="nav_button hide"
+          // className="nav_button hide"
+          className="nav_button"
           onClick={() => changeRoute("/testing")}
           id="/testing"
         >

@@ -2,6 +2,7 @@ const supersaas = require("./supersaas");
 const logger = require("./logger");
 const moment = require("moment-timezone");
 const { all } = require("axios");
+const { getBannedStudentData } = require("./googleSheets");
 
 const studioRequirements = {
   SSL: 3,
@@ -24,6 +25,7 @@ async function processSuperSaasUsers(db) {
   console.log("STARTING TO PROCESS USERS");
   // Get All users from SuperSaas
   const allUsers = await supersaas.getAllUsers();
+  await getBannedStudentData(db);
 
   // Loop through each user, and process them if they have a student email
   for (let i = 0; i < allUsers.length; i++) {
@@ -91,6 +93,7 @@ async function processStudentUser(db, currentUser) {
   // Get Database references
   const academicStudents = db.collection("academic_student");
   const supersaasStudentDB = db.collection("supersaas_student");
+  const bannedStudentDB = db.collection("banned");
 
   // Get info about the user from SuperSaas
   const supersaasID = currentUser["id"].toString();
@@ -112,7 +115,19 @@ async function processStudentUser(db, currentUser) {
     //   // Get data from the database and calculate the credits they should have
     const { gpa, icr, fullName, firstName, lastName, mod, instructor } = data;
 
-    let newCredits = supersaas.calculateCredits(data);
+    // Get Data about the student from the Academic Databse
+    const bannedDoc = await bannedStudentDB.doc(studentID);
+    const bannedOutput = await bannedDoc.get();
+    const bannedData = await bannedOutput.data();
+
+    let newCredits = "-";
+    if (bannedData) {
+      newCredits = "0";
+      console.log(`Banned Student!`);
+      console.log(bannedData);
+    }
+
+    // let newCredits = supersaas.calculateCredits(data);
     //   // If the credits they have now are different than the credits they should have
     if (mod === 1 && credits == "-") {
       const newLog = {
@@ -134,7 +149,7 @@ async function processStudentUser(db, currentUser) {
       const newLog = {
         studentName: fullName,
         dateTime: new Date(),
-        log: `${theLog} Credits have been changed to ${newCredits}: GPA: ${gpa} ICR: ${icr}`,
+        log: `${theLog} Credits have been changed to ${newCredits}`,
       };
       console.log(`${fullName} changed credits`);
       logger.newLog(db, newLog);

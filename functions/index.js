@@ -13,7 +13,7 @@ const db = admin.firestore();
 
 // ---------- Scheduled Stuff --------
 exports.getSheetInfoSchedule = functions.pubsub
-  .schedule("0 */2 * * *")
+  .schedule("0 8 * * *")
   .onRun(async () => {
     console.log("Start getSheetInfoSchedule");
     await googleSheets.getStudentDataFromGoogleSheets(db);
@@ -22,7 +22,7 @@ exports.getSheetInfoSchedule = functions.pubsub
   });
 
 exports.removeOldStudentsSchedule = functions.pubsub
-  .schedule("0 */2 * * *")
+  .schedule("0 8 * * *")
   .onRun(async () => {
     console.log("Start Remove Old Studnets");
     await googleSheets.removeOldStudentsFromDB(db);
@@ -30,18 +30,10 @@ exports.removeOldStudentsSchedule = functions.pubsub
   });
 
 exports.processAllStudentsSchedule = functions.pubsub
-  .schedule("0 */2 * * *")
+  .schedule("0 8 * * *")
   .onRun(async () => {
     console.log("Start process All Students");
     await supersaasManager.processSuperSaasUsers(db);
-    return null;
-  });
-
-exports.getTodayBookingsSchedule = functions.pubsub
-  .schedule("0 1 * * *")
-  .onRun(async () => {
-    console.log("Get Today Bookings");
-    await supersaasManager.getTodayBookings(db);
     return null;
   });
 
@@ -53,6 +45,11 @@ exports.getTodayBookings = functions.https.onCall(async () => {
 
 exports.getSheetInfo = functions.https.onCall(async () => {
   const output = await googleSheets.getStudentDataFromGoogleSheets(db);
+  return output;
+});
+
+exports.banStudents = functions.https.onCall(async () => {
+  const output = await googleSheets.getBannedStudentData(db);
   return output;
 });
 
