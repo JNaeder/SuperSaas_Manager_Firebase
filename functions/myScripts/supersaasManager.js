@@ -27,12 +27,17 @@ async function processSuperSaasUsers(db) {
   const allUsers = await supersaas.getAllUsers();
   await getBannedStudentData(db);
 
+  const bannedStudentDB = db.collection("banned");
+  const result = await bannedStudentDB.get();
+  const bannedStudents = await result.docs.map(
+    (doc) => doc.data()["studentID"]
+  );
   // Loop through each user, and process them if they have a student email
   for (let i = 0; i < allUsers.length; i++) {
     const currentUser = allUsers[i];
     const emailEnding = currentUser["name"].split("@")[1];
     if (emailEnding === "saeinstitute.edu") {
-      await processStudentUser(db, currentUser);
+      await processStudentUser(db, currentUser, bannedStudents);
     } else {
       await processStaffUser(db, currentUser);
     }
@@ -89,7 +94,7 @@ async function cleanUpSuperSaasDB(db) {
   }
 }
 
-async function processStudentUser(db, currentUser) {
+async function processStudentUser(db, currentUser, bannedStudents) {
   // Get Database references
   const academicStudents = db.collection("academic_student");
   const supersaasStudentDB = db.collection("supersaas_student");
@@ -116,18 +121,21 @@ async function processStudentUser(db, currentUser) {
     const { gpa, icr, fullName, firstName, lastName, mod, instructor } = data;
 
     // Get Data about the student from the Academic Databse
-    const bannedDoc = await bannedStudentDB.doc(studentID);
-    const bannedOutput = await bannedDoc.get();
-    const bannedData = await bannedOutput.data();
+    // const bannedDoc = await bannedStudentDB.doc(studentID);
+    // const bannedOutput = await bannedDoc.get();
+    // const bannedData = await bannedOutput.data();
 
     let newCredits = "-";
-    if (bannedData) {
+    let canvasGrade = "";
+    let attendancePercentage = "";
+    if (bannedStudents.includes(studentID)) {
+      console.log(`${fullName} is banned. Setting credits to 0`);
+      const bannedData = await bannedStudentDB.doc(studentID).get();
+      canvasGrade = bannedData.data()["canvasGrade"];
+      attendancePercentage = bannedData.data()["attendancePercentage"];
       newCredits = "0";
-      console.log(`Banned Student!`);
-      console.log(bannedData);
     }
 
-    // let newCredits = supersaas.calculateCredits(data);
     //   // If the credits they have now are different than the credits they should have
     if (mod === 1 && credits == "-") {
       const newLog = {
@@ -145,11 +153,14 @@ async function processStudentUser(db, currentUser) {
       newCredits = "0";
     } else if (credits !== newCredits && mod !== 1) {
       const theLog = theEvent === "new" ? `New User Created.` : "";
+      const ending = canvasGrade
+        ? `: ${canvasGrade} ${attendancePercentage}`
+        : "";
       // Add new log
       const newLog = {
         studentName: fullName,
         dateTime: new Date(),
-        log: `${theLog} Credits have been changed to ${newCredits}`,
+        log: `${theLog} Credits have been changed to ${newCredits}${ending}`,
       };
       console.log(`${fullName} changed credits`);
       logger.newLog(db, newLog);
