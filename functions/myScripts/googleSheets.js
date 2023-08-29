@@ -102,7 +102,6 @@ async function clearBannedDB(db) {
 }
 
 async function getBannedStudentData(db) {
-  // TODO: Clear Student DB
   await clearBannedDB(db);
 
   // Get banned student database
@@ -113,14 +112,14 @@ async function getBannedStudentData(db) {
   await doc.loadInfo();
   const sheet = doc.sheetsByTitle["High Risk Summary PowerBI "];
   const allStudents = await sheet.getRows();
-  // let output = [];
 
   for (let i = 0; i < allStudents.length; i++) {
     // output.push(allStudents[i]["StuNum"]);
 
     const studentId = allStudents[i]["StuNum"];
-    const attendancePercentage = allStudents[i]["Attendance Percentage"];
-    const canvasGrade = allStudents[i]["Canvas Grade"];
+    const attendancePercentage =
+      parseFloat(allStudents[i]["Attendance Percentage"]) * 100;
+    const canvasGrade = parseFloat(allStudents[i]["Canvas Score"]);
 
     const newStudentObject = {
       studentID: studentId,
@@ -128,9 +127,12 @@ async function getBannedStudentData(db) {
       canvasGrade: canvasGrade,
     };
 
-    const newDoc = await bannedStudentDB.doc(studentId).set(newStudentObject);
-    const writeTime = newDoc.writeTime;
-    console.log(`Added ${studentId} to the banned database.`);
+    if (canvasGrade > 70 || attendancePercentage > 70) {
+      const newDoc = await bannedStudentDB.doc(studentId).set(newStudentObject);
+      const writeTime = newDoc.writeTime;
+      console.log(`Added ${studentId} to the banned database.`);
+      console.log("attend", attendancePercentage, "grade", canvasGrade, "\n");
+    }
   }
 
   // return output;
