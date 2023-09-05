@@ -127,7 +127,7 @@ async function getBannedStudentData(db) {
       canvasGrade: canvasGrade,
     };
 
-    if (canvasGrade > 70 || attendancePercentage > 70) {
+    if (canvasGrade < 70 || attendancePercentage < 70) {
       const newDoc = await bannedStudentDB.doc(studentId).set(newStudentObject);
       const writeTime = newDoc.writeTime;
       console.log(`Added ${studentId} to the banned database.`);

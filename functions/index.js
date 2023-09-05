@@ -73,10 +73,12 @@ exports.getSuperSaasTodayBookings = functions.https.onCall(async () => {
   return todayBookings;
 });
 
-exports.processSuperSaasStudents = functions.https.onCall(async () => {
-  await supersaasManager.processSuperSaasUsers(db);
-  return;
-});
+exports.processSuperSaasStudents = functions
+  .runWith({ timeoutSeconds: 300 })
+  .https.onCall(async () => {
+    await supersaasManager.processSuperSaasUsers(db);
+    return;
+  });
 
 exports.processAllBookings = functions.https.onCall(async () => {
   await supersaasManager.processAllBookings(db);
